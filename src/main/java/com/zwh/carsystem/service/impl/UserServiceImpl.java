@@ -52,4 +52,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.updateUserById(user);
 	}
 
+	@Override
+	public User getUserByCarNum(String carNum) {
+		// TODO Auto-generated method stub
+		return userMapper.getUserByCarNum(carNum);
+	}
+
 }

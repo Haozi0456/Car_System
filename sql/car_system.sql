@@ -10,16 +10,50 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-07-15 15:47:05
+Date: 2018-07-15 17:23:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for carts
+-- Table structure for account
 -- ----------------------------
-DROP TABLE IF EXISTS `carts`;
-CREATE TABLE `carts` (
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
+  `accountId` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) DEFAULT NULL,
+  `money` decimal(10,0) DEFAULT NULL,
+  `createtime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`accountId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of account
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for account_record
+-- ----------------------------
+DROP TABLE IF EXISTS `account_record`;
+CREATE TABLE `account_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accountId` int(11) DEFAULT NULL COMMENT '账户id',
+  `type` int(11) DEFAULT '1' COMMENT '类型 1 -  充值   2.提现',
+  `money` decimal(10,0) DEFAULT '0' COMMENT '金额',
+  `remark` varchar(255) DEFAULT '',
+  `createtime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of account_record
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for car
+-- ----------------------------
+DROP TABLE IF EXISTS `car`;
+CREATE TABLE `car` (
   `cartId` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `isCheck` int(11) NOT NULL DEFAULT '1' COMMENT '是否选中 0 未选中, 1选中',
@@ -29,7 +63,7 @@ CREATE TABLE `carts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of carts
+-- Records of car
 -- ----------------------------
 
 -- ----------------------------
@@ -127,10 +161,10 @@ CREATE TABLE `manager` (
 INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-13 16:56:27', '1');
 
 -- ----------------------------
--- Table structure for orders
+-- Table structure for order
 -- ----------------------------
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
   `orderId` int(11) NOT NULL AUTO_INCREMENT,
   `orderNo` varchar(255) DEFAULT NULL,
   `userId` int(11) DEFAULT NULL,
@@ -142,7 +176,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of orders
+-- Records of order
 -- ----------------------------
 
 -- ----------------------------

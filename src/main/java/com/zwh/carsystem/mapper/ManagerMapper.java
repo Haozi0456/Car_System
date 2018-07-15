@@ -5,7 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import com.zwh.carsystem.entity.Manager;
 
 public interface ManagerMapper {
-    int deleteByPrimaryKey(Integer id);
+
+	int deleteByPrimaryKey(Integer id);
 
     int insert(Manager record);
 

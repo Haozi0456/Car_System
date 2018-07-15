@@ -11,7 +11,7 @@ import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
 
 @RestController
-@RequestMapping("/manager/user")
+@RequestMapping("/system/manager")
 public class ManagerController {
 	
 	@Autowired

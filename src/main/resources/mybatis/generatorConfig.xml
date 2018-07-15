@@ -6,19 +6,19 @@
             <property name="suppressDate" value="true" />
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
-		<jdbcConnection connectionURL="jdbc:mysql://100.100.100.75:3306/car_system"
-			driverClass="com.mysql.jdbc.Driver" password="123456" userId="zhaohao" />
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/car_system"
+			driverClass="com.mysql.jdbc.Driver" password="123456" userId="root" />
 		<javaModelGenerator targetPackage="com.zwh.carsystem.entity"
-			targetProject="ZWH_Store/src/main/java" />
+			targetProject="Car_System/src/main/java" />
 		<!-- 生成映射文件的包名和位置 -->
-		<sqlMapGenerator targetPackage="mybatis.mapper.manager"
-			targetProject="ZWH_Store/src/main/resources" />
+		<sqlMapGenerator targetPackage="mybatis.mapper.system"
+			targetProject="Car_System/src/main/resources" />
 		<!-- 生成DAO的包名和位置 -->
 		<javaClientGenerator type="XMLMAPPER"
 		
 		
-			targetPackage="com.zwh.carsystem.mapper" targetProject="ZWH_Store/src/main/java" />
-		<table tableName="manager" enableCountByExample="false"
+			targetPackage="com.zwh.carsystem.mapper" targetProject="Car_System/src/main/java" />
+		<table tableName="user" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>

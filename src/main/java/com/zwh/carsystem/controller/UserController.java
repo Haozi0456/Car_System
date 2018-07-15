@@ -22,7 +22,7 @@ import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
 
 @RestController
-@RequestMapping("/app/user")
+@RequestMapping("/system/user")
 public class UserController {
 
 	@Autowired
@@ -31,22 +31,11 @@ public class UserController {
 	@Value("${file.uploadFolder}") // 文件上传虚拟路径
 	private String uploadFolder;
 
-	// @GetMapping("/register/{username}")
-	// public Result toRegister(@PathVariable("username")String username) {
-	//
-	// return new Result(MessageCode.SUCCESS, "注册成功!");
-	// }
 
 	// @RequestMapping("/toRegister")
 	@PostMapping(value = "/toRegister")
 	public Result toRegister(User user) {
 		User mUser = null;
-
-		// 判断是否微信号登录注册
-		if (!user.getOpenid().isEmpty()) {
-			mUser = userService.getUserByOpenid(user.getOpenid());
-			return new Result(MessageCode.SUCCESS, "该用户已注册!", mUser);
-		}
 
 		// 判断是否手机号注册
 		if (!user.getPhone().isEmpty()) {
@@ -70,49 +59,6 @@ public class UserController {
 		user.setLastvisittime(new Date());
 		userService.updateUserById(user);
 		return new Result(MessageCode.SUCCESS, "登录成功!", user);
-	}
-
-	/**
-	 * 绑定微信账号
-	 * 
-	 * @param user
-	 * @param account
-	 * @return
-	 */
-	@PostMapping("/bindWeiXin")
-	public Result bindWeiXin(User user, String account) {
-		User mUser = null;
-		mUser = userService.getUserByAccount(account);
-		if (mUser == null) {
-			return new Result(MessageCode.SUCCESS, "该用户未注册", mUser);
-		} else {
-			// mUser.setPhone(account);
-			mUser.setOpenid(user.getOpenid());
-			int row = userService.updateUserById(mUser);
-			if (row > 0) {
-				mUser = userService.getUserById(mUser.getId());
-				return new Result(MessageCode.SUCCESS, "绑定成功!", mUser);
-			}
-		}
-		return new Result(MessageCode.SUCCESS, "绑定失败!", mUser);
-	}
-
-	/**
-	 * 微信登陆
-	 * 
-	 * @param user
-	 * @return
-	 */
-	@PostMapping("/loginWithWeixin")
-	public Result loginWithWeixin(User user) {
-		User mUser = null;
-		// 判断是否微信号登录注册
-		if (!user.getOpenid().isEmpty()) {
-			mUser = userService.getUserByOpenid(user.getOpenid());
-			return new Result(MessageCode.SUCCESS, "登录成功!", mUser);
-		}
-
-		return new Result(MessageCode.SUCCESS, "登录失败!", mUser);
 	}
 
 	/**

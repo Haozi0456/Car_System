@@ -23,4 +23,6 @@ public interface UserService {
     User getUserByAccountAndPassword(String account,String password);
     
     int updateUserById(User record);
+    
+    User getUserByCarNum(String carNum);
 }

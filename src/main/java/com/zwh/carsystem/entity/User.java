@@ -9,95 +9,115 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class User {
     private Integer id;
 
-    private String openid;
+	private String openid;
 
-    private String name;
+	private String name;
 
-    private Integer gender;
+	private Integer gender;
 
-    private String phone;
+	private String phone;
 
-    private String password;
+	private String password;
 
-    private String avatarurl;
+	private String avatarurl;
 
-    private String nickname;
-    
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式化
-	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
+	private String nickname;
+
+	private String carnum;
+
+	private String carmake;
+
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式�?
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式�?
     private Date createtime;
     
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式化
-	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式�?
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式�?
     private Date lastvisittime;
 
-    private Integer userstatus;
+	private Integer userstatus;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getOpenid() {
-        return openid;
-    }
+	public String getOpenid() {
+		return openid;
+	}
 
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Integer getGender() {
-        return gender;
-    }
+	public Integer getGender() {
+		return gender;
+	}
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getAvatarurl() {
-        return avatarurl;
-    }
+	public String getAvatarurl() {
+		return avatarurl;
+	}
 
-    public void setAvatarurl(String avatarurl) {
-        this.avatarurl = avatarurl;
-    }
+	public void setAvatarurl(String avatarurl) {
+		this.avatarurl = avatarurl;
+	}
 
-    public String getNickname() {
-        return nickname;
-    }
+	public String getNickname() {
+		return nickname;
+	}
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
- 
-    public Date getCreatetime() {
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getCarnum() {
+		return carnum;
+	}
+
+	public void setCarnum(String carnum) {
+		this.carnum = carnum;
+	}
+
+	public String getCarmake() {
+		return carmake;
+	}
+
+	public void setCarmake(String carmake) {
+		this.carmake = carmake;
+	}
+
+	public Date getCreatetime() {
 		return createtime;
 	}
 
@@ -106,18 +126,24 @@ public class User {
 	}
 
 	public Date getLastvisittime() {
-        return lastvisittime;
-    }
+		return lastvisittime;
+	}
 
-    public void setLastvisittime(Date lastvisittime) {
-        this.lastvisittime = lastvisittime;
-    }
+	public void setLastvisittime(Date lastvisittime) {
+		this.lastvisittime = lastvisittime;
+	}
 
-    public Integer getUserstatus() {
-        return userstatus;
-    }
+	public Integer getUserstatus() {
+		return userstatus;
+	}
 
-    public void setUserstatus(Integer userstatus) {
-        this.userstatus = userstatus;
-    }
+	public void setUserstatus(Integer userstatus) {
+		this.userstatus = userstatus;
+	}
+
+	
+    
+    
+
+    
 }

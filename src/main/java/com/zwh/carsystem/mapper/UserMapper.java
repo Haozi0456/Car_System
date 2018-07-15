@@ -5,7 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import com.zwh.carsystem.entity.User;
 
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
+
+	int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
 
@@ -22,6 +23,8 @@ public interface UserMapper {
     User getUserByOpenid(String openid);
     
     User getUserByAccount(String account);
+    
+    User getUserByCarNum(String carNum);
     
     User getUserByAccountAndPassword(@Param("account")String account,@Param("password")String password);
     

@@ -8,8 +8,8 @@ spring:
   #数据源配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://100.100.100.75:3306/car_system?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-    username: zhaohao
+    url: jdbc:mysql://localhost:3306/car_system?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
     password: 123456
     druid:
       initial-size: 5
