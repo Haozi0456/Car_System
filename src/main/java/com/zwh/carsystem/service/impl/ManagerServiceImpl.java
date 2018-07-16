@@ -18,6 +18,30 @@ public class ManagerServiceImpl implements ManagerService {
 		// TODO Auto-generated method stub
 		return managerMapper.getManagerByAccountAndPassword(account, password);
 	}
+
+	@Override
+	public int resetPassword(String account, String password) {
+		// TODO Auto-generated method stub
+		return managerMapper.resetPassword(account, password);
+	}
+
+	@Override
+	public Manager getManagerByAccount(String account) {
+		// TODO Auto-generated method stub
+		return managerMapper.getManagerByAccount(account);
+	}
+
+	@Override
+	public int addManager(Manager manager) {
+		// TODO Auto-generated method stub
+		return managerMapper.insert(manager);
+	}
+
+	@Override
+	public Manager getManagerById(int id) {
+		// TODO Auto-generated method stub
+		return managerMapper.selectByPrimaryKey(id);
+	}
 	
 	
 	

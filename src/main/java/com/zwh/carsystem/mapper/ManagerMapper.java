@@ -19,4 +19,9 @@ public interface ManagerMapper {
     int updateByPrimaryKey(Manager record);
     
     Manager getManagerByAccountAndPassword(@Param("account")String account,@Param("password")String password);
+    
+    int resetPassword(@Param("account")String account,@Param("password")String password);
+	
+	Manager getManagerByAccount(String account);
+
 }

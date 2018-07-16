@@ -8,4 +8,11 @@ public interface ManagerService {
 
 	Manager getManagerByAccountAndPassword(@Param("account")String account,@Param("password")String password);
 	
+	int resetPassword(@Param("account")String account,@Param("password")String password);
+	
+	Manager getManagerByAccount(String account);
+	
+	int addManager(Manager manager);
+	
+	Manager getManagerById(int id);
 }

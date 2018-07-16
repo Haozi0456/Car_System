@@ -26,5 +26,23 @@ public class ManagerController {
 			return new Result(MessageCode.ERROR, "用户名或密码错误！", manager);
 		}
 	}
+	
+	@PostMapping("/resetPassword")
+	public Result resetPassword(String account,String password) {
+		int rows = managerService.resetPassword(account, password);
+		if(rows > 0 ) {
+			return new Result(MessageCode.SUCCESS,"更改密码成功!");
+		}
+		return new Result(MessageCode.ERROR,"更改密码失败!");
+	}
+	
+	public Result addManager(Manager manager) {
+		int rows = managerService.addManager(manager);
+		if (rows > 0) {
+			manager = managerService.getManagerById(manager.getId());
+		}
+		
+		return new Result(MessageCode.ERROR,"添加失败!");
+	}
 
 }
