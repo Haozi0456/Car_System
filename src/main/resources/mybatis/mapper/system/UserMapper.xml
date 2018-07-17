@@ -40,8 +40,8 @@
 		delete from user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert"
-		parameterType="com.zwh.carsystem.entity.User">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.zwh.carsystem.entity.User" >
 		insert into user (openid, name,
 		gender, phone, password,
 		avatarUrl, nickName, carNum,
@@ -219,7 +219,7 @@
 		FROM
 		`user` u
 		WHERE
-		phone = #{account}
+		carNum = #{carNum}
 	</select>
 
 	<select id="getUserByOpenid"
@@ -229,7 +229,7 @@
 		FROM
 		`user` u
 		WHERE
-		carNum = #{carNum}
+		openid = #{openid}
 	</select>
 
 	<select id="getUserByAccountAndPassword"
@@ -263,5 +263,14 @@
 		#{userstatus,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	<!--获取所有用户信息 -->
+	<select id="getAllUsers" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		user
+	</select>
+	
 
 </mapper>

@@ -7,71 +7,83 @@ public class Order {
 
 	private Integer orderid;
 
-    private String orderno;
+	private String orderno;
 
-    private Integer userid;
+	private Integer userid;
 
-    private BigDecimal money;
+	private BigDecimal money;
 
-    private Integer payfrom;
+	private Integer payfrom;
 
-    private String orderremarks;
+	private String orderremarks;
 
-    private Date createtime;
+	private Integer type;
 
-    public Integer getOrderid() {
-        return orderid;
-    }
+	private Date createtime;
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
-    }
+	public Integer getOrderid() {
+		return orderid;
+	}
 
-    public String getOrderno() {
-        return orderno;
-    }
+	public void setOrderid(Integer orderid) {
+		this.orderid = orderid;
+	}
 
-    public void setOrderno(String orderno) {
-        this.orderno = orderno;
-    }
+	public String getOrderno() {
+		return orderno;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public BigDecimal getMoney() {
-        return money;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
+	public BigDecimal getMoney() {
+		return money;
+	}
 
-    public Integer getPayfrom() {
-        return payfrom;
-    }
+	public void setMoney(BigDecimal money) {
+		this.money = money;
+	}
 
-    public void setPayfrom(Integer payfrom) {
-        this.payfrom = payfrom;
-    }
+	public Integer getPayfrom() {
+		return payfrom;
+	}
 
-    public String getOrderremarks() {
-        return orderremarks;
-    }
+	public void setPayfrom(Integer payfrom) {
+		this.payfrom = payfrom;
+	}
 
-    public void setOrderremarks(String orderremarks) {
-        this.orderremarks = orderremarks;
-    }
+	public String getOrderremarks() {
+		return orderremarks;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public void setOrderremarks(String orderremarks) {
+		this.orderremarks = orderremarks;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	
 }

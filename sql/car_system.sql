@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本机
-Source Server Version : 50718
+Source Server Version : 50722
 Source Host           : localhost:3306
 Source Database       : car_system
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-15 17:23:49
+Date: 2018-07-17 18:03:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -72,15 +72,17 @@ CREATE TABLE `car` (
 DROP TABLE IF EXISTS `configs`;
 CREATE TABLE `configs` (
   `configId` int(11) NOT NULL AUTO_INCREMENT,
-  `itemName` varchar(255) DEFAULT '' COMMENT '字段名称	',
-  `itemCode` varchar(255) DEFAULT '' COMMENT '字段代码',
+  `itemType` varchar(255) DEFAULT '' COMMENT '字段名称	',
+  `itemKey` varchar(255) DEFAULT '' COMMENT '字段代码',
   `itemValue` varchar(255) DEFAULT '' COMMENT '字段值',
   PRIMARY KEY (`configId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of configs
 -- ----------------------------
+INSERT INTO `configs` VALUES ('1', '1', 'role', '超级管理员');
+INSERT INTO `configs` VALUES ('2', '2', 'role', '员工');
 
 -- ----------------------------
 -- Table structure for goods
@@ -150,15 +152,17 @@ CREATE TABLE `manager` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `account` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `lastVisitTime` datetime DEFAULT NULL,
   `createTime` datetime DEFAULT NULL,
   `dataFlag` int(11) DEFAULT NULL,
+  `roleType` int(11) DEFAULT '1' COMMENT '角色',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-13 16:56:27', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', null, '2018-07-13 16:56:27', '1', '1');
 
 -- ----------------------------
 -- Table structure for order
@@ -169,8 +173,9 @@ CREATE TABLE `order` (
   `orderNo` varchar(255) DEFAULT NULL,
   `userId` int(11) DEFAULT NULL,
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '实际订单总金额	进行各种折扣之后的金额',
-  `payFrom` int(11) DEFAULT '0' COMMENT '支付来源	1:支付宝，2：微信',
+  `payFrom` int(11) DEFAULT '0' COMMENT '支付来源	1:支付宝，2：微信 3.现金',
   `orderRemarks` varchar(255) DEFAULT '' COMMENT '订单备注',
+  `type` int(11) DEFAULT '1' COMMENT '类型 1-充值  2. 录入, 3.体现',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -192,12 +197,16 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT '' COMMENT '密码',
   `avatarUrl` varchar(255) DEFAULT '' COMMENT '头像路径',
   `nickName` varchar(255) DEFAULT '' COMMENT '昵称',
+  `carNum` varchar(50) DEFAULT '' COMMENT '车牌号码',
+  `carMake` varchar(255) DEFAULT '' COMMENT '汽车品牌',
   `createTime` datetime DEFAULT NULL,
   `lastVisitTime` datetime DEFAULT NULL,
   `userStatus` int(11) DEFAULT '1' COMMENT '账号状态	0:停用 1:启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('45', null, '123', null, '1234', null, null, null, '鄂A12', '1123', '2018-07-17 16:40:29', '2018-07-17 16:40:29', null);
+INSERT INTO `user` VALUES ('46', null, 'qwe', '1', 'qweqwe', '123456', null, null, '鄂A', 'qwe', '2018-07-17 17:46:36', '2018-07-17 17:46:36', '1');

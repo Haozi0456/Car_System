@@ -1,5 +1,7 @@
 package com.zwh.carsystem.service;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.zwh.carsystem.entity.User;
@@ -25,4 +27,6 @@ public interface UserService {
     int updateUserById(User record);
     
     User getUserByCarNum(String carNum);
+    
+    public List<User> getAllUsers();
 }

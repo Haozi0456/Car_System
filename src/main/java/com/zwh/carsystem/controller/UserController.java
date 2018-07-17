@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,18 +37,32 @@ public class UserController {
 	@PostMapping(value = "/toRegister")
 	public Result toRegister(User user) {
 		User mUser = null;
-
+		user.setUserstatus(1);
+		user.setPassword("123456");
+		user.setGender(1);
 		// 判断是否手机号注册
 		if (!user.getPhone().isEmpty()) {
 			mUser = userService.getUserByAccount(user.getPhone());
-			return new Result(MessageCode.SUCCESS, "该用户已注册!", mUser);
+			if(mUser != null) {
+				return new Result(MessageCode.ERROR, "该手机号用户已注册!", mUser);
+			}
+		}
+		
+		// 判断是否车牌号注册
+		if(!user.getCarnum().isEmpty()) {
+			mUser = userService.getUserByCarNum(user.getCarnum());
+			if(mUser != null) {
+				return new Result(MessageCode.ERROR, "该车牌号用户已注册!", mUser);
+			}
 		}
 
 		if (mUser == null) {
 			mUser = userService.toRegister(user);
+			if(mUser != null) {
+				return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
+			}
 		}
-
-		return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
+		return new Result(MessageCode.SUCCESS, "注册失败!", mUser);
 	}
 
 	@PostMapping("/toLogin")
@@ -112,6 +127,12 @@ public class UserController {
 		}else {
 			return new Result(MessageCode.ERROR, "头像更新失败");
 		}
+	}
+	
+	@PostMapping("/getAllUsers")
+	public Result getAllUsers() {
+		
+		return new Result(MessageCode.SUCCESS, "头像更新成功!", userService.getAllUsers());
 	}
 
 }

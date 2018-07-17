@@ -23,8 +23,8 @@
     delete from order
     where orderId = #{orderid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zwh.carsystem.entity.Order" useGeneratedKeys="true" keyProperty="orderId">
-    insert into order (orderId, orderNo, userId, 
+  <insert id="insert" keyProperty="orderId" parameterType="com.zwh.carsystem.entity.Order" useGeneratedKeys="true">
+    insert into order (orderNo, userId, 
       money, payFrom, orderRemarks, 
       createTime)
     values (#{orderno,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 

@@ -36,12 +36,13 @@ public class ManagerController {
 		return new Result(MessageCode.ERROR,"更改密码失败!");
 	}
 	
+	@PostMapping("/addManager")
 	public Result addManager(Manager manager) {
 		int rows = managerService.addManager(manager);
 		if (rows > 0) {
 			manager = managerService.getManagerById(manager.getId());
+			return new Result(MessageCode.SUCCESS,"添加失败!",manager);
 		}
-		
 		return new Result(MessageCode.ERROR,"添加失败!");
 	}
 
