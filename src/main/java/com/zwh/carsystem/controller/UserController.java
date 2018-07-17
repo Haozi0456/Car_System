@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zwh.carsystem.entity.User;
+import com.zwh.carsystem.entity.set.UserAccount;
 import com.zwh.carsystem.service.UserService;
 import com.zwh.carsystem.utils.FileUtils;
 import com.zwh.system.common.MessageCode;
@@ -34,9 +36,10 @@ public class UserController {
 
 
 	// @RequestMapping("/toRegister")
-	@PostMapping(value = "/toRegister")
-	public Result toRegister(User user) {
+	@PostMapping("/toRegister")
+	public Result toRegister(@RequestBody UserAccount userAccount) {
 		User mUser = null;
+		User user = userAccount.getUser();
 		user.setUserstatus(1);
 		user.setPassword("123456");
 		user.setGender(1);
