@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本机
-Source Server Version : 50722
+Source Server Version : 50718
 Source Host           : localhost:3306
 Source Database       : car_system
 
 Target Server Type    : MYSQL
-Target Server Version : 50722
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-07-17 18:03:17
+Date: 2018-07-17 22:55:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,24 +20,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
-  `accountId` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) DEFAULT NULL,
-  `money` decimal(10,0) DEFAULT NULL,
-  `createtime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`accountId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of account
--- ----------------------------
-
--- ----------------------------
--- Table structure for account_record
--- ----------------------------
-DROP TABLE IF EXISTS `account_record`;
-CREATE TABLE `account_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `accountId` int(11) DEFAULT NULL COMMENT '账户id',
+  `userId` int(11) DEFAULT NULL COMMENT '账户id',
   `type` int(11) DEFAULT '1' COMMENT '类型 1 -  充值   2.提现',
   `money` decimal(10,0) DEFAULT '0' COMMENT '金额',
   `remark` varchar(255) DEFAULT '',
@@ -46,7 +30,7 @@ CREATE TABLE `account_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of account_record
+-- Records of account
 -- ----------------------------
 
 -- ----------------------------
@@ -203,10 +187,13 @@ CREATE TABLE `user` (
   `lastVisitTime` datetime DEFAULT NULL,
   `userStatus` int(11) DEFAULT '1' COMMENT '账号状态	0:停用 1:启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('45', null, '123', null, '1234', null, null, null, '鄂A12', '1123', '2018-07-17 16:40:29', '2018-07-17 16:40:29', null);
 INSERT INTO `user` VALUES ('46', null, 'qwe', '1', 'qweqwe', '123456', null, null, '鄂A', 'qwe', '2018-07-17 17:46:36', '2018-07-17 17:46:36', '1');
+INSERT INTO `user` VALUES ('47', null, '亲3', '1', '请问', '123456', null, null, '鄂A123123', '请问', '2018-07-17 21:24:55', '2018-07-17 21:24:55', '1');
+INSERT INTO `user` VALUES ('48', null, '12312', '1', '123123123', '123456', null, null, '鄂A123123123', '123123123', '2018-07-17 21:50:41', '2018-07-17 21:50:41', '1');
+INSERT INTO `user` VALUES ('49', null, '12312', '1', '123123123请问', '123456', null, null, '鄂A123123123123', '123123123123', '2018-07-17 21:50:58', '2018-07-17 21:50:58', '1');

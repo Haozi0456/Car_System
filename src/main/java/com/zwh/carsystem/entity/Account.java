@@ -3,43 +3,65 @@ package com.zwh.carsystem.entity;
 import java.util.Date;
 
 public class Account {
-    private Integer accountid;
+    private Integer id;
 
-    private Integer userid;
+	private Integer userid;
 
-    private Long money;
+	private Integer type;
 
-    private Date createtime;
+	private Long money;
 
-    public Integer getAccountid() {
-        return accountid;
-    }
+	private String remark;
 
-    public void setAccountid(Integer accountid) {
-        this.accountid = accountid;
-    }
+	private Date createtime;
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Long getMoney() {
-        return money;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public void setMoney(Long money) {
-        this.money = money;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public Integer getType() {
+		return type;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Long getMoney() {
+		return money;
+	}
+
+	public void setMoney(Long money) {
+		this.money = money;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	
 }

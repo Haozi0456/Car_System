@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.zwh.carsystem.entity.Account;
 import com.zwh.carsystem.entity.User;
-import com.zwh.carsystem.entity.set.UserAccount;
+import com.zwh.carsystem.entity.vo.UserAccount;
+import com.zwh.carsystem.service.AccountService;
 import com.zwh.carsystem.service.UserService;
 import com.zwh.carsystem.utils.FileUtils;
 import com.zwh.system.common.MessageCode;
@@ -30,16 +31,20 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	@Value("${file.uploadFolder}") // 文件上传虚拟路径
 	private String uploadFolder;
 
 
-	// @RequestMapping("/toRegister")
+	
 	@PostMapping("/toRegister")
 	public Result toRegister(@RequestBody UserAccount userAccount) {
 		User mUser = null;
 		User user = userAccount.getUser();
+		Account account = userAccount.getAccount();
 		user.setUserstatus(1);
 		user.setPassword("123456");
 		user.setGender(1);
@@ -62,7 +67,14 @@ public class UserController {
 		if (mUser == null) {
 			mUser = userService.toRegister(user);
 			if(mUser != null) {
-				return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
+				//添加对应的账户
+				account.setUserid(mUser.getId());
+				int rows = accountService.addAccountRecord(account);
+				if(rows > 0) {
+					return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
+				}else {
+					return new Result(MessageCode.ERROR, "账户为开通!", mUser);
+				}
 			}
 		}
 		return new Result(MessageCode.SUCCESS, "注册失败!", mUser);
