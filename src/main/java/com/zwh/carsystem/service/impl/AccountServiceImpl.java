@@ -7,16 +7,22 @@ import com.zwh.carsystem.entity.Account;
 import com.zwh.carsystem.mapper.AccountMapper;
 import com.zwh.carsystem.service.AccountService;
 
-@Service(value="account=Service")
+@Service(value="accountService")
 public class AccountServiceImpl implements AccountService {
 
 	@Autowired
-	private AccountMapper accountRecordMapper;
+	private AccountMapper accountMapper;
 	
 	@Override
-	public int addAccountRecord(Account record) {
+	public int addAccount(Account record) {
 		// TODO Auto-generated method stub
-		return accountRecordMapper.insert(record);
+		return accountMapper.insert(record);
+	}
+
+	@Override
+	public Account queryByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return accountMapper.queryByUserId(userId);
 	}
 
 }

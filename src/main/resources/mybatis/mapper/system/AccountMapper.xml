@@ -23,12 +23,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zwh.carsystem.entity.Account">
-    insert into account (id, userId, type, 
+    insert into account (userId, type, 
       money, remark, createtime
       )
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{money,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
-      )
+    values (#{userid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{money,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, now())
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.Account">
     insert into account
@@ -69,7 +68,7 @@
         #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
+        now(),
       </if>
     </trim>
   </insert>
@@ -88,9 +87,6 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -99,8 +95,29 @@
     set userId = #{userid,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       money = #{money,jdbcType=DECIMAL},
-      remark = #{remark,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="queryByUserId" resultMap="accountMap">
+	SELECT
+	a.*,
+	SUM(r.money) as totalConsume
+	FROM
+	account a
+	LEFT JOIN order_record r ON a.userId = r.userId 
+	WHERE
+	a.userId = #{userId}
+  </select>
+  
+  <resultMap id="accountMap" type="com.zwh.carsystem.entity.Account">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="totalConsume" jdbcType="DECIMAL" property="totalConsume" />
+  </resultMap>
+  
 </mapper>

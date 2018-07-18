@@ -4,6 +4,7 @@ import com.zwh.carsystem.entity.Account;
 
 public interface AccountService {
 	
-	public int addAccountRecord(Account record);
+	public int addAccount(Account record);
 
+	public Account queryByUserId(int userId);
 }

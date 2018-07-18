@@ -15,5 +15,5 @@ public interface AccountMapper {
 
 	int updateByPrimaryKey(Account record);
 
-	
+	Account queryByUserId(int userId);
 }

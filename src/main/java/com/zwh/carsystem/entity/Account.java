@@ -1,6 +1,11 @@
 package com.zwh.carsystem.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class Account {
     private Integer id;
@@ -9,10 +14,14 @@ public class Account {
 
 	private Integer type;
 
-	private Long money;
+	private BigDecimal money;
+	
+	private BigDecimal totalConsume;//总消费额
 
 	private String remark;
-
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式�?
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式�?
 	private Date createtime;
 
 	public Integer getId() {
@@ -39,12 +48,20 @@ public class Account {
 		this.type = type;
 	}
 
-	public Long getMoney() {
+	public BigDecimal getMoney() {
 		return money;
 	}
 
-	public void setMoney(Long money) {
+	public void setMoney(BigDecimal money) {
 		this.money = money;
+	}
+
+	public BigDecimal getTotalConsume() {
+		return totalConsume;
+	}
+
+	public void setTotalConsume(BigDecimal totalConsume) {
+		this.totalConsume = totalConsume;
 	}
 
 	public String getRemark() {

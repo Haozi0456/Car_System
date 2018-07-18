@@ -69,7 +69,7 @@ public class UserController {
 			if(mUser != null) {
 				//添加对应的账户
 				account.setUserid(mUser.getId());
-				int rows = accountService.addAccountRecord(account);
+				int rows = accountService.addAccount(account);
 				if(rows > 0) {
 					return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
 				}else {
@@ -89,6 +89,15 @@ public class UserController {
 		user.setLastvisittime(new Date());
 		userService.updateUserById(user);
 		return new Result(MessageCode.SUCCESS, "登录成功!", user);
+	}
+	
+	@PostMapping("/getUserById")
+	public Result getUserById(int userId) {
+		User user = userService.getUserById(userId);
+		if (user == null) {
+			return new Result(MessageCode.SUCCESS, "获取失败", user);
+		}
+		return new Result(MessageCode.SUCCESS, "获取成功!", user);
 	}
 
 	/**

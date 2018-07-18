@@ -40,7 +40,7 @@ mybatis:
 logging:
   level:
     root: info
-    com.jqkj: debug
+    com.zwh: debug
 #文件上传路径配置    
 file:
   uploadFolder: D:/upload/

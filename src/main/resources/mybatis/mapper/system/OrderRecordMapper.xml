@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zwh.carsystem.mapper.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.zwh.carsystem.entity.Order">
+<mapper namespace="com.zwh.carsystem.mapper.OrderRecordMapper">
+  <resultMap id="BaseResultMap" type="com.zwh.carsystem.entity.OrderRecord">
     <id column="orderId" jdbcType="INTEGER" property="orderid" />
     <result column="orderNo" jdbcType="VARCHAR" property="orderno" />
     <result column="userId" jdbcType="INTEGER" property="userid" />
     <result column="money" jdbcType="DECIMAL" property="money" />
     <result column="payFrom" jdbcType="INTEGER" property="payfrom" />
-    <result column="orderRemarks" jdbcType="VARCHAR" property="orderremarks" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    orderId, orderNo, userId, money, payFrom, orderRemarks, createTime
+    orderId, orderNo, userId, money, payFrom, remark, type, createTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from order_record
     where orderId = #{orderid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from order_record
     where orderId = #{orderid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyProperty="orderId" parameterType="com.zwh.carsystem.entity.Order" useGeneratedKeys="true">
-    insert into order (orderNo, userId, 
-      money, payFrom, orderRemarks, 
-      createTime)
+  <insert id="insert" parameterType="com.zwh.carsystem.entity.OrderRecord" useGeneratedKeys="true" keyProperty="orderid">
+    insert into order_record (orderNo, userId, 
+      money, payFrom, remark, 
+      type, createTime)
     values (#{orderno,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
-      #{money,jdbcType=DECIMAL}, #{payfrom,jdbcType=INTEGER}, #{orderremarks,jdbcType=VARCHAR}, 
-      now())
+      #{money,jdbcType=DECIMAL}, #{payfrom,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, now())
   </insert>
-  <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.Order">
-    insert into order
+  <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.OrderRecord">
+    insert into order_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderId,
+      </if>
       <if test="orderno != null">
         orderNo,
       </if>
@@ -46,15 +50,20 @@
       <if test="payfrom != null">
         payFrom,
       </if>
-      <if test="orderremarks != null">
-        orderRemarks,
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="type != null">
+        type,
       </if>
       <if test="createtime != null">
-        createTime,
+        now(),
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-    
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
       <if test="orderno != null">
         #{orderno,jdbcType=VARCHAR},
       </if>
@@ -67,16 +76,19 @@
       <if test="payfrom != null">
         #{payfrom,jdbcType=INTEGER},
       </if>
-      <if test="orderremarks != null">
-        #{orderremarks,jdbcType=VARCHAR},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="createtime != null">
         now(),
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zwh.carsystem.entity.Order">
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="com.zwh.carsystem.entity.OrderRecord">
+    update order_record
     <set>
       <if test="orderno != null">
         orderNo = #{orderno,jdbcType=VARCHAR},
@@ -90,19 +102,33 @@
       <if test="payfrom != null">
         payFrom = #{payfrom,jdbcType=INTEGER},
       </if>
-      <if test="orderremarks != null">
-        orderRemarks = #{orderremarks,jdbcType=VARCHAR},
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
       </if>
     </set>
     where orderId = #{orderid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zwh.carsystem.entity.Order">
-    update order
+  <update id="updateByPrimaryKey" parameterType="com.zwh.carsystem.entity.OrderRecord">
+    update order_record
     set orderNo = #{orderno,jdbcType=VARCHAR},
       userId = #{userid,jdbcType=INTEGER},
       money = #{money,jdbcType=DECIMAL},
       payFrom = #{payfrom,jdbcType=INTEGER},
-      orderRemarks = #{orderremarks,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
     where orderId = #{orderid,jdbcType=INTEGER}
   </update>
+  
+  <select id="getOrdersByUserId" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		order_record
+		WHERE
+		userId = #{userId}
+	</select>
+  
 </mapper>

@@ -27,8 +27,8 @@ public class User {
 
 	private String carmake;
 
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式�?
-	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式�?
+	@DateTimeFormat(pattern="yyyy-MM-dd")//页面写入数据库时格式�?
+	@JSONField(format="yyyy-MM-dd")//数据库导出页面时json格式�?
     private Date createtime;
     
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式�?
