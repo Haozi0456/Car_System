@@ -20,6 +20,7 @@ public class ManagerController {
 	@PostMapping("/login")
 	public Result login(String account, String password) {
 		Manager manager = managerService.getManagerByAccountAndPassword(account, password);
+		managerService.updataManager(manager);
 		if(manager != null) {
 			return new Result(MessageCode.SUCCESS, "登录成功！", manager);
 		}else {

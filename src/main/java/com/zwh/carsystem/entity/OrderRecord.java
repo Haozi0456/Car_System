@@ -8,85 +8,88 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class OrderRecord {
-    private Integer orderid;
+	private Integer orderid;
 
-    private String orderno;
+	private String orderno;
 
-    private Integer userid;
+	private Integer userid;
 
-    private BigDecimal money;
+	private BigDecimal money;
 
-    private Integer payfrom;
+	private Integer payfrom;
 
-    private String remark;
+	private String remark;
 
-    private Integer type;
-    
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式�?
-	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式�?
-    private Date createtime;
+	private Integer type;
 
-    public Integer getOrderid() {
-        return orderid;
-    }
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
+	private Date createtime;
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
-    }
+	
 
-    public String getOrderno() {
-        return orderno;
-    }
+	public Integer getOrderid() {
+		return orderid;
+	}
 
-    public void setOrderno(String orderno) {
-        this.orderno = orderno;
-    }
+	public void setOrderid(Integer orderid) {
+		this.orderid = orderid;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public String getOrderno() {
+		return orderno;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
+	}
 
-    public BigDecimal getMoney() {
-        return money;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public Integer getPayfrom() {
-        return payfrom;
-    }
+	public BigDecimal getMoney() {
+		return money;
+	}
 
-    public void setPayfrom(Integer payfrom) {
-        this.payfrom = payfrom;
-    }
+	public void setMoney(BigDecimal money) {
+		this.money = money;
+	}
 
-    public String getRemark() {
-        return remark;
-    }
+	public Integer getPayfrom() {
+		return payfrom;
+	}
 
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+	public void setPayfrom(Integer payfrom) {
+		this.payfrom = payfrom;
+	}
 
-    public Integer getType() {
-        return type;
-    }
+	public String getRemark() {
+		return remark;
+	}
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public Integer getType() {
+		return type;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
 }

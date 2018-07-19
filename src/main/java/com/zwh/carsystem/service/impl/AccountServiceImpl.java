@@ -25,4 +25,16 @@ public class AccountServiceImpl implements AccountService {
 		return accountMapper.queryByUserId(userId);
 	}
 
+	@Override
+	public int updateAccount(Account account) {
+		// TODO Auto-generated method stub
+		return accountMapper.updateByPrimaryKey(account);
+	}
+
+	@Override
+	public Account queryById(int id) {
+		// TODO Auto-generated method stub
+		return accountMapper.selectByPrimaryKey(id);
+	}
+
 }

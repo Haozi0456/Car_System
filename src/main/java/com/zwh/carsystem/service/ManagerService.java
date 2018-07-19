@@ -15,4 +15,6 @@ public interface ManagerService {
 	int addManager(Manager manager);
 	
 	Manager getManagerById(int id);
+	
+	int updataManager(Manager manager);
 }

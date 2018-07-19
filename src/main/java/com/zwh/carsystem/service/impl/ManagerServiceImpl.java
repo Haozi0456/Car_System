@@ -42,6 +42,12 @@ public class ManagerServiceImpl implements ManagerService {
 		// TODO Auto-generated method stub
 		return managerMapper.selectByPrimaryKey(id);
 	}
+
+	@Override
+	public int updataManager(Manager manager) {
+		// TODO Auto-generated method stub
+		return managerMapper.updateByPrimaryKey(manager);
+	}
 	
 	
 	

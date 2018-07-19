@@ -3,6 +3,7 @@ package com.zwh.carsystem.mapper;
 import java.util.List;
 
 import com.zwh.carsystem.entity.OrderRecord;
+import com.zwh.carsystem.entity.Statistics;
 
 public interface OrderRecordMapper {
     int deleteByPrimaryKey(Integer orderid);
@@ -18,4 +19,28 @@ public interface OrderRecordMapper {
     int updateByPrimaryKey(OrderRecord record);
     
     List<OrderRecord> getOrdersByUserId(int userId);
+    
+    
+    /**
+     * 按当前年里月统计
+     * @param year
+     * @return
+     */
+    List<Statistics> getStatisticsByMonthInYear(int year);
+    
+    /**
+     * 按年统计
+     * @return
+     */
+    List<Statistics> getStatisticsByYear();
+    /**
+     * 按给定日期统计
+     * @return
+     */
+    Statistics getStatisticsByDay(String day);
+    /**
+     * 按给定日期的类型统计
+     * @return
+     */
+    List<Statistics> getStatisticsByDayWithType(String day);
 }

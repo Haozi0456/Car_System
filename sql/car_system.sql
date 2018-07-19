@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-18 18:10:53
+Date: 2018-07-19 18:09:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,20 +21,42 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) DEFAULT NULL COMMENT '账户id',
-  `type` int(11) DEFAULT '1' COMMENT '类型 1 -  充值   2.提现',
+  `user_id` int(11) DEFAULT NULL COMMENT '账户id',
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '金额',
-  `remark` varchar(255) DEFAULT '',
-  `createtime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('1', '50', '1', '1000.00', '3123', '2018-07-18 15:28:02');
-INSERT INTO `account` VALUES ('2', '51', '1', '10001.27', '12312', '2018-07-18 15:33:54');
-INSERT INTO `account` VALUES ('3', '52', '1', '10000.25', '23', '2018-07-18 15:33:50');
+INSERT INTO `account` VALUES ('4', '54', '5.00', '2018-07-19 10:17:32');
+INSERT INTO `account` VALUES ('5', '55', '75.00', '2018-07-19 12:55:48');
+
+-- ----------------------------
+-- Table structure for account_record
+-- ----------------------------
+DROP TABLE IF EXISTS `account_record`;
+CREATE TABLE `account_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) DEFAULT NULL COMMENT '账户id',
+  `type` int(11) DEFAULT '1' COMMENT '类型 1 - 支付宝, 2-微信, 3.现金, 4其它',
+  `money` decimal(10,2) DEFAULT '0.00' COMMENT '金额',
+  `remark` varchar(255) DEFAULT '',
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of account_record
+-- ----------------------------
+INSERT INTO `account_record` VALUES ('4', '4', '1', '100.00', '111111', '2018-07-20 12:50:34');
+INSERT INTO `account_record` VALUES ('5', '4', '1', '500.00', '123', '2018-07-19 11:23:17');
+INSERT INTO `account_record` VALUES ('6', '4', '1', '500.00', '123', '2018-07-19 11:25:00');
+INSERT INTO `account_record` VALUES ('7', '4', '1', '500.00', '34', '2018-07-19 11:26:40');
+INSERT INTO `account_record` VALUES ('8', '4', '1', '500.00', '123', '2018-07-19 11:29:39');
+INSERT INTO `account_record` VALUES ('9', '4', '1', '500.00', '123', '2018-07-19 11:50:26');
+INSERT INTO `account_record` VALUES ('10', '5', '1', '100.00', '', '2018-07-19 12:55:48');
 
 -- ----------------------------
 -- Table structure for configs
@@ -132,7 +154,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', null, '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-19 14:48:26', '2018-07-13 16:56:27', '1', '1');
 
 -- ----------------------------
 -- Table structure for order_record
@@ -145,29 +167,22 @@ CREATE TABLE `order_record` (
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '实际订单总金额	进行各种折扣之后的金额',
   `payFrom` int(11) DEFAULT '1' COMMENT '支付来源	1:支付宝，2：微信 3.现金',
   `remark` varchar(500) DEFAULT '' COMMENT '订单备注',
-  `type` int(11) DEFAULT '1' COMMENT '类型 1-充值  2. 录入, 3.体现',
+  `type` int(11) DEFAULT '1' COMMENT '类型 1-洗车 2. 维修, 3.其它',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
 -- ----------------------------
-INSERT INTO `order_record` VALUES ('1', '123123', '51', '25.00', '1', '23123123的广泛地分噶水电费沙发发送发生地发斯蒂芬爱上法法师发送方阿斯蒂芬安防阿斯蒂芬阿斯蒂芬阿斯蒂芬阿斯蒂芬阿斯顿发顺丰安防阿斯蒂芬安防爱上爱上发', '1', '2018-07-18 15:56:37');
-INSERT INTO `order_record` VALUES ('2', '123123', '51', '25.00', '2', '23123123', '1', '2018-07-19 15:56:37');
-INSERT INTO `order_record` VALUES ('3', '123123', '51', '25.00', '2', '23123123', '3', '2018-07-19 15:56:37');
-INSERT INTO `order_record` VALUES ('4', '123123', '51', '25.00', '2', '23123123', '1', '2018-07-19 15:56:37');
-INSERT INTO `order_record` VALUES ('5', '123123', '51', '25.00', '1', '23123123', '2', '2018-07-19 15:56:37');
-INSERT INTO `order_record` VALUES ('6', '123123', '51', '25.00', '2', '23123123', '1', '2018-07-19 15:56:37');
-INSERT INTO `order_record` VALUES ('7', '123123', '51', '25.00', '2', '23123123', '1', '2018-07-19 15:56:37');
-INSERT INTO `order_record` VALUES ('8', '1531905905861', '51', '25.00', '1', 'qweq', '1', '2018-07-18 17:34:47');
-INSERT INTO `order_record` VALUES ('9', '1531907298752', '51', '25.00', '1', 'qweqwe', '1', '2018-07-18 17:48:33');
-INSERT INTO `order_record` VALUES ('10', '1531907582052', '51', '25.00', '2', '斯蒂芬森防守对方', '1', '2018-07-18 17:53:05');
-INSERT INTO `order_record` VALUES ('11', '1531907634234', '51', '25.00', '2', '斯蒂芬斯蒂芬', '1', '2018-07-18 17:54:04');
-INSERT INTO `order_record` VALUES ('12', '1531907706854', '51', '25.00', '2', '123', '1', '2018-07-18 17:55:12');
-INSERT INTO `order_record` VALUES ('13', '1531907785616', '51', '25.00', '2', '123123', '1', '2018-07-18 17:56:33');
-INSERT INTO `order_record` VALUES ('14', '1531907812706', '51', '25.00', '3', '123123请问权威', '2', '2018-07-18 17:56:52');
-INSERT INTO `order_record` VALUES ('15', '1531907821157', '51', '0.00', '3', '123123请问权威', '2', '2018-07-18 17:57:01');
+INSERT INTO `order_record` VALUES ('16', '1531967771740', '54', '25.00', '1', '西侧', '1', '2018-06-19 10:36:11');
+INSERT INTO `order_record` VALUES ('17', '1531967807204', '54', '25.00', '1', '12', '1', '2018-07-19 10:37:19');
+INSERT INTO `order_record` VALUES ('18', '1531967933731', '54', '25.00', '0', '123', '1', '2018-07-15 10:39:13');
+INSERT INTO `order_record` VALUES ('19', '1531968066604', '54', '50.00', '0', '123', '2', '2018-06-19 10:41:06');
+INSERT INTO `order_record` VALUES ('20', '1531968116584', '54', '20.00', '0', '3123', '1', '2017-07-15 10:41:56');
+INSERT INTO `order_record` VALUES ('21', '1531975899690', '54', '500.00', '0', '23213', '2', '2018-08-19 12:51:39');
+INSERT INTO `order_record` VALUES ('22', '1531975924627', '54', '2000.00', '0', '23213', '2', '2017-07-19 12:52:04');
+INSERT INTO `order_record` VALUES ('23', '1531976178259', '55', '25.00', '0', '111', '1', '2018-08-19 12:56:18');
 
 -- ----------------------------
 -- Table structure for user
@@ -188,16 +203,10 @@ CREATE TABLE `user` (
   `lastVisitTime` datetime DEFAULT NULL,
   `userStatus` int(11) DEFAULT '1' COMMENT '账号状态	0:停用 1:启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('45', null, '123', null, '1234', null, null, null, '鄂A12', '1123', '2018-07-17 16:40:29', '2018-07-17 16:40:29', null);
-INSERT INTO `user` VALUES ('46', null, 'qwe', '1', 'qweqwe', '123456', null, null, '鄂A', 'qwe', '2018-07-17 17:46:36', '2018-07-17 17:46:36', '1');
-INSERT INTO `user` VALUES ('47', null, '亲3', '1', '请问', '123456', null, null, '鄂A123123', '请问', '2018-07-17 21:24:55', '2018-07-17 21:24:55', '1');
-INSERT INTO `user` VALUES ('48', null, '12312', '1', '123123123', '123456', null, null, '鄂A123123123', '123123123', '2018-07-17 21:50:41', '2018-07-17 21:50:41', '1');
-INSERT INTO `user` VALUES ('49', null, '12312', '1', '123123123请问', '123456', null, null, '鄂A123123123123', '123123123123', '2018-07-17 21:50:58', '2018-07-17 21:50:58', '1');
-INSERT INTO `user` VALUES ('50', null, '123', '1', '123', '123456', null, null, '鄂A12222', '123', '2018-07-18 09:18:04', '2018-07-18 09:18:04', '1');
-INSERT INTO `user` VALUES ('51', null, '123123', '1', '123123', '123456', null, null, '鄂A12312', '123123', '2018-07-18 11:10:42', '2018-07-18 11:10:42', '1');
-INSERT INTO `user` VALUES ('52', null, '123', '1', '13419519796', '123456', null, null, '', '', '2018-07-18 11:49:56', '2018-07-18 11:49:56', '1');
+INSERT INTO `user` VALUES ('54', null, '111111111111', '1', '13411111111', '123456', null, null, '鄂A12313', '1111', '2018-07-19 10:17:05', '2018-07-19 10:17:05', '1');
+INSERT INTO `user` VALUES ('55', null, 'qw', '1', '13419519796', '123456', null, null, '', '', '2018-07-19 12:55:48', '2018-07-19 12:55:48', '1');

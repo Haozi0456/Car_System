@@ -2,16 +2,26 @@ package com.zwh.carsystem.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Manager {
-    private Integer id;
+	private Integer id;
 
 	private String account;
 
 	private String password;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
+	private Date lastvisittime;
+
 	private Date createtime;
 
 	private Integer dataflag;
+
+	private Integer roletype;
 
 	public Integer getId() {
 		return id;
@@ -37,6 +47,14 @@ public class Manager {
 		this.password = password;
 	}
 
+	public Date getLastvisittime() {
+		return lastvisittime;
+	}
+
+	public void setLastvisittime(Date lastvisittime) {
+		this.lastvisittime = lastvisittime;
+	}
+
 	public Date getCreatetime() {
 		return createtime;
 	}
@@ -53,5 +71,12 @@ public class Manager {
 		this.dataflag = dataflag;
 	}
 
-	
+	public Integer getRoletype() {
+		return roletype;
+	}
+
+	public void setRoletype(Integer roletype) {
+		this.roletype = roletype;
+	}
+
 }

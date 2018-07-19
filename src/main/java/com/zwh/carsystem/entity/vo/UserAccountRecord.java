@@ -1,23 +1,28 @@
 package com.zwh.carsystem.entity.vo;
 
-import com.zwh.carsystem.entity.Account;
+import com.zwh.carsystem.entity.AccountRecord;
 import com.zwh.carsystem.entity.User;
 
-public class UserAccount {
+public class UserAccountRecord {
 	private User user;
-	private Account account;
+	private AccountRecord account;
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Account getAccount() {
+
+	public AccountRecord getAccount() {
 		return account;
 	}
-	public void setAccount(Account account) {
+
+	public void setAccount(AccountRecord account) {
 		this.account = account;
 	}
+
 	
-	
+
 }

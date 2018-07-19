@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zwh.carsystem.entity.Account;
+import com.zwh.carsystem.entity.AccountRecord;
 import com.zwh.carsystem.entity.User;
-import com.zwh.carsystem.entity.vo.UserAccount;
+import com.zwh.carsystem.entity.vo.UserAccountRecord;
+import com.zwh.carsystem.service.AccountRecordService;
 import com.zwh.carsystem.service.AccountService;
 import com.zwh.carsystem.service.UserService;
 import com.zwh.carsystem.utils.FileUtils;
@@ -33,6 +35,9 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
+	private AccountRecordService accountRecordService;
+	
+	@Autowired
 	private AccountService accountService;
 
 	@Value("${file.uploadFolder}") // 文件上传虚拟路径
@@ -41,10 +46,10 @@ public class UserController {
 
 	
 	@PostMapping("/toRegister")
-	public Result toRegister(@RequestBody UserAccount userAccount) {
+	public Result toRegister(@RequestBody UserAccountRecord userAccount) {
 		User mUser = null;
 		User user = userAccount.getUser();
-		Account account = userAccount.getAccount();
+		AccountRecord accountRecord = userAccount.getAccount();
 		user.setUserstatus(1);
 		user.setPassword("123456");
 		user.setGender(1);
@@ -67,13 +72,22 @@ public class UserController {
 		if (mUser == null) {
 			mUser = userService.toRegister(user);
 			if(mUser != null) {
-				//添加对应的账户
-				account.setUserid(mUser.getId());
-				int rows = accountService.addAccount(account);
-				if(rows > 0) {
-					return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
+				Account account = new Account();
+				account.setUserId(user.getId());
+				account.setMoney(accountRecord.getMoney());
+				
+				int arows = accountService.addAccount(account);
+				if(arows > 0) {
+					//添加对应的账户
+					accountRecord.setAccountId(account.getId());
+					int rows = accountRecordService.addAccountRecord(accountRecord);
+					if(rows > 0) {
+						return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
+					}else {
+						return new Result(MessageCode.ERROR, "账户开通失败!", mUser);
+					}
 				}else {
-					return new Result(MessageCode.ERROR, "账户为开通!", mUser);
+					return new Result(MessageCode.ERROR, "账户开通失败!", mUser);
 				}
 			}
 		}

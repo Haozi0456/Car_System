@@ -270,6 +270,7 @@
 		<include refid="Base_Column_List" />
 		from
 		user
+		ORDER BY createTime DESC
 	</select>
 	
 
