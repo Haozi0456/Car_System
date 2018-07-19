@@ -170,7 +170,12 @@ public class UserController {
 	@PostMapping("/getAllUsers")
 	public Result getAllUsers() {
 		
-		return new Result(MessageCode.SUCCESS, "头像更新成功!", userService.getAllUsers());
+		return new Result(MessageCode.SUCCESS, "获取成功!", userService.getAllUsers());
+	}
+	
+	@PostMapping("/getMemberCount")
+	public Result getMemberCount() {
+		return new Result(MessageCode.SUCCESS, "获取成功!", userService.getAllUsers().size());
 	}
 
 }
