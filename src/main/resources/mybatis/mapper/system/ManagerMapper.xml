@@ -131,10 +131,10 @@
 	</select>
 
 	<update id="resetPassword">
-		update 
-		manager
-		set password = #{password},
-		where account = #{account}
+		UPDATE manager m
+		SET m.`password`= #{password}
+		WHERE
+		m.id = #{managerId}
 	</update>
 
 </mapper>

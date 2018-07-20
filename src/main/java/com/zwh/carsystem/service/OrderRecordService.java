@@ -13,11 +13,13 @@ public interface OrderRecordService {
 
 	public List<OrderRecord> getOrdersByUserId(int userId);
 	
-	public List<Statistics> getStatisticsByMonthInYear(int currentYear);
+	public List<Statistics> getStatisticsByMonthInYear(String currentYear);
 	
 	public List<Statistics> getStatisticsByYear();
 	
 	public Statistics getStatisticsByDay(String day);
+	
+	public List<OrderRecord> getStatisticsOrderByDay(String day);
 	
 	public List<Statistics> getStatisticsByDayWithType(String day);
 }

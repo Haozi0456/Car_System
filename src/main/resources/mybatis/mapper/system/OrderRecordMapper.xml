@@ -145,12 +145,13 @@
 		order_record
 		WHERE
 		userId = #{userId}
-		ORDER BY createTime DESC
+		ORDER BY createTime ASC
 	</select>
 
-	<select id="getStatisticsByMonthInYear" resultMap="statisticsMap">
+	<select id="getStatisticsByMonthInYear"
+		resultMap="statisticsMap">
 		SELECT
-		SUM(money) AS total,
+		COALESCE(SUM(money),0) AS total,
 		DATE_FORMAT(createTime, '%Y-%m') dateline
 		FROM
 		order_record
@@ -163,8 +164,7 @@
 
 	<select id="getStatisticsByYear" resultMap="statisticsMap">
 		SELECT
-		sum(money) as
-		total,
+		COALESCE(SUM(money),0) as total,
 		YEAR(createTime) as dateline
 		FROM
 		order_record
@@ -173,21 +173,32 @@
 		ORDER BY
 		YEAR(createTime) DESC;
 	</select>
-	
-	<select id="getStatisticsByDay" resultType="com.zwh.carsystem.entity.Statistics">
+
+	<select id="getStatisticsByDay"
+		resultType="com.zwh.carsystem.entity.Statistics">
 		SELECT
-		SUM(money) AS total,
+		COALESCE(SUM(money),0) AS total,
 		DATE_FORMAT(createTime, '%Y-%m-%d') dateline
 		FROM
 		order_record
 		WHERE
 		DATE_FORMAT(createTime, '%Y-%m-%d') = #{day}
 	</select>
-	
-	<select id="getStatisticsByDayWithType" resultMap="statisticsMap">
+
+	<select id="getStatisticsOrderByDay" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		order_record
+		WHERE
+		DATE_FORMAT(createTime, '%Y-%m-%d') = #{day}
+	</select>
+
+	<select id="getStatisticsByDayWithType"
+		resultMap="statisticsMap">
 		SELECT
 		type,
-		SUM(money) AS total,
+		COALESCE(SUM(money),0) AS total,
 		DATE_FORMAT(createTime, '%Y-%m-%d') dateline
 		FROM
 		order_record
@@ -198,7 +209,8 @@
 
 	<resultMap id="statisticsMap"
 		type="com.zwh.carsystem.entity.Statistics">
-		<result column="dateline" jdbcType="VARCHAR" property="dateline" />
+		<result column="dateline" jdbcType="VARCHAR"
+			property="dateline" />
 		<result column="total" jdbcType="DECIMAL" property="total" />
 		<result column="type" jdbcType="INTEGER" property="type" />
 	</resultMap>

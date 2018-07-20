@@ -37,7 +37,7 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 	}
 
 	@Override
-	public List<Statistics> getStatisticsByMonthInYear(int currentYear) {
+	public List<Statistics> getStatisticsByMonthInYear(String currentYear) {
 		// TODO Auto-generated method stub
 		return orderRecordMapper.getStatisticsByMonthInYear(currentYear);
 	}
@@ -52,6 +52,12 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 	public Statistics getStatisticsByDay(String day) {
 		// TODO Auto-generated method stub
 		return orderRecordMapper.getStatisticsByDay(day);
+	}
+	
+	@Override
+	public List<OrderRecord> getStatisticsOrderByDay(String day) {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.getStatisticsOrderByDay(day);
 	}
 
 	@Override

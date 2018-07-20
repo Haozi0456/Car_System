@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-19 18:09:06
+Date: 2018-07-20 18:13:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,13 +25,15 @@ CREATE TABLE `account` (
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '金额',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('4', '54', '5.00', '2018-07-19 10:17:32');
-INSERT INTO `account` VALUES ('5', '55', '75.00', '2018-07-19 12:55:48');
+INSERT INTO `account` VALUES ('4', '54', '0.00', '2018-07-19 10:17:32');
+INSERT INTO `account` VALUES ('5', '55', '30.00', '2018-07-19 12:55:48');
+INSERT INTO `account` VALUES ('6', '56', '100.00', '2018-07-20 11:05:14');
+INSERT INTO `account` VALUES ('7', '57', '100.00', '2018-07-20 11:06:05');
 
 -- ----------------------------
 -- Table structure for account_record
@@ -45,7 +47,7 @@ CREATE TABLE `account_record` (
   `remark` varchar(255) DEFAULT '',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account_record
@@ -57,6 +59,11 @@ INSERT INTO `account_record` VALUES ('7', '4', '1', '500.00', '34', '2018-07-19 
 INSERT INTO `account_record` VALUES ('8', '4', '1', '500.00', '123', '2018-07-19 11:29:39');
 INSERT INTO `account_record` VALUES ('9', '4', '1', '500.00', '123', '2018-07-19 11:50:26');
 INSERT INTO `account_record` VALUES ('10', '5', '1', '100.00', '', '2018-07-19 12:55:48');
+INSERT INTO `account_record` VALUES ('11', '5', '1', '500.00', 'wer', '2018-07-20 10:43:03');
+INSERT INTO `account_record` VALUES ('12', '5', '1', '500.00', '234 ', '2018-07-20 10:46:46');
+INSERT INTO `account_record` VALUES ('13', '5', '1', '5.00', '13', '2018-07-20 10:47:33');
+INSERT INTO `account_record` VALUES ('14', '6', '1', '100.00', '213', '2018-07-20 11:05:14');
+INSERT INTO `account_record` VALUES ('15', '7', '1', '100.00', '123', '2018-07-20 11:06:05');
 
 -- ----------------------------
 -- Table structure for configs
@@ -149,12 +156,13 @@ CREATE TABLE `manager` (
   `dataFlag` int(11) DEFAULT NULL,
   `roleType` int(11) DEFAULT '1' COMMENT '角色',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-19 14:48:26', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-20 18:09:37', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
 
 -- ----------------------------
 -- Table structure for order_record
@@ -170,7 +178,7 @@ CREATE TABLE `order_record` (
   `type` int(11) DEFAULT '1' COMMENT '类型 1-洗车 2. 维修, 3.其它',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
@@ -183,6 +191,10 @@ INSERT INTO `order_record` VALUES ('20', '1531968116584', '54', '20.00', '0', '3
 INSERT INTO `order_record` VALUES ('21', '1531975899690', '54', '500.00', '0', '23213', '2', '2018-08-19 12:51:39');
 INSERT INTO `order_record` VALUES ('22', '1531975924627', '54', '2000.00', '0', '23213', '2', '2017-07-19 12:52:04');
 INSERT INTO `order_record` VALUES ('23', '1531976178259', '55', '25.00', '0', '111', '1', '2018-08-19 12:56:18');
+INSERT INTO `order_record` VALUES ('24', '1532054232682', '55', '25.00', '0', '234 ', '1', '2018-07-20 10:37:12');
+INSERT INTO `order_record` VALUES ('25', '1532054573094', '55', '25.00', '0', '234', '1', '2018-07-20 10:42:53');
+INSERT INTO `order_record` VALUES ('26', '1532054878549', '55', '1000.00', '0', '34', '2', '2018-07-20 10:47:58');
+INSERT INTO `order_record` VALUES ('27', '1532068189134', '54', '5.00', '0', 'qwe', '1', '2018-07-20 14:29:49');
 
 -- ----------------------------
 -- Table structure for user
@@ -203,10 +215,12 @@ CREATE TABLE `user` (
   `lastVisitTime` datetime DEFAULT NULL,
   `userStatus` int(11) DEFAULT '1' COMMENT '账号状态	0:停用 1:启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('54', null, '111111111111', '1', '13411111111', '123456', null, null, '鄂A12313', '1111', '2018-07-19 10:17:05', '2018-07-19 10:17:05', '1');
 INSERT INTO `user` VALUES ('55', null, 'qw', '1', '13419519796', '123456', null, null, '', '', '2018-07-19 12:55:48', '2018-07-19 12:55:48', '1');
+INSERT INTO `user` VALUES ('56', null, '2344234234', '1', '13443534535', '123456', null, null, '鄂A34556', '梅赛德斯奔驰', '2018-07-20 11:05:14', '2018-07-20 11:05:14', '1');
+INSERT INTO `user` VALUES ('57', null, '234', '1', '13453423423', '123456', null, null, '', '', '2018-07-20 11:06:05', '2018-07-20 11:06:05', '1');

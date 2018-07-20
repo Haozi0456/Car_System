@@ -26,7 +26,7 @@ public interface OrderRecordMapper {
      * @param year
      * @return
      */
-    List<Statistics> getStatisticsByMonthInYear(int year);
+    List<Statistics> getStatisticsByMonthInYear(String year);
     
     /**
      * 按年统计
@@ -38,6 +38,11 @@ public interface OrderRecordMapper {
      * @return
      */
     Statistics getStatisticsByDay(String day);
+    /**
+     * 按给定日期统计订单量
+     * @return
+     */
+    List<OrderRecord> getStatisticsOrderByDay(String day);
     /**
      * 按给定日期的类型统计
      * @return

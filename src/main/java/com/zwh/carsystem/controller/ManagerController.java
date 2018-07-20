@@ -29,8 +29,8 @@ public class ManagerController {
 	}
 	
 	@PostMapping("/resetPassword")
-	public Result resetPassword(String account,String password) {
-		int rows = managerService.resetPassword(account, password);
+	public Result resetPassword(String managerId,String password) {
+		int rows = managerService.resetPassword(managerId, password);
 		if(rows > 0 ) {
 			return new Result(MessageCode.SUCCESS,"更改密码成功!");
 		}
