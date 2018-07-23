@@ -18,6 +18,8 @@ public class OrderRecord {
 
 	private Integer payfrom;
 
+	private String operator;
+	
 	private String remark;
 
 	private Integer type;
@@ -91,5 +93,15 @@ public class OrderRecord {
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+	
+	
 
 }

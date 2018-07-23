@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zwh.carsystem.mapper.StoreGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.zwh.carsystem.entity.StoreGoods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parts_id" jdbcType="INTEGER" property="partsId" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="in_price" jdbcType="DECIMAL" property="inPrice" />
+    <result column="out_price" jdbcType="DECIMAL" property="outPrice" />
+    <result column="work_price" jdbcType="DECIMAL" property="workPrice" />
+    <result column="stock_count" jdbcType="INTEGER" property="stockCount" />
+    <result column="sell_count" jdbcType="INTEGER" property="sellCount" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parts_id, type, in_price, out_price, work_price, stock_count, sell_count, operator, 
+    remark, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from store_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from store_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zwh.carsystem.entity.StoreGoods" useGeneratedKeys="true" keyProperty="id">
+    insert into store_goods (parts_id, type, 
+      in_price, out_price, work_price, 
+      stock_count, sell_count, operator, 
+      remark, create_time)
+    values (#{partsId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{inPrice,jdbcType=DECIMAL}, #{outPrice,jdbcType=DECIMAL}, #{workPrice,jdbcType=DECIMAL}, 
+      #{stockCount,jdbcType=INTEGER}, #{sellCount,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.StoreGoods">
+    insert into store_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="partsId != null">
+        parts_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="inPrice != null">
+        in_price,
+      </if>
+      <if test="outPrice != null">
+        out_price,
+      </if>
+      <if test="workPrice != null">
+        work_price,
+      </if>
+      <if test="stockCount != null">
+        stock_count,
+      </if>
+      <if test="sellCount != null">
+        sell_count,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partsId != null">
+        #{partsId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="inPrice != null">
+        #{inPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="outPrice != null">
+        #{outPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="workPrice != null">
+        #{workPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCount != null">
+        #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="sellCount != null">
+        #{sellCount,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+       now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zwh.carsystem.entity.StoreGoods">
+    update store_goods
+    <set>
+      <if test="partsId != null">
+        parts_id = #{partsId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="inPrice != null">
+        in_price = #{inPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="outPrice != null">
+        out_price = #{outPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="workPrice != null">
+        work_price = #{workPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCount != null">
+        stock_count = #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="sellCount != null">
+        sell_count = #{sellCount,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zwh.carsystem.entity.StoreGoods">
+    update store_goods
+    set parts_id = #{partsId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      in_price = #{inPrice,jdbcType=DECIMAL},
+      out_price = #{outPrice,jdbcType=DECIMAL},
+      work_price = #{workPrice,jdbcType=DECIMAL},
+      stock_count = #{stockCount,jdbcType=INTEGER},
+      sell_count = #{sellCount,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+
+	<select id="getStoreGoods" resultMap="BaseResultMap">
+		SELECT
+		g.*,
+		p.parts_name as category
+		FROM
+		store_goods g
+		LEFT JOIN store_parts p on p.id = g.parts_id
+		ORDER BY
+		g.create_time DESC
+		limit
+		#{pageVO.startIndex}, #{pageVO.endIndex}
+	</select>
+
+	<select id="getStoreGoodsCount" resultType="int">
+		select
+		count(1)
+		from
+		store_goods
+	</select>
+	
+	<select id="getStoreGoodsByType" resultMap="BaseResultMap">
+		SELECT
+		g.*,
+		p.parts_name as category
+		FROM
+		store_goods g
+		LEFT JOIN store_parts p on p.id = g.parts_id
+		WHERE g.parts_id = #{type}
+		ORDER BY
+		g.create_time DESC
+		limit
+		#{pageVO.startIndex}, #{pageVO.endIndex}
+	</select>
+
+	<select id="getStoreGoodsByTypeCount" resultType="int">
+		select
+		count(1)
+		from
+		store_goods
+	</select>
+  
+</mapper>

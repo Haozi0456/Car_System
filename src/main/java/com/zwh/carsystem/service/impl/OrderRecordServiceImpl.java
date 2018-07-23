@@ -9,6 +9,8 @@ import com.zwh.carsystem.entity.OrderRecord;
 import com.zwh.carsystem.entity.Statistics;
 import com.zwh.carsystem.mapper.OrderRecordMapper;
 import com.zwh.carsystem.service.OrderRecordService;
+import com.zwh.system.entity.PageResult;
+import com.zwh.system.entity.PageVO;
 
 
 
@@ -64,6 +66,12 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 	public List<Statistics> getStatisticsByDayWithType(String day) {
 		// TODO Auto-generated method stub
 		return orderRecordMapper.getStatisticsByDayWithType(day);
+	}
+
+	@Override
+	public PageResult<OrderRecord> getOrderList(PageVO pageVO) {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.getOrderList(pageVO);
 	}
 
 }

@@ -2,8 +2,12 @@ package com.zwh.carsystem.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zwh.carsystem.entity.OrderRecord;
 import com.zwh.carsystem.entity.Statistics;
+import com.zwh.system.entity.PageResult;
+import com.zwh.system.entity.PageVO;
 
 public interface OrderRecordMapper {
     int deleteByPrimaryKey(Integer orderid);
@@ -48,4 +52,7 @@ public interface OrderRecordMapper {
      * @return
      */
     List<Statistics> getStatisticsByDayWithType(String day);
+    
+    
+    PageResult<OrderRecord> getOrderList(@Param("pageVO")PageVO pageVO);
 }
