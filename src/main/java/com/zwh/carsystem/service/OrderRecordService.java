@@ -20,6 +20,8 @@ public interface OrderRecordService {
 	
 	public List<Statistics> getStatisticsByMonthInYear(String currentYear);
 	
+	public List<Statistics> getStatisticsByNearOneMonth();;
+	
 	public List<Statistics> getStatisticsByYear();
 	
 	public Statistics getStatisticsByDay(String day);
@@ -28,5 +30,7 @@ public interface OrderRecordService {
 	
 	public List<Statistics> getStatisticsByDayWithType(String day);
 	
-	PageResult<OrderRecord> getOrderList(@Param("pageVO")PageVO pageVO);
+	PageResult<OrderRecord> getOrderList(PageVO pageVO);
+	
+	PageResult<OrderRecord> getOrderListByMonth(PageVO pageVO, String month);
 }

@@ -77,18 +77,29 @@ public class StoreController {
 	@PostMapping("/getGoodsList")
 	public Result getGoodsList(PageVO pageVO) {
 		PageResult<StoreGoods> pageResult = goodsService.getStoreGoods(pageVO);
-		return new Result(MessageCode.SUCCESS,"添加成功!",pageResult);
+		return new Result(MessageCode.SUCCESS,"获取成功!",pageResult);
 	}
 	
 	/**
-	 * 按类型分页获取数据
+	 * 按配件类型分页获取数据
+	 * @param pageVO
+	 * @return
+	 */
+	@PostMapping("/getGoodsListByPartsId")
+	public Result getStoreGoodsByPartsId(PageVO pageVO,int partsId) {
+		PageResult<StoreGoods> pageResult = goodsService.getStoreGoodsByPartsId(pageVO, partsId);
+		return new Result(MessageCode.SUCCESS,"获取成功!",pageResult);
+	}
+	
+	/**
+	 * 按配件型号分页获取数据
 	 * @param pageVO
 	 * @return
 	 */
 	@PostMapping("/getGoodsListByType")
-	public Result getGoodsListByType(PageVO pageVO,int type) {
+	public Result getGoodsListByType(PageVO pageVO,String type) {
 		PageResult<StoreGoods> pageResult = goodsService.getStoreGoodsByType(pageVO, type);
-		return new Result(MessageCode.SUCCESS,"添加成功!",pageResult);
+		return new Result(MessageCode.SUCCESS,"获取成功!",pageResult);
 	}
 	
 	

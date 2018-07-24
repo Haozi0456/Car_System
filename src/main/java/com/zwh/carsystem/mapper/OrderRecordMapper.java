@@ -52,7 +52,16 @@ public interface OrderRecordMapper {
      * @return
      */
     List<Statistics> getStatisticsByDayWithType(String day);
+    /**
+     * 查询近一个月订单收入统计
+     * @return
+     */
+    List<Statistics> getStatisticsByNearOneMonth();
+    
+    
     
     
     PageResult<OrderRecord> getOrderList(@Param("pageVO")PageVO pageVO);
+    
+    PageResult<OrderRecord> getOrderListByMonth(@Param("pageVO")PageVO pageVO,@Param("month")String month);
 }

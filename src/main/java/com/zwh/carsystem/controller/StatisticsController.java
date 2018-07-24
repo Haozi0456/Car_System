@@ -33,6 +33,18 @@ public class StatisticsController {
 		}
 		return new Result(MessageCode.ERROR, "查询失败!",statistics);
 	}
+	/**
+	 * 查询近一个月收入统计
+	 * @return
+	 */
+	@PostMapping("/getStatisticsByNearOneMonth")
+	public Result getStatisticsByNearOneMonth() {
+		List<Statistics> statistics = orderService.getStatisticsByNearOneMonth(); 
+		if(statistics != null) {
+			return new Result(MessageCode.SUCCESS, "查询成功!",statistics);
+		}
+		return new Result(MessageCode.ERROR, "查询失败!",statistics);
+	}
 	
 	/**
 	 * 查询年收入统计

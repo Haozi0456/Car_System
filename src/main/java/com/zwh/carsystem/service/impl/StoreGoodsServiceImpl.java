@@ -34,15 +34,21 @@ public class StoreGoodsServiceImpl implements StoreGoodsService {
 	}
 
 	@Override
-	public PageResult<StoreGoods> getStoreGoodsByType(PageVO pageVO, int type) {
+	public PageResult<StoreGoods> getStoreGoodsByPartsId(PageVO pageVO, int partsId) {
 		// TODO Auto-generated method stub
-		return mapper.getStoreGoodsByType(pageVO, type);
+		return mapper.getStoreGoodsByPartsId(pageVO, partsId);
 	}
 
 	@Override
 	public PageResult<StoreGoods> getStoreGoods(PageVO pageVO) {
 		// TODO Auto-generated method stub
 		return mapper.getStoreGoods(pageVO);
+	}
+
+	@Override
+	public PageResult<StoreGoods> getStoreGoodsByType(PageVO pageVO, String type) {
+		// TODO Auto-generated method stub
+		return mapper.getStoreGoodsByType(pageVO, type);
 	}
 
 }

@@ -16,7 +16,9 @@ public interface StoreGoodsService {
 
 	int updateByPrimaryKey(StoreGoods record);
 	
-	PageResult<StoreGoods> getStoreGoodsByType(@Param("pageVO")PageVO pageVO,int type);
+	PageResult<StoreGoods> getStoreGoodsByPartsId(PageVO pageVO,int partsId);
+	
+	PageResult<StoreGoods> getStoreGoodsByType(PageVO pageVO,String type);
 
-	PageResult<StoreGoods> getStoreGoods(@Param("pageVO")PageVO pageVO);
+	PageResult<StoreGoods> getStoreGoods(PageVO pageVO);
 }

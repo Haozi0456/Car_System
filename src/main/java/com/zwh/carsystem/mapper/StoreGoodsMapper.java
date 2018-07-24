@@ -19,7 +19,9 @@ public interface StoreGoodsMapper {
 
     int updateByPrimaryKey(StoreGoods record);
     
-    PageResult<StoreGoods> getStoreGoodsByType(@Param("pageVO")PageVO pageVO,int type);
+    PageResult<StoreGoods> getStoreGoodsByPartsId(@Param("pageVO")PageVO pageVO,@Param("partsId")int partsId);
+    
+    PageResult<StoreGoods> getStoreGoodsByType(@Param("pageVO")PageVO pageVO,@Param("type")String type);
 
    	PageResult<StoreGoods> getStoreGoods(@Param("pageVO")PageVO pageVO);
 }

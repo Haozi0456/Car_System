@@ -8,14 +8,16 @@
 		<result column="userId" jdbcType="INTEGER" property="userid" />
 		<result column="money" jdbcType="DECIMAL" property="money" />
 		<result column="payFrom" jdbcType="INTEGER" property="payfrom" />
-		<result column="operator" jdbcType="VARCHAR" property="operator" />
+		<result column="operator" jdbcType="VARCHAR"
+			property="operator" />
 		<result column="remark" jdbcType="VARCHAR" property="remark" />
 		<result column="type" jdbcType="INTEGER" property="type" />
 		<result column="createTime" jdbcType="TIMESTAMP"
 			property="createtime" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		orderId, orderNo, userId, money, payFrom,operator,remark, type,
+		orderId, orderNo, userId, money, payFrom,operator,remark,
+		type,
 		createTime
 	</sql>
 	<select id="selectByPrimaryKey"
@@ -40,7 +42,8 @@
 		type, createTime)
 		values
 		(#{orderno,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER},
-		#{money,jdbcType=DECIMAL}, #{payfrom,jdbcType=INTEGER},#{operator,jdbcType=VARCHAR},
+		#{money,jdbcType=DECIMAL},
+		#{payfrom,jdbcType=INTEGER},#{operator,jdbcType=VARCHAR},
 		#{remark,jdbcType=VARCHAR},
 		#{type,jdbcType=INTEGER}, now())
 	</insert>
@@ -144,9 +147,11 @@
 		= #{money,jdbcType=DECIMAL},
 		payFrom = #{payfrom,jdbcType=INTEGER},
 		operator = #{operator,jdbcType=VARCHAR},
-		remark = #{remark,jdbcType=VARCHAR},
+		remark =
+		#{remark,jdbcType=VARCHAR},
 		type = #{type,jdbcType=INTEGER}
-		where orderId = #{orderid,jdbcType=INTEGER}
+		where
+		orderId = #{orderid,jdbcType=INTEGER}
 	</update>
 
 	<select id="getOrdersByUserId" resultMap="BaseResultMap">
@@ -158,16 +163,16 @@
 		userId = #{userId}
 		ORDER BY createTime ASC
 	</select>
-	
+
 	<select id="getOrderList" resultMap="BaseResultMap">
 		SELECT
-			*
+		*
 		FROM
-			order_record o
+		order_record o
 		ORDER BY
-			o.createTime DESC
+		o.createTime DESC
 		LIMIT
-			#{pageVO.startIndex}, #{pageVO.endIndex}
+		#{pageVO.startIndex}, #{pageVO.endIndex}
 	</select>
 
 	<select id="getOrderListCount" resultType="int">
@@ -176,12 +181,35 @@
 		from
 		order_record
 	</select>
-	
 
+	<select id="getOrderListByMonth" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		order_record
+		WHERE
+		DATE_FORMAT(createTime, '%Y-%m') = #{month}
+		ORDER BY
+		createTime DESC
+		LIMIT
+		#{pageVO.startIndex}, #{pageVO.endIndex}
+	</select>
+
+	<select id="getOrderListByMonthCount" resultType="int">
+		select
+		count(1)
+		from
+		order_record
+		WHERE
+		DATE_FORMAT(createTime, '%Y-%m') = #{month}
+	</select>
+
+	<!-- 月收入总和和订单数量 -->
 	<select id="getStatisticsByMonthInYear"
 		resultMap="statisticsMap">
 		SELECT
 		COALESCE(SUM(money),0) AS total,
+		COALESCE(count(orderId),0) AS count,
 		DATE_FORMAT(createTime, '%Y-%m') dateline
 		FROM
 		order_record
@@ -190,6 +218,22 @@
 		GROUP BY
 		DATE_FORMAT(createTime, '%Y-%m')
 
+	</select>
+
+	<!-- 查询近一个月收入统计 -->
+	<select id="getStatisticsByNearOneMonth"
+		resultMap="statisticsMap">
+		SELECT
+		SUM(r.money) AS total,
+		DATE_FORMAT(createTime, '%Y-%m-%d') dateline
+		FROM
+		order_record r
+		WHERE
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=date(r.createTime)]]>
+		GROUP BY
+		DAY (r.createTime)
+		ORDER BY
+		r.createTime ASC
 	</select>
 
 	<select id="getStatisticsByYear" resultMap="statisticsMap">
@@ -239,13 +283,13 @@
 
 	<resultMap id="statisticsMap"
 		type="com.zwh.carsystem.entity.Statistics">
-		<result column="dateline" jdbcType="VARCHAR"
-			property="dateline" />
+		<result column="dateline" jdbcType="VARCHAR" property="dateline" />
 		<result column="total" jdbcType="DECIMAL" property="total" />
 		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="count" jdbcType="INTEGER" property="count" />
 	</resultMap>
-	
-	
-	
+
+
+
 
 </mapper>

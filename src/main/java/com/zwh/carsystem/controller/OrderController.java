@@ -100,4 +100,14 @@ public class OrderController {
 		return new Result(MessageCode.SUCCESS,"获取成功!",pageResult);
 	}
 	
+	/**
+	 * 分页获取数据
+	 * @param pageVO
+	 * @return
+	 */
+	@PostMapping("/getOrderListByMonth")
+	public Result getOrderListByMonth(PageVO pageVO,String month) {
+		PageResult<OrderRecord> pageResult = orderService.getOrderListByMonth(pageVO, month);
+		return new Result(MessageCode.SUCCESS,"获取成功!",pageResult);
+	}
 }

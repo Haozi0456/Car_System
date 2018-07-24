@@ -183,6 +183,28 @@
 		store_goods
 	</select>
 	
+	<select id="getStoreGoodsByPartsId" resultMap="BaseResultMap">
+		SELECT
+		g.*,
+		p.parts_name as category
+		FROM
+		store_goods g
+		LEFT JOIN store_parts p on p.id = g.parts_id
+		WHERE g.parts_id = #{partsId}
+		ORDER BY
+		g.create_time DESC
+		limit
+		#{pageVO.startIndex}, #{pageVO.endIndex}
+	</select>
+
+	<select id="getStoreGoodsByPartsIdCount" resultType="int">
+		select
+		count(1)
+		from
+		store_goods g
+		WHERE g.parts_id = #{partsId}
+	</select>
+	
 	<select id="getStoreGoodsByType" resultMap="BaseResultMap">
 		SELECT
 		g.*,
@@ -190,7 +212,7 @@
 		FROM
 		store_goods g
 		LEFT JOIN store_parts p on p.id = g.parts_id
-		WHERE g.parts_id = #{type}
+		WHERE g.type LIKE #{type}
 		ORDER BY
 		g.create_time DESC
 		limit
@@ -201,7 +223,8 @@
 		select
 		count(1)
 		from
-		store_goods
+		store_goods g
+		WHERE g.type LIKE #{type}
 	</select>
   
 </mapper>

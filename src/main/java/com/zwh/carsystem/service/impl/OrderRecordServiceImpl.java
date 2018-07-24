@@ -74,4 +74,16 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 		return orderRecordMapper.getOrderList(pageVO);
 	}
 
+	@Override
+	public PageResult<OrderRecord> getOrderListByMonth(PageVO pageVO, String month) {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.getOrderListByMonth(pageVO, month);
+	}
+
+	@Override
+	public List<Statistics> getStatisticsByNearOneMonth() {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.getStatisticsByNearOneMonth();
+	}
+
 }

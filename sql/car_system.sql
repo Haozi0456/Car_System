@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-23 18:13:19
+Date: 2018-07-24 18:01:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -164,7 +164,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-23 18:09:00', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-24 15:20:24', '2018-07-13 16:56:27', '1', '1');
 INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
 
 -- ----------------------------
@@ -182,28 +182,30 @@ CREATE TABLE `order_record` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
 -- ----------------------------
-INSERT INTO `order_record` VALUES ('16', '1531967771740', '54', '25.00', '1', '西侧', '1', 'admin', '2018-06-19 10:36:11');
-INSERT INTO `order_record` VALUES ('17', '1531967807204', '54', '25.00', '1', '12', '1', 'admin', '2018-07-19 10:37:19');
-INSERT INTO `order_record` VALUES ('18', '1531967933731', '54', '25.00', '0', '123', '1', 'admin', '2018-07-15 10:39:13');
-INSERT INTO `order_record` VALUES ('19', '1531968066604', '54', '50.00', '0', '123', '2', 'admin', '2018-06-19 10:41:06');
-INSERT INTO `order_record` VALUES ('20', '1531968116584', '54', '20.00', '0', '3123', '1', 'admin', '2017-07-15 10:41:56');
-INSERT INTO `order_record` VALUES ('21', '1531975899690', '54', '500.00', '0', '23213', '2', 'admin', '2018-08-19 12:51:39');
+INSERT INTO `order_record` VALUES ('16', '1531967771740', '54', '25.00', '1', '西侧', '1', 'admin', '2017-01-01 10:36:11');
+INSERT INTO `order_record` VALUES ('17', '1531967807204', '54', '25.00', '1', '12', '1', 'admin', '2017-01-18 10:37:19');
+INSERT INTO `order_record` VALUES ('18', '1531967933731', '54', '25.00', '0', '123', '1', 'admin', '2017-02-16 10:39:13');
+INSERT INTO `order_record` VALUES ('19', '1531968066604', '54', '50.00', '0', '123', '2', 'admin', '2017-03-22 10:41:06');
+INSERT INTO `order_record` VALUES ('20', '1531968116584', '54', '20.00', '0', '3123', '1', 'admin', '2017-04-21 10:41:56');
+INSERT INTO `order_record` VALUES ('21', '1531975899690', '54', '500.00', '0', '23213', '2', 'admin', '2017-06-22 12:51:39');
 INSERT INTO `order_record` VALUES ('22', '1531975924627', '54', '2000.00', '0', '23213', '2', 'admin', '2017-07-19 12:52:04');
-INSERT INTO `order_record` VALUES ('23', '1531976178259', '55', '25.00', '0', '111', '1', 'admin', '2018-08-19 12:56:18');
-INSERT INTO `order_record` VALUES ('24', '1532054232682', '55', '25.00', '0', '234 ', '1', 'admin', '2018-07-20 10:37:12');
-INSERT INTO `order_record` VALUES ('25', '1532054573094', '55', '25.00', '0', '234', '1', 'admin', '2018-07-20 10:42:53');
-INSERT INTO `order_record` VALUES ('26', '1532054878549', '55', '1000.00', '0', '34', '2', 'admin', '2018-07-20 10:47:58');
-INSERT INTO `order_record` VALUES ('27', '1532068189134', '54', '5.00', '0', 'qwe', '1', 'admin', '2018-07-20 14:29:49');
-INSERT INTO `order_record` VALUES ('28', '1532334870796', null, '25.00', '0', '123123123', '1', 'admin', '2018-07-23 16:34:35');
-INSERT INTO `order_record` VALUES ('29', '1532334946722', null, '25.00', '0', '234', '1', 'admin', '2018-07-23 16:35:46');
-INSERT INTO `order_record` VALUES ('30', '1532335035713', null, '25.00', '0', '1231231232222222222222', '1', 'admin', '2018-07-23 16:37:15');
-INSERT INTO `order_record` VALUES ('31', '1532335624625', null, '25.00', '0', '请问', '1', 'admin', '2018-07-23 16:47:04');
+INSERT INTO `order_record` VALUES ('23', '1531976178259', '55', '25.00', '0', '111', '1', 'admin', '2017-08-19 12:56:18');
+INSERT INTO `order_record` VALUES ('24', '1532054232682', '55', '25.00', '0', '234 ', '1', 'admin', '2017-08-16 10:37:12');
+INSERT INTO `order_record` VALUES ('25', '1532054573094', '55', '25.00', '0', '234', '1', 'admin', '2017-09-05 10:42:53');
+INSERT INTO `order_record` VALUES ('26', '1532054878549', '55', '1000.00', '0', '34', '2', 'admin', '2017-09-13 10:47:58');
+INSERT INTO `order_record` VALUES ('27', '1532068189134', '54', '5.00', '0', 'qwe', '1', 'admin', '2017-10-17 14:29:49');
+INSERT INTO `order_record` VALUES ('28', '1532334870796', null, '25.00', '0', '123123123', '1', 'admin', '2017-11-08 16:34:35');
+INSERT INTO `order_record` VALUES ('29', '1532334946722', null, '25.00', '0', '234', '1', 'admin', '2017-11-08 16:35:46');
+INSERT INTO `order_record` VALUES ('30', '1532335035713', null, '25.00', '0', '1231231232222222222222', '1', 'admin', '2017-12-21 16:37:15');
+INSERT INTO `order_record` VALUES ('31', '1532335624625', null, '25.00', '0', '请问', '1', 'admin', '2018-07-24 16:47:04');
 INSERT INTO `order_record` VALUES ('32', '1532335915340', null, '25.00', '0', '请问全额无', '1', 'admin', '2018-07-23 16:51:55');
+INSERT INTO `order_record` VALUES ('33', '1532335915340', null, '25.00', '1', '', '1', '', '2018-07-24 14:24:41');
+INSERT INTO `order_record` VALUES ('34', '1532335915340', null, '25.00', '1', '', '1', '', '2018-06-25 14:28:04');
 
 -- ----------------------------
 -- Table structure for store_goods
@@ -222,7 +224,7 @@ CREATE TABLE `store_goods` (
   `remark` varchar(255) DEFAULT '' COMMENT '备注',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of store_goods
@@ -233,6 +235,17 @@ INSERT INTO `store_goods` VALUES ('4', '3', '213', '100.00', '100.00', '100.00',
 INSERT INTO `store_goods` VALUES ('5', '2', '213', '100.00', '100.00', '100.00', '1', '0', 'admin', '123', '2018-07-23 17:52:16');
 INSERT INTO `store_goods` VALUES ('6', '3', 'dr', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-23 17:58:17');
 INSERT INTO `store_goods` VALUES ('7', '3', 'eee', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-23 18:00:26');
+INSERT INTO `store_goods` VALUES ('8', '3', '123123', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:10');
+INSERT INTO `store_goods` VALUES ('9', '3', '123123', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:16');
+INSERT INTO `store_goods` VALUES ('10', '3', '12', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:20');
+INSERT INTO `store_goods` VALUES ('11', '3', '1211', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:23');
+INSERT INTO `store_goods` VALUES ('12', '3', '121111', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:27');
+INSERT INTO `store_goods` VALUES ('13', '3', '12111111', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:30');
+INSERT INTO `store_goods` VALUES ('14', '3', '121111111', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:38');
+INSERT INTO `store_goods` VALUES ('15', '3', '1211111111', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:41');
+INSERT INTO `store_goods` VALUES ('16', '3', '12111111111', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:44');
+INSERT INTO `store_goods` VALUES ('17', '3', '121111111111', '100.00', '100.00', '100.00', '1', '0', 'admin', '', '2018-07-24 13:51:47');
+INSERT INTO `store_goods` VALUES ('18', '5', '111', '100.00', '100.00', '100.00', '1', '0', 'admin', '123', '2018-07-24 17:06:08');
 
 -- ----------------------------
 -- Table structure for store_parts
@@ -243,7 +256,7 @@ CREATE TABLE `store_parts` (
   `parts_name` varchar(255) DEFAULT '' COMMENT '配件名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of store_parts
@@ -252,6 +265,17 @@ INSERT INTO `store_parts` VALUES ('1', '刹车片', '2018-07-23 11:45:58');
 INSERT INTO `store_parts` VALUES ('2', '轮胎', '2018-07-23 11:46:16');
 INSERT INTO `store_parts` VALUES ('3', '火花塞', '2018-07-23 14:37:56');
 INSERT INTO `store_parts` VALUES ('4', '机油', '2018-07-23 14:39:42');
+INSERT INTO `store_parts` VALUES ('5', '防冻液', '2018-07-24 16:55:20');
+INSERT INTO `store_parts` VALUES ('6', '冷凝水', '2018-07-24 16:55:39');
+INSERT INTO `store_parts` VALUES ('7', '大灯', '2018-07-24 16:55:44');
+INSERT INTO `store_parts` VALUES ('8', '尾灯', '2018-07-24 16:55:54');
+INSERT INTO `store_parts` VALUES ('9', '保险杠', '2018-07-24 16:56:04');
+INSERT INTO `store_parts` VALUES ('10', '钢圈', '2018-07-24 16:56:33');
+INSERT INTO `store_parts` VALUES ('11', '轴承', '2018-07-24 16:56:43');
+INSERT INTO `store_parts` VALUES ('12', '皮垫', '2018-07-24 16:57:06');
+INSERT INTO `store_parts` VALUES ('13', '清洗剂', '2018-07-24 16:57:28');
+INSERT INTO `store_parts` VALUES ('14', '冷零件', '2018-07-24 16:57:38');
+INSERT INTO `store_parts` VALUES ('15', '螺丝', '2018-07-24 16:57:47');
 
 -- ----------------------------
 -- Table structure for user

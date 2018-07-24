@@ -10,6 +10,7 @@ public class Statistics {
 
 	private int type;
 
+	private int count; //数量
 	
 
 	public String getDateline() {
@@ -34,6 +35,14 @@ public class Statistics {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 	
