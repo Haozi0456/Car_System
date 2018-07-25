@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-24 18:01:39
+Date: 2018-07-25 18:14:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -164,7 +164,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-24 15:20:24', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-25 09:35:01', '2018-07-13 16:56:27', '1', '1');
 INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
 
 -- ----------------------------
@@ -182,7 +182,7 @@ CREATE TABLE `order_record` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
@@ -200,12 +200,17 @@ INSERT INTO `order_record` VALUES ('25', '1532054573094', '55', '25.00', '0', '2
 INSERT INTO `order_record` VALUES ('26', '1532054878549', '55', '1000.00', '0', '34', '2', 'admin', '2017-09-13 10:47:58');
 INSERT INTO `order_record` VALUES ('27', '1532068189134', '54', '5.00', '0', 'qwe', '1', 'admin', '2017-10-17 14:29:49');
 INSERT INTO `order_record` VALUES ('28', '1532334870796', null, '25.00', '0', '123123123', '1', 'admin', '2017-11-08 16:34:35');
-INSERT INTO `order_record` VALUES ('29', '1532334946722', null, '25.00', '0', '234', '1', 'admin', '2017-11-08 16:35:46');
-INSERT INTO `order_record` VALUES ('30', '1532335035713', null, '25.00', '0', '1231231232222222222222', '1', 'admin', '2017-12-21 16:37:15');
+INSERT INTO `order_record` VALUES ('29', '1532334946722', null, '25.00', '0', '234', '1', 'admin', '2018-07-19 16:35:46');
+INSERT INTO `order_record` VALUES ('30', '1532335035713', null, '25.00', '0', '1231231232222222222222', '1', 'admin', '2018-07-20 16:37:15');
 INSERT INTO `order_record` VALUES ('31', '1532335624625', null, '25.00', '0', '请问', '1', 'admin', '2018-07-24 16:47:04');
 INSERT INTO `order_record` VALUES ('32', '1532335915340', null, '25.00', '0', '请问全额无', '1', 'admin', '2018-07-23 16:51:55');
 INSERT INTO `order_record` VALUES ('33', '1532335915340', null, '25.00', '1', '', '1', '', '2018-07-24 14:24:41');
-INSERT INTO `order_record` VALUES ('34', '1532335915340', null, '25.00', '1', '', '1', '', '2018-06-25 14:28:04');
+INSERT INTO `order_record` VALUES ('34', '1532335915340', null, '25.00', '1', '', '1', '', '2018-07-21 14:28:04');
+INSERT INTO `order_record` VALUES ('35', '1532500719641', null, '25.00', '1', '123', '1', 'admin', '2018-07-25 14:38:39');
+INSERT INTO `order_record` VALUES ('36', '1532500760725', null, '25.00', '2', '1223', '1', 'admin', '2018-07-25 14:39:20');
+INSERT INTO `order_record` VALUES ('37', '1532500772547', null, '500.00', '4', '1223', '1', 'admin', '2018-07-25 14:39:32');
+INSERT INTO `order_record` VALUES ('38', '1532500958197', null, '25.00', '1', '123', '1', 'admin', '2018-07-25 14:42:38');
+INSERT INTO `order_record` VALUES ('39', '1532501206419', null, '200.00', '1', '', '1', 'admin', '2018-07-25 14:46:46');
 
 -- ----------------------------
 -- Table structure for store_goods
@@ -256,7 +261,7 @@ CREATE TABLE `store_parts` (
   `parts_name` varchar(255) DEFAULT '' COMMENT '配件名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of store_parts
