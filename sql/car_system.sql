@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-25 18:14:55
+Date: 2018-07-26 18:00:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -164,7 +164,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-25 09:35:01', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-26 15:17:07', '2018-07-13 16:56:27', '1', '1');
 INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
 
 -- ----------------------------
@@ -211,6 +211,56 @@ INSERT INTO `order_record` VALUES ('36', '1532500760725', null, '25.00', '2', '1
 INSERT INTO `order_record` VALUES ('37', '1532500772547', null, '500.00', '4', '1223', '1', 'admin', '2018-07-25 14:39:32');
 INSERT INTO `order_record` VALUES ('38', '1532500958197', null, '25.00', '1', '123', '1', 'admin', '2018-07-25 14:42:38');
 INSERT INTO `order_record` VALUES ('39', '1532501206419', null, '200.00', '1', '', '1', 'admin', '2018-07-25 14:46:46');
+
+-- ----------------------------
+-- Table structure for repair_items
+-- ----------------------------
+DROP TABLE IF EXISTS `repair_items`;
+CREATE TABLE `repair_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `repair_recoder_id` int(11) DEFAULT NULL COMMENT '维修记录id',
+  `repair_item` varchar(255) DEFAULT '' COMMENT '维修条目',
+  `goods_id` int(11) DEFAULT NULL COMMENT '配件id',
+  `goods_count` int(11) DEFAULT '1' COMMENT '配件个数',
+  `total_price` decimal(10,2) DEFAULT '0.00' COMMENT '总计',
+  `operator` varchar(255) DEFAULT '' COMMENT '经办人',
+  `create_time` datetime DEFAULT NULL,
+  `status` int(255) DEFAULT '0' COMMENT '状态 0 - 下单 1 - 结单',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of repair_items
+-- ----------------------------
+INSERT INTO `repair_items` VALUES ('1', '1', '更换火花塞', '10', '1', '200.00', null, '2018-07-26 15:20:24', '0');
+INSERT INTO `repair_items` VALUES ('2', '1', '更换轮胎', '5', '1', '200.00', null, '2018-07-26 15:20:24', '0');
+INSERT INTO `repair_items` VALUES ('3', '1', '更换刹车片', '1', '6', '980.00', null, '2018-07-26 15:20:24', '0');
+INSERT INTO `repair_items` VALUES ('4', '2', '更换火花塞', '12', '1', '200.00', 'admin', '2018-07-26 15:39:51', '0');
+INSERT INTO `repair_items` VALUES ('5', '2', '更换轮胎', '5', '1', '200.00', 'admin', '2018-07-26 15:39:51', '0');
+INSERT INTO `repair_items` VALUES ('6', '2', '更换刹车片', '1', '1', '230.00', 'admin', '2018-07-26 15:39:51', '0');
+INSERT INTO `repair_items` VALUES ('7', '3', '更换火花塞', '12', '1', '200.00', 'admin', '2018-07-26 15:43:37', '0');
+INSERT INTO `repair_items` VALUES ('8', '3', '更换轮胎', '5', '1', '200.00', 'admin', '2018-07-26 15:43:37', '0');
+INSERT INTO `repair_items` VALUES ('9', '3', '更换刹车片', '1', '1', '230.00', 'admin', '2018-07-26 15:43:37', '0');
+
+-- ----------------------------
+-- Table structure for repair_record
+-- ----------------------------
+DROP TABLE IF EXISTS `repair_record`;
+CREATE TABLE `repair_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `info` varchar(500) DEFAULT '' COMMENT '维修信息',
+  `amount` decimal(10,2) DEFAULT '0.00' COMMENT '总计金额',
+  `status` int(11) DEFAULT '0' COMMENT '状态 0 -下单 1- 结单',
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of repair_record
+-- ----------------------------
+INSERT INTO `repair_record` VALUES ('1', '更换火花塞\r\n更换轮胎\r\n更换刹车片\r\n', '0.00', '0', '2018-07-26 15:20:24');
+INSERT INTO `repair_record` VALUES ('2', '更换火花塞\r\n更换轮胎\r\n更换刹车片\r\n', '630.00', '0', '2018-07-26 15:39:31');
+INSERT INTO `repair_record` VALUES ('3', '更换火花塞\r\n更换轮胎\r\n更换刹车片\r\n', '630.00', '0', '2018-07-26 15:43:37');
 
 -- ----------------------------
 -- Table structure for store_goods
@@ -261,7 +311,7 @@ CREATE TABLE `store_parts` (
   `parts_name` varchar(255) DEFAULT '' COMMENT '配件名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of store_parts
