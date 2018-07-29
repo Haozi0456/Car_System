@@ -1,43 +1,55 @@
 package com.zwh.carsystem.entity;
 
+import java.util.Date;
+
 public class Configs {
-    private Integer configid;
+    private Integer id;
 
-    private String itemname;
+    private String itemType;
 
-    private String itemcode;
+    private String itemKey;
 
-    private String itemvalue;
+    private String itemValue;
 
-    public Integer getConfigid() {
-        return configid;
+    private Date createTime;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setConfigid(Integer configid) {
-        this.configid = configid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getItemname() {
-        return itemname;
+    public String getItemType() {
+        return itemType;
     }
 
-    public void setItemname(String itemname) {
-        this.itemname = itemname;
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
     }
 
-    public String getItemcode() {
-        return itemcode;
+    public String getItemKey() {
+        return itemKey;
     }
 
-    public void setItemcode(String itemcode) {
-        this.itemcode = itemcode;
+    public void setItemKey(String itemKey) {
+        this.itemKey = itemKey;
     }
 
-    public String getItemvalue() {
-        return itemvalue;
+    public String getItemValue() {
+        return itemValue;
     }
 
-    public void setItemvalue(String itemvalue) {
-        this.itemvalue = itemvalue;
+    public void setItemValue(String itemValue) {
+        this.itemValue = itemValue;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

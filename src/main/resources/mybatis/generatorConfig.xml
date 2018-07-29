@@ -18,7 +18,7 @@
 		
 		
 			targetPackage="com.zwh.carsystem.mapper" targetProject="Car_System/src/main/java" />
-		<table tableName="repair_items" enableCountByExample="false"
+		<table tableName="configs" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>

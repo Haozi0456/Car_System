@@ -1,19 +1,16 @@
-package com.zwh.carsystem.mapper;
+package com.zwh.carsystem.service;
 
 import java.util.List;
 
 import com.zwh.carsystem.entity.Configs;
 
-public interface ConfigsMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface ConfigService {
+	
+	int deleteByPrimaryKey(Integer id);
 
     int insert(Configs record);
 
-    int insertSelective(Configs record);
-
     Configs selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Configs record);
 
     int updateByPrimaryKey(Configs record);
     

@@ -2,81 +2,97 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zwh.carsystem.mapper.ConfigsMapper">
   <resultMap id="BaseResultMap" type="com.zwh.carsystem.entity.Configs">
-    <id column="configId" jdbcType="INTEGER" property="configid" />
-    <result column="itemName" jdbcType="VARCHAR" property="itemname" />
-    <result column="itemCode" jdbcType="VARCHAR" property="itemcode" />
-    <result column="itemValue" jdbcType="VARCHAR" property="itemvalue" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="item_type" jdbcType="VARCHAR" property="itemType" />
+    <result column="item_key" jdbcType="VARCHAR" property="itemKey" />
+    <result column="item_value" jdbcType="VARCHAR" property="itemValue" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    configId, itemName, itemCode, itemValue
+    id, item_type, item_key, item_value, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from configs
-    where configId = #{configid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from configs
-    where configId = #{configid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zwh.carsystem.entity.Configs">
-    insert into configs (configId, itemName, itemCode, 
-      itemValue)
-    values (#{configid,jdbcType=INTEGER}, #{itemname,jdbcType=VARCHAR}, #{itemcode,jdbcType=VARCHAR}, 
-      #{itemvalue,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.zwh.carsystem.entity.Configs" useGeneratedKeys="true" keyProperty="id">
+    insert into configs (id, item_type, item_key, 
+      item_value, create_time)
+    values (#{id,jdbcType=INTEGER}, #{itemType,jdbcType=VARCHAR}, #{itemKey,jdbcType=VARCHAR}, 
+      #{itemValue,jdbcType=VARCHAR}, now())
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.Configs">
     insert into configs
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="configid != null">
-        configId,
+      <if test="id != null">
+        id,
       </if>
-      <if test="itemname != null">
-        itemName,
+      <if test="itemType != null">
+        item_type,
       </if>
-      <if test="itemcode != null">
-        itemCode,
+      <if test="itemKey != null">
+        item_key,
       </if>
-      <if test="itemvalue != null">
-        itemValue,
+      <if test="itemValue != null">
+        item_value,
+      </if>
+      <if test="createTime != null">
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="configid != null">
-        #{configid,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="itemname != null">
-        #{itemname,jdbcType=VARCHAR},
+      <if test="itemType != null">
+        #{itemType,jdbcType=VARCHAR},
       </if>
-      <if test="itemcode != null">
-        #{itemcode,jdbcType=VARCHAR},
+      <if test="itemKey != null">
+        #{itemKey,jdbcType=VARCHAR},
       </if>
-      <if test="itemvalue != null">
-        #{itemvalue,jdbcType=VARCHAR},
+      <if test="itemValue != null">
+        #{itemValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        now(),
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zwh.carsystem.entity.Configs">
     update configs
     <set>
-      <if test="itemname != null">
-        itemName = #{itemname,jdbcType=VARCHAR},
+      <if test="itemType != null">
+        item_type = #{itemType,jdbcType=VARCHAR},
       </if>
-      <if test="itemcode != null">
-        itemCode = #{itemcode,jdbcType=VARCHAR},
+      <if test="itemKey != null">
+        item_key = #{itemKey,jdbcType=VARCHAR},
       </if>
-      <if test="itemvalue != null">
-        itemValue = #{itemvalue,jdbcType=VARCHAR},
+      <if test="itemValue != null">
+        item_value = #{itemValue,jdbcType=VARCHAR},
       </if>
     </set>
-    where configId = #{configid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zwh.carsystem.entity.Configs">
     update configs
-    set itemName = #{itemname,jdbcType=VARCHAR},
-      itemCode = #{itemcode,jdbcType=VARCHAR},
-      itemValue = #{itemvalue,jdbcType=VARCHAR}
-    where configId = #{configid,jdbcType=INTEGER}
+    set item_type = #{itemType,jdbcType=VARCHAR},
+      item_key = #{itemKey,jdbcType=VARCHAR},
+      item_value = #{itemValue,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
+ 
+  <select id="getConfigsByType" resultMap="BaseResultMap">
+  	SELECT
+	<include refid="Base_Column_List" />
+	FROM
+	configs
+	WHERE item_type = #{type}
+  </select>
+  
 </mapper>
