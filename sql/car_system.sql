@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本机
-Source Server Version : 50722
+Source Server Version : 50718
 Source Host           : localhost:3306
 Source Database       : car_system
 
 Target Server Type    : MYSQL
-Target Server Version : 50722
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-07-26 18:00:47
+Date: 2018-07-29 22:51:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `account` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account
@@ -35,6 +35,8 @@ INSERT INTO `account` VALUES ('4', '54', '0.00', null, '2018-07-19 10:17:32');
 INSERT INTO `account` VALUES ('5', '55', '30.00', null, '2018-07-19 12:55:48');
 INSERT INTO `account` VALUES ('6', '56', '100.00', null, '2018-07-20 11:05:14');
 INSERT INTO `account` VALUES ('7', '57', '100.00', null, '2018-07-20 11:06:05');
+INSERT INTO `account` VALUES ('8', '58', '100.00', '', '2018-07-26 22:16:50');
+INSERT INTO `account` VALUES ('9', '59', '100.00', '', '2018-07-26 22:19:46');
 
 -- ----------------------------
 -- Table structure for account_record
@@ -49,7 +51,7 @@ CREATE TABLE `account_record` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account_record
@@ -66,25 +68,35 @@ INSERT INTO `account_record` VALUES ('12', '5', '1', '500.00', '234 ', '', '2018
 INSERT INTO `account_record` VALUES ('13', '5', '1', '5.00', '13', '', '2018-07-20 10:47:33');
 INSERT INTO `account_record` VALUES ('14', '6', '1', '100.00', '213', '', '2018-07-20 11:05:14');
 INSERT INTO `account_record` VALUES ('15', '7', '1', '100.00', '123', '', '2018-07-20 11:06:05');
+INSERT INTO `account_record` VALUES ('16', '8', '2', '100.00', '4564', '', '2018-07-26 22:16:50');
+INSERT INTO `account_record` VALUES ('17', '9', '1', '100.00', '', '', '2018-07-26 22:19:46');
 
 -- ----------------------------
 -- Table structure for configs
 -- ----------------------------
 DROP TABLE IF EXISTS `configs`;
 CREATE TABLE `configs` (
-  `configId` int(11) NOT NULL AUTO_INCREMENT,
-  `itemType` varchar(255) DEFAULT '' COMMENT '字段名称	',
-  `itemKey` varchar(255) DEFAULT '' COMMENT '字段代码',
-  `itemValue` varchar(255) DEFAULT '' COMMENT '字段值',
-  PRIMARY KEY (`configId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_type` varchar(255) DEFAULT '' COMMENT '字段名称	',
+  `item_key` varchar(255) DEFAULT '' COMMENT '字段代码',
+  `item_value` varchar(255) DEFAULT '' COMMENT '字段值',
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of configs
 -- ----------------------------
-INSERT INTO `configs` VALUES ('1', '1', 'role', '超级管理员');
-INSERT INTO `configs` VALUES ('2', '2', 'role', '员工');
-INSERT INTO `configs` VALUES ('3', '1', 'mountings', '刹车片');
+INSERT INTO `configs` VALUES ('1', 'role', 'role', '超级管理员', '2018-07-28 22:08:56');
+INSERT INTO `configs` VALUES ('2', 'role', 'role', '员工', '2018-07-28 22:08:57');
+INSERT INTO `configs` VALUES ('3', 'goods', 'mountings', '刹车片', '2018-07-28 22:09:12');
+INSERT INTO `configs` VALUES ('4', 'server', '洗车', '30', '2018-07-28 22:10:27');
+INSERT INTO `configs` VALUES ('5', 'server', '补胎', '60', '2018-07-28 22:58:25');
+INSERT INTO `configs` VALUES ('6', 'server', '补胎2', '30', '2018-07-28 22:58:25');
+INSERT INTO `configs` VALUES ('7', 'server', '打气', '10', '2018-07-28 22:58:25');
+INSERT INTO `configs` VALUES ('8', 'server', '抛光', '100', '2018-07-28 23:07:53');
+INSERT INTO `configs` VALUES ('9', 'server', '打蜡', '120', '2018-07-28 23:07:53');
+INSERT INTO `configs` VALUES ('10', 'server', '四轮定位', '200', '2018-07-28 23:07:53');
 
 -- ----------------------------
 -- Table structure for goods
@@ -164,7 +176,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-26 15:17:07', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-28 12:58:08', '2018-07-13 16:56:27', '1', '1');
 INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
 
 -- ----------------------------
@@ -182,7 +194,7 @@ CREATE TABLE `order_record` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
@@ -211,6 +223,7 @@ INSERT INTO `order_record` VALUES ('36', '1532500760725', null, '25.00', '2', '1
 INSERT INTO `order_record` VALUES ('37', '1532500772547', null, '500.00', '4', '1223', '1', 'admin', '2018-07-25 14:39:32');
 INSERT INTO `order_record` VALUES ('38', '1532500958197', null, '25.00', '1', '123', '1', 'admin', '2018-07-25 14:42:38');
 INSERT INTO `order_record` VALUES ('39', '1532501206419', null, '200.00', '1', '', '1', 'admin', '2018-07-25 14:46:46');
+INSERT INTO `order_record` VALUES ('40', '213123123', null, '0.00', '1', '', '1', '', '2018-07-28 22:30:22');
 
 -- ----------------------------
 -- Table structure for repair_items
@@ -352,7 +365,7 @@ CREATE TABLE `user` (
   `lastVisitTime` datetime DEFAULT NULL,
   `userStatus` int(11) DEFAULT '1' COMMENT '账号状态	0:停用 1:启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -361,3 +374,5 @@ INSERT INTO `user` VALUES ('54', null, '111111111111', '1', '13411111111', '1234
 INSERT INTO `user` VALUES ('55', null, 'qw', '1', '13419519796', '123456', null, null, '', '', '', '2018-07-19 12:55:48', '2018-07-19 12:55:48', '1');
 INSERT INTO `user` VALUES ('56', null, '2344234234', '1', '13443534535', '123456', null, null, '鄂A34556', '', '梅赛德斯奔驰', '2018-07-20 11:05:14', '2018-07-20 11:05:14', '1');
 INSERT INTO `user` VALUES ('57', null, '234', '1', '13453423423', '123456', null, null, '', '', '', '2018-07-20 11:06:05', '2018-07-20 11:06:05', '1');
+INSERT INTO `user` VALUES ('58', null, '', '1', '13419519546', '123456', null, null, '', '', '', '2018-07-26 22:16:50', '2018-07-26 22:16:50', '1');
+INSERT INTO `user` VALUES ('59', null, '', '1', '13434534536', '123456', null, null, '', '', '', '2018-07-26 22:19:46', '2018-07-26 22:19:46', '1');
