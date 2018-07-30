@@ -62,11 +62,6 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 		return orderRecordMapper.getStatisticsOrderByDay(day);
 	}
 
-	@Override
-	public List<Statistics> getStatisticsByDayWithType(String day) {
-		// TODO Auto-generated method stub
-		return orderRecordMapper.getStatisticsByDayWithType(day);
-	}
 
 	@Override
 	public PageResult<OrderRecord> getOrderList(PageVO pageVO) {

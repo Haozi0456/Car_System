@@ -66,4 +66,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getAllUsers();
 	}
 
+	@Override
+	public List<User> getUserLikePhone(String phone) {
+		// TODO Auto-generated method stub
+		return userMapper.getUserLikePhone(phone);
+	}
+
 }

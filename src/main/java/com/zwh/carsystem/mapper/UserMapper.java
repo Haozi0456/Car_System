@@ -33,4 +33,6 @@ public interface UserMapper {
     int updateUserById(User record);
     
     public List<User> getAllUsers();
+    
+    List<User> getUserLikePhone(String phone);
 }

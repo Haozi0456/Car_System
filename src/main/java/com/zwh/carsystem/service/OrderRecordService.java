@@ -28,7 +28,6 @@ public interface OrderRecordService {
 	
 	public List<OrderRecord> getStatisticsOrderByDay(String day);
 	
-	public List<Statistics> getStatisticsByDayWithType(String day);
 	
 	PageResult<OrderRecord> getOrderList(PageVO pageVO);
 	

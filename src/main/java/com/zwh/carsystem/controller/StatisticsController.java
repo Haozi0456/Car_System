@@ -75,19 +75,6 @@ public class StatisticsController {
 		
 	}
 	
-	/**
-	 * 根据日期查询当天收入类型
-	 * @param day
-	 * @return
-	 */
-	@PostMapping("/getStatisticsByDayWithType")
-	public Result getStatisticsByDayWithType(String day) {
-		List<Statistics> statistics = orderService.getStatisticsByDayWithType(day);
-		if(statistics != null) {
-			return new Result(MessageCode.SUCCESS, "查询成功!",statistics);
-		}
-		return new Result(MessageCode.ERROR, "查询失败!",statistics);
-	} 
 	
 	/**
 	 * 根据日期查询订单列表

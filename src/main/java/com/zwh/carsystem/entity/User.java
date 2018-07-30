@@ -25,8 +25,6 @@ public class User {
 
 	private String carnum;
 
-	private String carmake;
-
 	@DateTimeFormat(pattern="yyyy-MM-dd")//页面写入数据库时格式�?
 	@JSONField(format="yyyy-MM-dd")//数据库导出页面时json格式�?
     private Date createtime;
@@ -107,14 +105,6 @@ public class User {
 
 	public void setCarnum(String carnum) {
 		this.carnum = carnum;
-	}
-
-	public String getCarmake() {
-		return carmake;
-	}
-
-	public void setCarmake(String carmake) {
-		this.carmake = carmake;
 	}
 
 	public Date getCreatetime() {

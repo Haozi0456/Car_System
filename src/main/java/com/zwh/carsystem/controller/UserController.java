@@ -2,6 +2,7 @@ package com.zwh.carsystem.controller;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,18 +34,16 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private AccountRecordService accountRecordService;
-	
+
 	@Autowired
 	private AccountService accountService;
 
 	@Value("${file.uploadFolder}") // 文件上传虚拟路径
 	private String uploadFolder;
 
-
-	
 	@PostMapping("/toRegister")
 	public Result toRegister(@RequestBody UserAccountRecord userAccount) {
 		User mUser = null;
@@ -56,37 +55,37 @@ public class UserController {
 		// 判断是否手机号注册
 		if (!user.getPhone().isEmpty()) {
 			mUser = userService.getUserByAccount(user.getPhone());
-			if(mUser != null) {
+			if (mUser != null) {
 				return new Result(MessageCode.ERROR, "该手机号用户已注册!", mUser);
 			}
 		}
-		
+
 		// 判断是否车牌号注册
-		if(!user.getCarnum().isEmpty()) {
+		if (!user.getCarnum().isEmpty()) {
 			mUser = userService.getUserByCarNum(user.getCarnum());
-			if(mUser != null) {
+			if (mUser != null) {
 				return new Result(MessageCode.ERROR, "该车牌号用户已注册!", mUser);
 			}
 		}
 
 		if (mUser == null) {
 			mUser = userService.toRegister(user);
-			if(mUser != null) {
+			if (mUser != null) {
 				Account account = new Account();
 				account.setUserId(user.getId());
 				account.setMoney(accountRecord.getMoney());
-				
+
 				int arows = accountService.addAccount(account);
-				if(arows > 0) {
-					//添加对应的账户
+				if (arows > 0) {
+					// 添加对应的账户
 					accountRecord.setAccountId(account.getId());
 					int rows = accountRecordService.addAccountRecord(accountRecord);
-					if(rows > 0) {
+					if (rows > 0) {
 						return new Result(MessageCode.SUCCESS, "注册成功!", mUser);
-					}else {
+					} else {
 						return new Result(MessageCode.ERROR, "账户开通失败!", mUser);
 					}
-				}else {
+				} else {
 					return new Result(MessageCode.ERROR, "账户开通失败!", mUser);
 				}
 			}
@@ -104,7 +103,7 @@ public class UserController {
 		userService.updateUserById(user);
 		return new Result(MessageCode.SUCCESS, "登录成功!", user);
 	}
-	
+
 	@PostMapping("/getUserById")
 	public Result getUserById(int userId) {
 		User user = userService.getUserById(userId);
@@ -115,7 +114,27 @@ public class UserController {
 	}
 
 	/**
+	 * 根据用户账号(手机号码)模糊查询用户列表
+	 * 
+	 * @param query
+	 * @return
+	 */
+	@PostMapping("/getUsersLikePhone")
+	public Result getUsersLikePhone(String phone) {
+		if (phone != null && phone.length() >= 3) {
+			phone = "%" + phone + "%";
+			List<User> users = userService.getUserLikePhone(phone);
+			if (users == null) {
+				return new Result(MessageCode.SUCCESS, "获取失败", users);
+			}
+			return new Result(MessageCode.SUCCESS, "获取成功!", users);
+		}
+		return new Result(MessageCode.SUCCESS, "获取失败");
+	}
+
+	/**
 	 * 更新头像
+	 * 
 	 * @param files
 	 * @param request
 	 * @return
@@ -162,17 +181,17 @@ public class UserController {
 		int row = userService.updateUserById(user);
 		if (row > 0) {
 			return new Result(MessageCode.SUCCESS, "头像更新成功!", user);
-		}else {
+		} else {
 			return new Result(MessageCode.ERROR, "头像更新失败");
 		}
 	}
-	
+
 	@PostMapping("/getAllUsers")
 	public Result getAllUsers() {
-		
+
 		return new Result(MessageCode.SUCCESS, "获取成功!", userService.getAllUsers());
 	}
-	
+
 	@PostMapping("/getMemberCount")
 	public Result getMemberCount() {
 		return new Result(MessageCode.SUCCESS, "获取成功!", userService.getAllUsers().size());

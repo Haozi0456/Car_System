@@ -22,7 +22,9 @@ public class OrderRecord {
 	
 	private String remark;
 
-	private Integer type;
+	private String items;
+	
+	private int status;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
@@ -78,12 +80,21 @@ public class OrderRecord {
 		this.remark = remark;
 	}
 
-	public Integer getType() {
-		return type;
+
+	public int getStatus() {
+		return status;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getItems() {
+		return items;
+	}
+
+	public void setItems(String items) {
+		this.items = items;
 	}
 
 	public Date getCreatetime() {

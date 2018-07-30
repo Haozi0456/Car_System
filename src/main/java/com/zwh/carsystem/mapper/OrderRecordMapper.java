@@ -47,11 +47,7 @@ public interface OrderRecordMapper {
      * @return
      */
     List<OrderRecord> getStatisticsOrderByDay(String day);
-    /**
-     * 按给定日期的类型统计
-     * @return
-     */
-    List<Statistics> getStatisticsByDayWithType(String day);
+    
     /**
      * 查询近一个月订单收入统计
      * @return

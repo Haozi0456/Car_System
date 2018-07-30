@@ -29,4 +29,6 @@ public interface UserService {
     User getUserByCarNum(String carNum);
     
     public List<User> getAllUsers();
+    
+    public List<User> getUserLikePhone(String phone);
 }

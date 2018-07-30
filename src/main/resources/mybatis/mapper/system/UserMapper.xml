@@ -15,7 +15,6 @@
 		<result column="nickName" jdbcType="VARCHAR"
 			property="nickname" />
 		<result column="carNum" jdbcType="VARCHAR" property="carnum" />
-		<result column="carMake" jdbcType="VARCHAR" property="carmake" />
 		<result column="createTime" jdbcType="TIMESTAMP"
 			property="createtime" />
 		<result column="lastVisitTime" jdbcType="TIMESTAMP"
@@ -24,9 +23,7 @@
 			property="userstatus" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, openid, name, gender, phone, password, avatarUrl, nickName, carNum,
-		carMake,
-		createTime, lastVisitTime, userStatus
+		id, openid, name, gender, phone, password, avatarUrl, nickName, carNum, createTime, lastVisitTime, userStatus
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -44,15 +41,13 @@
 		parameterType="com.zwh.carsystem.entity.User" >
 		insert into user (openid, name,
 		gender, phone, password,
-		avatarUrl, nickName, carNum,
-		carMake, createTime, lastVisitTime,
+		avatarUrl, nickName, carNum, createTime, lastVisitTime,
 		userStatus)
 		values (#{openid,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR},
 		#{gender,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
 		#{avatarurl,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
-		#{carnum,jdbcType=VARCHAR},
-		#{carmake,jdbcType=VARCHAR}, now(),
+		#{carnum,jdbcType=VARCHAR}, now(),
 		now(),
 		#{userstatus,jdbcType=INTEGER})
 	</insert>
@@ -83,9 +78,6 @@
 			</if>
 			<if test="carnum != null">
 				carNum,
-			</if>
-			<if test="carmake != null">
-				carMake,
 			</if>
 			<if test="createtime != null">
 				createTime,
@@ -121,9 +113,6 @@
 			</if>
 			<if test="carnum != null">
 				#{carnum,jdbcType=VARCHAR},
-			</if>
-			<if test="carmake != null">
-				#{carmake,jdbcType=VARCHAR},
 			</if>
 			<if test="createtime != null">
 				now(),
@@ -164,9 +153,6 @@
 			<if test="carnum != null">
 				carNum = #{carnum,jdbcType=VARCHAR},
 			</if>
-			<if test="carmake != null">
-				carMake = #{carmake,jdbcType=VARCHAR},
-			</if>
 			<if test="lastvisittime != null">
 				now(),
 			</if>
@@ -187,7 +173,6 @@
 		avatarUrl = #{avatarurl,jdbcType=VARCHAR},
 		nickName = #{nickname,jdbcType=VARCHAR},
 		carNum = #{carnum,jdbcType=VARCHAR},
-		carMake = #{carmake,jdbcType=VARCHAR},
 		lastVisitTime = now(),
 		userStatus = #{userstatus,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}
@@ -270,6 +255,16 @@
 		<include refid="Base_Column_List" />
 		from
 		user
+		ORDER BY createTime DESC
+	</select>
+	
+	<select id="getUserLikePhone" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		`user` u
+		where 
+		u.phone LIKE #{phone}
 		ORDER BY createTime DESC
 	</select>
 	

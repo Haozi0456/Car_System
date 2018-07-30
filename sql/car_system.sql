@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本机
-Source Server Version : 50718
+Source Server Version : 50722
 Source Host           : localhost:3306
 Source Database       : car_system
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-29 22:51:27
+Date: 2018-07-30 18:08:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `account` (
 -- Records of account
 -- ----------------------------
 INSERT INTO `account` VALUES ('4', '54', '0.00', null, '2018-07-19 10:17:32');
-INSERT INTO `account` VALUES ('5', '55', '30.00', null, '2018-07-19 12:55:48');
+INSERT INTO `account` VALUES ('5', '55', '8880.00', null, '2018-07-19 12:55:48');
 INSERT INTO `account` VALUES ('6', '56', '100.00', null, '2018-07-20 11:05:14');
 INSERT INTO `account` VALUES ('7', '57', '100.00', null, '2018-07-20 11:06:05');
 INSERT INTO `account` VALUES ('8', '58', '100.00', '', '2018-07-26 22:16:50');
@@ -176,7 +176,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-28 12:58:08', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-30 14:36:44', '2018-07-13 16:56:27', '1', '1');
 INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
 
 -- ----------------------------
@@ -190,40 +190,21 @@ CREATE TABLE `order_record` (
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '实际订单总金额	进行各种折扣之后的金额',
   `payFrom` int(11) DEFAULT '1' COMMENT '支付来源	1:支付宝，2：微信 3.现金',
   `remark` varchar(500) DEFAULT '' COMMENT '订单备注',
-  `type` int(11) DEFAULT '1' COMMENT '类型 1-洗车 2. 维修, 3.其它',
+  `items` varchar(500) DEFAULT '' COMMENT '订单项目',
+  `status` int(11) DEFAULT '1' COMMENT '订单状态',
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
 -- ----------------------------
-INSERT INTO `order_record` VALUES ('16', '1531967771740', '54', '25.00', '1', '西侧', '1', 'admin', '2017-01-01 10:36:11');
-INSERT INTO `order_record` VALUES ('17', '1531967807204', '54', '25.00', '1', '12', '1', 'admin', '2017-01-18 10:37:19');
-INSERT INTO `order_record` VALUES ('18', '1531967933731', '54', '25.00', '0', '123', '1', 'admin', '2017-02-16 10:39:13');
-INSERT INTO `order_record` VALUES ('19', '1531968066604', '54', '50.00', '0', '123', '2', 'admin', '2017-03-22 10:41:06');
-INSERT INTO `order_record` VALUES ('20', '1531968116584', '54', '20.00', '0', '3123', '1', 'admin', '2017-04-21 10:41:56');
-INSERT INTO `order_record` VALUES ('21', '1531975899690', '54', '500.00', '0', '23213', '2', 'admin', '2017-06-22 12:51:39');
-INSERT INTO `order_record` VALUES ('22', '1531975924627', '54', '2000.00', '0', '23213', '2', 'admin', '2017-07-19 12:52:04');
-INSERT INTO `order_record` VALUES ('23', '1531976178259', '55', '25.00', '0', '111', '1', 'admin', '2017-08-19 12:56:18');
-INSERT INTO `order_record` VALUES ('24', '1532054232682', '55', '25.00', '0', '234 ', '1', 'admin', '2017-08-16 10:37:12');
-INSERT INTO `order_record` VALUES ('25', '1532054573094', '55', '25.00', '0', '234', '1', 'admin', '2017-09-05 10:42:53');
-INSERT INTO `order_record` VALUES ('26', '1532054878549', '55', '1000.00', '0', '34', '2', 'admin', '2017-09-13 10:47:58');
-INSERT INTO `order_record` VALUES ('27', '1532068189134', '54', '5.00', '0', 'qwe', '1', 'admin', '2017-10-17 14:29:49');
-INSERT INTO `order_record` VALUES ('28', '1532334870796', null, '25.00', '0', '123123123', '1', 'admin', '2017-11-08 16:34:35');
-INSERT INTO `order_record` VALUES ('29', '1532334946722', null, '25.00', '0', '234', '1', 'admin', '2018-07-19 16:35:46');
-INSERT INTO `order_record` VALUES ('30', '1532335035713', null, '25.00', '0', '1231231232222222222222', '1', 'admin', '2018-07-20 16:37:15');
-INSERT INTO `order_record` VALUES ('31', '1532335624625', null, '25.00', '0', '请问', '1', 'admin', '2018-07-24 16:47:04');
-INSERT INTO `order_record` VALUES ('32', '1532335915340', null, '25.00', '0', '请问全额无', '1', 'admin', '2018-07-23 16:51:55');
-INSERT INTO `order_record` VALUES ('33', '1532335915340', null, '25.00', '1', '', '1', '', '2018-07-24 14:24:41');
-INSERT INTO `order_record` VALUES ('34', '1532335915340', null, '25.00', '1', '', '1', '', '2018-07-21 14:28:04');
-INSERT INTO `order_record` VALUES ('35', '1532500719641', null, '25.00', '1', '123', '1', 'admin', '2018-07-25 14:38:39');
-INSERT INTO `order_record` VALUES ('36', '1532500760725', null, '25.00', '2', '1223', '1', 'admin', '2018-07-25 14:39:20');
-INSERT INTO `order_record` VALUES ('37', '1532500772547', null, '500.00', '4', '1223', '1', 'admin', '2018-07-25 14:39:32');
-INSERT INTO `order_record` VALUES ('38', '1532500958197', null, '25.00', '1', '123', '1', 'admin', '2018-07-25 14:42:38');
-INSERT INTO `order_record` VALUES ('39', '1532501206419', null, '200.00', '1', '', '1', 'admin', '2018-07-25 14:46:46');
-INSERT INTO `order_record` VALUES ('40', '213123123', null, '0.00', '1', '', '1', '', '2018-07-28 22:30:22');
+INSERT INTO `order_record` VALUES ('47', '1532934281849', '55', '20.00', '0', '1231', '打气;打气', '1', 'admin', '2018-07-30 15:04:41');
+INSERT INTO `order_record` VALUES ('48', '1532938988284', '55', '900.00', '0', '12312', '洗车；补胎；补胎2；打气；抛光', '1', 'admin', '2018-07-30 16:23:08');
+INSERT INTO `order_record` VALUES ('50', '1532944298316', null, '100.00', '1', '213', '买买买', '1', 'admin', '2018-07-30 17:51:38');
+INSERT INTO `order_record` VALUES ('51', '1532944724705', '55', '90.00', '0', '', '补胎2；补胎', '1', 'admin', '2018-07-30 17:58:44');
+INSERT INTO `order_record` VALUES ('52', '1532945019102', '55', '30.00', '0', '123', '补胎2', '1', 'admin', '2018-07-30 18:03:39');
 
 -- ----------------------------
 -- Table structure for repair_items
@@ -354,13 +335,12 @@ CREATE TABLE `user` (
   `openid` varchar(255) DEFAULT '',
   `name` varchar(50) DEFAULT '',
   `gender` int(11) DEFAULT '1' COMMENT '性别, 1 - 男 0- 女',
-  `phone` varchar(255) DEFAULT '' COMMENT '手机号,登录账号',
+  `phone` varchar(11) DEFAULT '' COMMENT '手机号,登录账号',
   `password` varchar(255) DEFAULT '' COMMENT '密码',
   `avatarUrl` varchar(255) DEFAULT '' COMMENT '头像路径',
   `nickName` varchar(255) DEFAULT '' COMMENT '昵称',
   `carNum` varchar(50) DEFAULT '' COMMENT '车牌号码',
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
-  `carMake` varchar(255) DEFAULT '' COMMENT '汽车品牌',
   `createTime` datetime DEFAULT NULL,
   `lastVisitTime` datetime DEFAULT NULL,
   `userStatus` int(11) DEFAULT '1' COMMENT '账号状态	0:停用 1:启用',
@@ -370,9 +350,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('54', null, '111111111111', '1', '13411111111', '123456', null, null, '鄂A12313', '', '1111', '2018-07-19 10:17:05', '2018-07-19 10:17:05', '1');
-INSERT INTO `user` VALUES ('55', null, 'qw', '1', '13419519796', '123456', null, null, '', '', '', '2018-07-19 12:55:48', '2018-07-19 12:55:48', '1');
-INSERT INTO `user` VALUES ('56', null, '2344234234', '1', '13443534535', '123456', null, null, '鄂A34556', '', '梅赛德斯奔驰', '2018-07-20 11:05:14', '2018-07-20 11:05:14', '1');
-INSERT INTO `user` VALUES ('57', null, '234', '1', '13453423423', '123456', null, null, '', '', '', '2018-07-20 11:06:05', '2018-07-20 11:06:05', '1');
-INSERT INTO `user` VALUES ('58', null, '', '1', '13419519546', '123456', null, null, '', '', '', '2018-07-26 22:16:50', '2018-07-26 22:16:50', '1');
-INSERT INTO `user` VALUES ('59', null, '', '1', '13434534536', '123456', null, null, '', '', '', '2018-07-26 22:19:46', '2018-07-26 22:19:46', '1');
+INSERT INTO `user` VALUES ('54', null, '111111111111', '1', '13411111111', '123456', null, null, '鄂A12313', '', '2018-07-19 10:17:05', '2018-07-19 10:17:05', '1');
+INSERT INTO `user` VALUES ('55', null, 'qw', '1', '13419519796', '123456', null, null, '', '', '2018-07-19 12:55:48', '2018-07-19 12:55:48', '1');
+INSERT INTO `user` VALUES ('56', null, '2344234234', '1', '13443534535', '123456', null, null, '鄂A34556', '', '2018-07-20 11:05:14', '2018-07-20 11:05:14', '1');
+INSERT INTO `user` VALUES ('57', null, '234', '1', '13453423423', '123456', null, null, '', '', '2018-07-20 11:06:05', '2018-07-20 11:06:05', '1');
+INSERT INTO `user` VALUES ('58', null, '', '1', '13419519546', '123456', null, null, '', '', '2018-07-26 22:16:50', '2018-07-26 22:16:50', '1');
+INSERT INTO `user` VALUES ('59', null, '', '1', '13434534536', '123456', null, null, '', '', '2018-07-26 22:19:46', '2018-07-26 22:19:46', '1');
