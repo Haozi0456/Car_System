@@ -16,6 +16,7 @@ import com.zwh.carsystem.entity.OrderItem;
 import com.zwh.carsystem.entity.OrderRecord;
 import com.zwh.carsystem.entity.StoreGoods;
 import com.zwh.carsystem.entity.vo.OrderVO;
+import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.AccountService;
 import com.zwh.carsystem.service.OrderItemService;
 import com.zwh.carsystem.service.OrderRecordService;
@@ -88,6 +89,54 @@ public class OrderController {
 //		}
 //		return new Result(MessageCode.ERROR, "添加失败!",null);
 //	}
+	
+	@PostMapping("/toPayEntryOrders")
+	public Result toPayEntryOrders(@RequestBody OrderRecord order) {
+		if(order != null) {
+			if(order.getUserid() != null) {//会员
+				Account account = accountService.queryByUserId(order.getUserid());
+				if(account != null) {
+					if(order.getPayfrom() == 0) {//账户余额
+						int flag = account.getMoney().compareTo(order.getMoney());
+						if(flag == -1) {
+							return new Result(MessageCode.ERROR, "账户余额不足!");
+						}else {
+							account.setMoney(account.getMoney().subtract(order.getMoney()));
+							int row = accountService.updateAccount(account);
+							if(row > 0) {
+								order.setStatus(1);
+								int rows = orderService.updateByPrimaryKey(order);
+								if(rows > 0) {
+									return new Result(MessageCode.SUCCESS, "支付成功!",order);
+								}else {
+									return new Result(MessageCode.ERROR, "支付失败!",order);
+								}
+							}else {
+								return new Result(MessageCode.ERROR, "支付失败!",order);
+							}
+						}
+					}else {
+						order.setStatus(1);
+						int rows = orderService.updateByPrimaryKey(order);
+						if(rows > 0) {
+							return new Result(MessageCode.SUCCESS, "支付成功!",order);
+						}else {
+							return new Result(MessageCode.ERROR, "支付失败!",order);
+						}
+					}
+				}
+			}else {//非会员
+				order.setStatus(1);
+				int rows = orderService.updateByPrimaryKey(order);
+				if(rows > 0) {
+					return new Result(MessageCode.SUCCESS, "支付成功!",order);
+				}else {
+					return new Result(MessageCode.ERROR, "支付失败!",order);
+				}
+			}
+		}
+		return new Result(MessageCode.SUCCESS, "添加成功!",order);
+	}
 	
 	@PostMapping("/addOrder")
 	public Result addOrder(@RequestBody OrderVO data) {
@@ -193,8 +242,8 @@ public class OrderController {
 	 * @return
 	 */
 	@PostMapping("/getOrderList")
-	public Result getOrderRecordList(PageVO pageVO,int status) {
-		PageResult<OrderRecord> pageResult = orderService.getOrderList(pageVO,status);
+	public Result getOrderRecordList(@RequestBody PageParamsVO pageVO) {
+		PageResult<OrderRecord> pageResult = orderService.getOrderList(pageVO.getPage(),pageVO.getCode());
 		return new Result(MessageCode.SUCCESS,"获取成功!",pageResult);
 	}
 	

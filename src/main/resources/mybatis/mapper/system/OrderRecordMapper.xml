@@ -147,7 +147,7 @@
 		operator = #{operator,jdbcType=VARCHAR},
 		remark =
 		#{remark,jdbcType=VARCHAR},
-		status = #{type,jdbcType=INTEGER}
+		status = #{status,jdbcType=INTEGER}
 		where
 		orderId = #{orderid,jdbcType=INTEGER}
 	</update>
@@ -192,7 +192,7 @@
 		<result column="remark" jdbcType="VARCHAR" property="remark" />
 		<result column="status" jdbcType="INTEGER" property="status" />
 		<result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
-		<association property="member" column="userId" select="getMemberByUserId"  javaType="com.zwh.carsystem.entity.User">
+		<association property="member" column="userId" select="getMemberByUserId" fetchType="lazy" javaType="com.zwh.carsystem.entity.User">
 			
 		</association>
 		<collection property="items" column="orderId" select="getItemsByOrderId" ofType="com.zwh.carsystem.entity.OrderItem">

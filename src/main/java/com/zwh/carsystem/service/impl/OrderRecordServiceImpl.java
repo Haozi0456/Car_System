@@ -81,4 +81,28 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 		return orderRecordMapper.getStatisticsByNearOneMonth();
 	}
 
+	@Override
+	public int deleteByPrimaryKey(Integer orderid) {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.deleteByPrimaryKey(orderid);
+	}
+
+	@Override
+	public int insert(OrderRecord record) {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.insert(record);
+	}
+
+	@Override
+	public OrderRecord selectByPrimaryKey(Integer orderid) {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.selectByPrimaryKey(orderid);
+	}
+
+	@Override
+	public int updateByPrimaryKey(OrderRecord record) {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.updateByPrimaryKey(record);
+	}
+
 }

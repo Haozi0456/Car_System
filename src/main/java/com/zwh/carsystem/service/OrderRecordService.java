@@ -12,6 +12,14 @@ import com.zwh.system.entity.PageVO;
 
 public interface OrderRecordService {
 	
+	int deleteByPrimaryKey(Integer orderid);
+
+    int insert(OrderRecord record);
+
+    OrderRecord selectByPrimaryKey(Integer orderid);
+
+    int updateByPrimaryKey(OrderRecord record);
+	
 	public int addOrder(OrderRecord order);
 	
 	public OrderRecord getOrdrerById(int orderId);
