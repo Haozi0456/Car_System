@@ -57,7 +57,7 @@ public interface OrderRecordMapper {
     
     
     
-    PageResult<OrderRecord> getOrderList(@Param("pageVO")PageVO pageVO);
+    PageResult<OrderRecord> getOrderList(@Param("pageVO")PageVO pageVO, @Param("status")int status);
     
     PageResult<OrderRecord> getOrderListByMonth(@Param("pageVO")PageVO pageVO,@Param("month")String month);
 }

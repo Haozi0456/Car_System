@@ -29,7 +29,7 @@ public interface OrderRecordService {
 	public List<OrderRecord> getStatisticsOrderByDay(String day);
 	
 	
-	PageResult<OrderRecord> getOrderList(PageVO pageVO);
+	PageResult<OrderRecord> getOrderList(PageVO pageVO,int status);
 	
 	PageResult<OrderRecord> getOrderListByMonth(PageVO pageVO, String month);
 }

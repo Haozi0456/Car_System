@@ -64,9 +64,9 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 
 
 	@Override
-	public PageResult<OrderRecord> getOrderList(PageVO pageVO) {
+	public PageResult<OrderRecord> getOrderList(PageVO pageVO,int status) {
 		// TODO Auto-generated method stub
-		return orderRecordMapper.getOrderList(pageVO);
+		return orderRecordMapper.getOrderList(pageVO,status);
 	}
 
 	@Override

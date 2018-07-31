@@ -10,14 +10,13 @@
 		<result column="payFrom" jdbcType="INTEGER" property="payfrom" />
 		<result column="operator" jdbcType="VARCHAR" property="operator" />
 		<result column="remark" jdbcType="VARCHAR" property="remark" />
-		<result column="items" jdbcType="VARCHAR" property="items" />
 		<result column="status" jdbcType="INTEGER" property="status" />
 		<result column="createTime" jdbcType="TIMESTAMP"
 			property="createtime" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		orderId, orderNo, userId, money, payFrom,operator,remark,
-		items, status, createTime
+		 status, createTime
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -38,13 +37,13 @@
 		insert into order_record (orderNo,
 		userId,
 		money, payFrom,operator, remark,
-		items, status, createTime)
+		 status, createTime)
 		values
 		(#{orderno,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER},
 		#{money,jdbcType=DECIMAL},
 		#{payfrom,jdbcType=INTEGER},#{operator,jdbcType=VARCHAR},
 		#{remark,jdbcType=VARCHAR},
-		#{items,jdbcType=VARCHAR},#{status,jdbcType=INTEGER}, now())
+		#{status,jdbcType=INTEGER}, now())
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.zwh.carsystem.entity.OrderRecord">
@@ -70,9 +69,6 @@
 			</if>
 			<if test="remark != null">
 				remark,
-			</if>
-			<if test="items != null">
-				items,
 			</if>
 			<if test="status != null">
 				status,
@@ -102,9 +98,6 @@
 			</if>
 			<if test="remark != null">
 				#{remark,jdbcType=VARCHAR},
-			</if>
-			<if test="items != null">
-				#{items,jdbcType=VARCHAR},
 			</if>
 			<if test="status != null">
 				#{status,jdbcType=INTEGER},
@@ -136,9 +129,6 @@
 			<if test="remark != null">
 				remark = #{remark,jdbcType=VARCHAR},
 			</if>
-			<if test="type != null">
-				items = #{items,jdbcType=VARCHAR},
-			</if>
 			<if test="status != null">
 				status = #{type,jdbcType=INTEGER},
 			</if>
@@ -157,7 +147,6 @@
 		operator = #{operator,jdbcType=VARCHAR},
 		remark =
 		#{remark,jdbcType=VARCHAR},
-		items = #{type,jdbcType=VARCHAR},
 		status = #{type,jdbcType=INTEGER}
 		where
 		orderId = #{orderid,jdbcType=INTEGER}
@@ -173,11 +162,12 @@
 		ORDER BY createTime ASC
 	</select>
 
-	<select id="getOrderList" resultMap="BaseResultMap">
+	<select id="getOrderList" resultMap="record _items_Map">
 		SELECT
 		*
 		FROM
 		order_record o
+		where status = #{status}
 		ORDER BY
 		o.createTime DESC
 		LIMIT
@@ -189,7 +179,59 @@
 		count(1)
 		from
 		order_record
+		where status = #{status}
 	</select>
+	
+	<resultMap id="record _items_Map" type="com.zwh.carsystem.entity.OrderRecord">
+		<id column="orderId" jdbcType="INTEGER" property="orderid" />
+		<result column="orderNo" jdbcType="VARCHAR" property="orderno" />
+		<result column="userId" jdbcType="INTEGER" property="userid" />
+		<result column="money" jdbcType="DECIMAL" property="money" />
+		<result column="payFrom" jdbcType="INTEGER" property="payfrom" />
+		<result column="operator" jdbcType="VARCHAR" property="operator" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+		<association property="member" column="userId" select="getMemberByUserId"  javaType="com.zwh.carsystem.entity.User">
+			
+		</association>
+		<collection property="items" column="orderId" select="getItemsByOrderId" ofType="com.zwh.carsystem.entity.OrderItem">
+			<!-- <id column="id" jdbcType="INTEGER" property="id" />
+		    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+		    <result column="item" jdbcType="VARCHAR" property="item" />
+		    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+		    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+		    <result column="cost" jdbcType="DECIMAL" property="cost" />
+		    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		    <result column="type" jdbcType="INTEGER" property="type" /> -->
+		</collection>
+		
+	</resultMap>
+	
+	<select id="getItemsByOrderId" resultType="com.zwh.carsystem.entity.OrderItem">
+		SELECT
+		*
+		FROM
+		order_item
+		WHERE order_id = #{orderId};
+	</select>
+	
+	<select id="getMemberByUserId" resultType="com.zwh.carsystem.entity.User">
+		SELECT
+		u.id,
+		u.`name`,
+		u.gender,
+		u.phone,
+		u.avatarUrl,
+		u.nickName,
+		u.carNum,
+		u.operator,
+		u.userStatus
+		FROM
+		`user` u
+		WHERE u.id = #{userId};
+	</select>
+	
 
 	<select id="getOrderListByMonth" resultMap="BaseResultMap">
 		SELECT

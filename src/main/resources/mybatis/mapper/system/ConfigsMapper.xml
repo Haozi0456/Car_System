@@ -3,13 +3,13 @@
 <mapper namespace="com.zwh.carsystem.mapper.ConfigsMapper">
   <resultMap id="BaseResultMap" type="com.zwh.carsystem.entity.Configs">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="item_type" jdbcType="VARCHAR" property="itemType" />
-    <result column="item_key" jdbcType="VARCHAR" property="itemKey" />
-    <result column="item_value" jdbcType="VARCHAR" property="itemValue" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, item_type, item_key, item_value, create_time
+    id, type, title, result, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,11 +21,11 @@
     delete from configs
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zwh.carsystem.entity.Configs" useGeneratedKeys="true" keyProperty="id">
-    insert into configs (id, item_type, item_key, 
-      item_value, create_time)
-    values (#{id,jdbcType=INTEGER}, #{itemType,jdbcType=VARCHAR}, #{itemKey,jdbcType=VARCHAR}, 
-      #{itemValue,jdbcType=VARCHAR}, now())
+  <insert id="insert" parameterType="com.zwh.carsystem.entity.Configs">
+    insert into configs (type, title, 
+      result, create_time)
+    values (#{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, now())
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.Configs">
     insert into configs
@@ -33,14 +33,14 @@
       <if test="id != null">
         id,
       </if>
-      <if test="itemType != null">
-        item_type,
+      <if test="type != null">
+        type,
       </if>
-      <if test="itemKey != null">
-        item_key,
+      <if test="title != null">
+        title,
       </if>
-      <if test="itemValue != null">
-        item_value,
+      <if test="result != null">
+        result,
       </if>
       <if test="createTime != null">
         create_time,
@@ -50,49 +50,50 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="itemType != null">
-        #{itemType,jdbcType=VARCHAR},
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
       </if>
-      <if test="itemKey != null">
-        #{itemKey,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="itemValue != null">
-        #{itemValue,jdbcType=VARCHAR},
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        now(),
+       now(),
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zwh.carsystem.entity.Configs">
     update configs
     <set>
-      <if test="itemType != null">
-        item_type = #{itemType,jdbcType=VARCHAR},
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="itemKey != null">
-        item_key = #{itemKey,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="itemValue != null">
-        item_value = #{itemValue,jdbcType=VARCHAR},
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zwh.carsystem.entity.Configs">
     update configs
-    set item_type = #{itemType,jdbcType=VARCHAR},
-      item_key = #{itemKey,jdbcType=VARCHAR},
-      item_value = #{itemValue,jdbcType=VARCHAR}
+    set type = #{type,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
  
-  <select id="getConfigsByType" resultMap="BaseResultMap">
+ <select id="getConfigsByType" resultMap="BaseResultMap">
   	SELECT
 	<include refid="Base_Column_List" />
 	FROM
 	configs
-	WHERE item_type = #{type}
+	WHERE type = #{type}
   </select>
+  
   
 </mapper>

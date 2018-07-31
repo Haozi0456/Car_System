@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-30 18:08:10
+Date: 2018-07-31 18:03:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -77,9 +77,9 @@ INSERT INTO `account_record` VALUES ('17', '9', '1', '100.00', '', '', '2018-07-
 DROP TABLE IF EXISTS `configs`;
 CREATE TABLE `configs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `item_type` varchar(255) DEFAULT '' COMMENT '字段名称	',
-  `item_key` varchar(255) DEFAULT '' COMMENT '字段代码',
-  `item_value` varchar(255) DEFAULT '' COMMENT '字段值',
+  `type` varchar(255) DEFAULT '' COMMENT '字段名称	',
+  `title` varchar(255) DEFAULT '' COMMENT '字段代码',
+  `result` varchar(255) DEFAULT '' COMMENT '字段值',
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
@@ -176,8 +176,46 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-30 14:36:44', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-31 16:14:27', '2018-07-13 16:56:27', '1', '1');
 INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
+
+-- ----------------------------
+-- Table structure for order_item
+-- ----------------------------
+DROP TABLE IF EXISTS `order_item`;
+CREATE TABLE `order_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `item` varchar(255) DEFAULT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `goods_count` int(11) DEFAULT '1',
+  `cost` decimal(11,2) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order_item
+-- ----------------------------
+INSERT INTO `order_item` VALUES ('3', '53', '洗车', '-1', '1', '30.00', '2018-07-31 14:11:55', '0');
+INSERT INTO `order_item` VALUES ('4', '53', '补胎', '-1', '1', '60.00', '2018-07-31 14:11:55', '0');
+INSERT INTO `order_item` VALUES ('5', '54', '洗车', '-1', '1', '30.00', '2018-07-31 14:23:43', '0');
+INSERT INTO `order_item` VALUES ('6', '55', '洗车', '-1', '1', '30.00', '2018-07-31 14:30:43', '0');
+INSERT INTO `order_item` VALUES ('9', '57', '洗车', '-1', '1', '30.00', '2018-07-31 14:55:09', '0');
+INSERT INTO `order_item` VALUES ('10', '57', '补胎', '-1', '1', '60.00', '2018-07-31 14:55:09', '0');
+INSERT INTO `order_item` VALUES ('11', '58', '洗车', '-1', '1', '30.00', '2018-07-31 15:20:14', '0');
+INSERT INTO `order_item` VALUES ('12', '59', '洗车', '-1', '1', '30.00', '2018-07-31 15:35:22', '0');
+INSERT INTO `order_item` VALUES ('13', '59', '补胎2', '-1', '1', '30.00', '2018-07-31 15:35:22', '0');
+INSERT INTO `order_item` VALUES ('14', '60', '123', '-1', '1', '115.00', '2018-07-31 15:43:18', '0');
+INSERT INTO `order_item` VALUES ('16', '62', '123', '-1', '1', '100.00', '2018-07-31 15:46:36', '0');
+INSERT INTO `order_item` VALUES ('17', '63', 'ser', '-1', '1', '244.00', '2018-07-31 15:47:04', '0');
+INSERT INTO `order_item` VALUES ('18', '64', 'qwe', '-1', '1', '100.00', '2018-07-31 16:17:46', '0');
+INSERT INTO `order_item` VALUES ('19', '65', '刹车片_21212', '1', '1', '230.00', '2018-07-31 16:18:18', '1');
+INSERT INTO `order_item` VALUES ('20', '65', '火花塞_1211111111', '15', '1', '200.00', '2018-07-31 16:18:19', '1');
+INSERT INTO `order_item` VALUES ('21', '65', '防冻液_111', '18', '1', '200.00', '2018-07-31 16:18:19', '1');
+INSERT INTO `order_item` VALUES ('22', '66', '123', '-1', '1', '100.00', '2018-07-31 16:21:17', '0');
+INSERT INTO `order_item` VALUES ('23', '67', '213', '-1', '1', '100.00', '2018-07-31 16:56:28', '0');
 
 -- ----------------------------
 -- Table structure for order_record
@@ -190,21 +228,28 @@ CREATE TABLE `order_record` (
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '实际订单总金额	进行各种折扣之后的金额',
   `payFrom` int(11) DEFAULT '1' COMMENT '支付来源	1:支付宝，2：微信 3.现金',
   `remark` varchar(500) DEFAULT '' COMMENT '订单备注',
-  `items` varchar(500) DEFAULT '' COMMENT '订单项目',
   `status` int(11) DEFAULT '1' COMMENT '订单状态',
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
 -- ----------------------------
-INSERT INTO `order_record` VALUES ('47', '1532934281849', '55', '20.00', '0', '1231', '打气;打气', '1', 'admin', '2018-07-30 15:04:41');
-INSERT INTO `order_record` VALUES ('48', '1532938988284', '55', '900.00', '0', '12312', '洗车；补胎；补胎2；打气；抛光', '1', 'admin', '2018-07-30 16:23:08');
-INSERT INTO `order_record` VALUES ('50', '1532944298316', null, '100.00', '1', '213', '买买买', '1', 'admin', '2018-07-30 17:51:38');
-INSERT INTO `order_record` VALUES ('51', '1532944724705', '55', '90.00', '0', '', '补胎2；补胎', '1', 'admin', '2018-07-30 17:58:44');
-INSERT INTO `order_record` VALUES ('52', '1532945019102', '55', '30.00', '0', '123', '补胎2', '1', 'admin', '2018-07-30 18:03:39');
+INSERT INTO `order_record` VALUES ('53', '1533017515376', null, '90.00', '1', '', '1', 'admin', '2018-07-31 14:11:55');
+INSERT INTO `order_record` VALUES ('54', '1533018223656', null, '30.00', '1', 'wer', '1', 'admin', '2018-07-31 14:23:43');
+INSERT INTO `order_record` VALUES ('55', '1533018642654', null, '30.00', '1', '', '1', 'admin', '2018-07-31 14:30:42');
+INSERT INTO `order_record` VALUES ('57', '1533020109308', '59', '90.00', '0', '', '0', 'admin', '2018-07-31 14:55:09');
+INSERT INTO `order_record` VALUES ('58', '1533021614217', null, '30.00', '1', '123', '1', 'admin', '2018-07-31 15:20:14');
+INSERT INTO `order_record` VALUES ('59', '1533022522619', null, '60.00', '1', 'qw', '1', 'admin', '2018-07-31 15:35:22');
+INSERT INTO `order_record` VALUES ('60', '1533022998174', '59', '115.00', '1', '12313', '1', 'admin', '2018-07-31 15:43:18');
+INSERT INTO `order_record` VALUES ('62', '1533023196360', '55', '100.00', '1', '123', '1', 'admin', '2018-07-31 15:46:36');
+INSERT INTO `order_record` VALUES ('63', '1533023224003', '55', '244.00', '1', '123', '1', 'admin', '2018-07-31 15:47:04');
+INSERT INTO `order_record` VALUES ('64', '1533025066068', null, '100.00', '1', 'qwe', '1', 'admin', '2018-07-31 16:17:46');
+INSERT INTO `order_record` VALUES ('65', '1533025098991', '55', '630.00', '0', '', '0', 'admin', '2018-07-31 16:18:18');
+INSERT INTO `order_record` VALUES ('66', '1533025277975', null, '100.00', '1', '123', '1', 'admin', '2018-07-31 16:21:17');
+INSERT INTO `order_record` VALUES ('67', '1533027388751', null, '100.00', '1', '123', '1', 'admin', '2018-07-31 16:56:28');
 
 -- ----------------------------
 -- Table structure for repair_items

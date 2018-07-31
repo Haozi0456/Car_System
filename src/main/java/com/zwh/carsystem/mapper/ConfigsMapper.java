@@ -5,7 +5,8 @@ import java.util.List;
 import com.zwh.carsystem.entity.Configs;
 
 public interface ConfigsMapper {
-    int deleteByPrimaryKey(Integer id);
+
+	int deleteByPrimaryKey(Integer id);
 
     int insert(Configs record);
 

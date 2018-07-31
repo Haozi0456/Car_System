@@ -2,6 +2,7 @@ package com.zwh.carsystem.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,9 +23,11 @@ public class OrderRecord {
 	
 	private String remark;
 
-	private String items;
+	private List<OrderItem> items;
 	
 	private int status;
+	
+	private  User member;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
@@ -89,11 +92,11 @@ public class OrderRecord {
 		this.status = status;
 	}
 
-	public String getItems() {
+	public List<OrderItem> getItems() {
 		return items;
 	}
 
-	public void setItems(String items) {
+	public void setItems(List<OrderItem> items) {
 		this.items = items;
 	}
 
@@ -111,6 +114,14 @@ public class OrderRecord {
 
 	public void setOperator(String operator) {
 		this.operator = operator;
+	}
+
+	public User getMember() {
+		return member;
+	}
+
+	public void setMember(User member) {
+		this.member = member;
 	}
 	
 	
