@@ -51,9 +51,9 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 	}
 
 	@Override
-	public Statistics getStatisticsByDay(String day) {
+	public Statistics getStatisticsByDay(String day,int status) {
 		// TODO Auto-generated method stub
-		return orderRecordMapper.getStatisticsByDay(day);
+		return orderRecordMapper.getStatisticsByDay(day,status);
 	}
 	
 	@Override

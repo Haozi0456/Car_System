@@ -32,7 +32,7 @@ public interface OrderRecordService {
 	
 	public List<Statistics> getStatisticsByYear();
 	
-	public Statistics getStatisticsByDay(String day);
+	public Statistics getStatisticsByDay(String day, int status);
 	
 	public List<OrderRecord> getStatisticsOrderByDay(String day);
 	

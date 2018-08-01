@@ -59,14 +59,16 @@ public class StatisticsController {
 		return new Result(MessageCode.ERROR, "查询失败!",statistics);
 	}
 	
+	
 	/**
 	 * 根据日期查询统计收入
 	 * @param day
+	 * @param status
 	 * @return
 	 */
 	@PostMapping("/getStatisticsByDay")
-	public Result getStatisticsByDay(String day) {
-		Statistics statistics = orderService.getStatisticsByDay(day);
+	public Result getStatisticsByDay(String day,int status) {
+		Statistics statistics = orderService.getStatisticsByDay(day, status);
 		if(statistics != null) {
 			return new Result(MessageCode.SUCCESS, "查询成功!",statistics);
 		}else {

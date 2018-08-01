@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本机
-Source Server Version : 50718
+Source Server Version : 50722
 Source Host           : localhost:3306
 Source Database       : car_system
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-07-31 22:50:26
+Date: 2018-08-01 18:03:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -82,7 +82,7 @@ CREATE TABLE `configs` (
   `result` varchar(255) DEFAULT '' COMMENT '字段值',
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of configs
@@ -91,12 +91,7 @@ INSERT INTO `configs` VALUES ('1', 'role', 'role', '超级管理员', '2018-07-2
 INSERT INTO `configs` VALUES ('2', 'role', 'role', '员工', '2018-07-28 22:08:57');
 INSERT INTO `configs` VALUES ('3', 'goods', 'mountings', '刹车片', '2018-07-28 22:09:12');
 INSERT INTO `configs` VALUES ('4', 'server', '洗车', '30', '2018-07-28 22:10:27');
-INSERT INTO `configs` VALUES ('5', 'server', '补胎', '60', '2018-07-28 22:58:25');
-INSERT INTO `configs` VALUES ('6', 'server', '补胎2', '30', '2018-07-28 22:58:25');
-INSERT INTO `configs` VALUES ('7', 'server', '打气', '10', '2018-07-28 22:58:25');
-INSERT INTO `configs` VALUES ('8', 'server', '抛光', '100', '2018-07-28 23:07:53');
-INSERT INTO `configs` VALUES ('9', 'server', '打蜡', '120', '2018-07-28 23:07:53');
-INSERT INTO `configs` VALUES ('10', 'server', '四轮定位', '200', '2018-07-28 23:07:53');
+INSERT INTO `configs` VALUES ('14', 'server', '抛光', '200', '2018-08-01 15:34:32');
 
 -- ----------------------------
 -- Table structure for goods
@@ -176,7 +171,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-07-31 21:12:47', '2018-07-13 16:56:27', '1', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '2018-08-01 11:09:39', '2018-07-13 16:56:27', '1', '1');
 INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, '2018-07-20 17:12:54', '1', '2');
 
 -- ----------------------------
@@ -193,7 +188,7 @@ CREATE TABLE `order_item` (
   `create_time` datetime DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_item
@@ -206,6 +201,16 @@ INSERT INTO `order_item` VALUES ('35', '80', '补胎', '-1', '1', '60.00', '2018
 INSERT INTO `order_item` VALUES ('36', '80', '洗车', '-1', '1', '30.00', '2018-07-31 22:40:48', '0');
 INSERT INTO `order_item` VALUES ('37', '80', '补胎2', '-1', '1', '30.00', '2018-07-31 22:40:48', '0');
 INSERT INTO `order_item` VALUES ('38', '81', '1231', '-1', '1', '100.00', '2018-07-31 22:41:38', '0');
+INSERT INTO `order_item` VALUES ('39', '82', '补胎', '-1', '1', '60.00', '2018-08-01 11:09:46', '0');
+INSERT INTO `order_item` VALUES ('40', '82', '补胎2', '-1', '1', '30.00', '2018-08-01 11:09:46', '0');
+INSERT INTO `order_item` VALUES ('41', '83', '123', '-1', '1', '100.00', '2018-08-01 11:10:48', '0');
+INSERT INTO `order_item` VALUES ('48', '86', '抛光', '-1', '1', '200.00', '2018-08-01 16:51:27', '0');
+INSERT INTO `order_item` VALUES ('49', '86', '洗车', '-1', '1', '30.00', '2018-08-01 16:51:27', '0');
+INSERT INTO `order_item` VALUES ('50', '86', '防冻液_111', '18', '1', '200.00', '2018-08-01 16:51:27', '1');
+INSERT INTO `order_item` VALUES ('51', '86', '火花塞_12111111111', '16', '1', '200.00', '2018-08-01 16:51:27', '1');
+INSERT INTO `order_item` VALUES ('52', '86', '火花塞_1211', '11', '1', '200.00', '2018-08-01 16:51:27', '1');
+INSERT INTO `order_item` VALUES ('53', '86', '火花塞_121111', '12', '1', '200.00', '2018-08-01 16:51:27', '1');
+INSERT INTO `order_item` VALUES ('54', '86', '火花塞_12111111', '13', '1', '200.00', '2018-08-01 16:51:27', '1');
 
 -- ----------------------------
 -- Table structure for order_record
@@ -222,7 +227,7 @@ CREATE TABLE `order_record` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
@@ -231,6 +236,9 @@ INSERT INTO `order_record` VALUES ('78', '1533047992526', null, '90.00', '1', '1
 INSERT INTO `order_record` VALUES ('79', '1533047996963', null, '110.00', '1', '', '1', 'admin', '2018-07-31 22:39:56');
 INSERT INTO `order_record` VALUES ('80', '1533048048575', '55', '120.00', '0', '', '1', 'admin', '2018-07-31 22:40:48');
 INSERT INTO `order_record` VALUES ('81', '1533048098702', '55', '100.00', '0', '123', '1', 'admin', '2018-07-31 22:41:38');
+INSERT INTO `order_record` VALUES ('82', '1533092986490', null, '90.00', '1', '', '1', 'admin', '2018-08-01 11:09:46');
+INSERT INTO `order_record` VALUES ('83', '1533093048540', null, '100.00', '1', '123', '1', 'admin', '2018-08-01 11:10:48');
+INSERT INTO `order_record` VALUES ('86', '1533113487833', null, '1230.00', '1', '', '1', 'admin', '2018-08-01 16:51:27');
 
 -- ----------------------------
 -- Table structure for repair_items
@@ -331,7 +339,7 @@ CREATE TABLE `store_parts` (
   `parts_name` varchar(255) DEFAULT '' COMMENT '配件名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of store_parts
@@ -351,6 +359,7 @@ INSERT INTO `store_parts` VALUES ('12', '皮垫', '2018-07-24 16:57:06');
 INSERT INTO `store_parts` VALUES ('13', '清洗剂', '2018-07-24 16:57:28');
 INSERT INTO `store_parts` VALUES ('14', '冷零件', '2018-07-24 16:57:38');
 INSERT INTO `store_parts` VALUES ('15', '螺丝', '2018-07-24 16:57:47');
+INSERT INTO `store_parts` VALUES ('16', '123 ', '2018-08-01 17:36:53');
 
 -- ----------------------------
 -- Table structure for user

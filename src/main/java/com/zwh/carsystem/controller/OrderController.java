@@ -90,6 +90,11 @@ public class OrderController {
 //		return new Result(MessageCode.ERROR, "添加失败!",null);
 //	}
 	
+	/**
+	 * 支付挂单待结订单
+	 * @param order
+	 * @return
+	 */
 	@PostMapping("/toPayEntryOrders")
 	public Result toPayEntryOrders(@RequestBody OrderRecord order) {
 		if(order != null) {
@@ -138,6 +143,30 @@ public class OrderController {
 		return new Result(MessageCode.SUCCESS, "添加成功!",order);
 	}
 	
+	/**
+	 * 删除挂单待结订单
+	 * @param order
+	 * @return
+	 */
+	@PostMapping("/toDeleteEntryOrders")
+	public Result toDeleteEntryOrders(@RequestBody OrderRecord order) {
+		if(order != null) {
+			int row = itemService.deleteByOrderId(order.getOrderid());
+			if(row > 0){
+				int num = orderService.deleteByPrimaryKey(order.getOrderid());
+				if(num > 0) {
+					return new Result(MessageCode.SUCCESS, "删除成功!");
+				}
+			}
+		}
+		return new Result(MessageCode.ERROR, "删除失败!");
+	}
+	
+	/**
+	 * 直接支付订单
+	 * @param data
+	 * @return
+	 */
 	@PostMapping("/addOrder")
 	public Result addOrder(@RequestBody OrderVO data) {
 		if(data != null) {
@@ -169,7 +198,6 @@ public class OrderController {
 					}else {
 						return new Result(MessageCode.ERROR, "支付失败!");
 					}
-					
 				}
 			}
 		}

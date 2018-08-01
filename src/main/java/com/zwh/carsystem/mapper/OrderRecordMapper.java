@@ -41,7 +41,7 @@ public interface OrderRecordMapper {
      * 按给定日期统计
      * @return
      */
-    Statistics getStatisticsByDay(String day);
+    Statistics getStatisticsByDay(@Param("day")String day,@Param("status")int status);
     /**
      * 按给定日期统计订单量
      * @return

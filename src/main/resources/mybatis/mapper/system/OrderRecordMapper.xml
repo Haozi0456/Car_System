@@ -307,7 +307,8 @@
 		FROM
 		order_record
 		WHERE
-		DATE_FORMAT(createTime, '%Y-%m-%d') = #{day}
+		DATE_FORMAT(createTime, '%Y-%m-%d') = #{day} and status = #{status}
+		
 	</select>
 
 	<select id="getStatisticsOrderByDay" resultMap="BaseResultMap">
