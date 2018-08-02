@@ -18,7 +18,7 @@
 		
 		
 			targetPackage="com.zwh.carsystem.mapper" targetProject="Car_System/src/main/java" />
-		<table tableName="configs" enableCountByExample="false"
+		<table tableName="income_expenses" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>

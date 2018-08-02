@@ -7,25 +7,26 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class AccountRecord {
+/**
+ * 收支�?
+ * @author ZhaoHao
+ *
+ */
+public class IncomeExpenses {
     private Integer id;
-
-	private Integer accountId;
 
 	private Integer type;
 
 	private BigDecimal money;
 
-	private BigDecimal subMoney;
+	private String des;
 
 	private String remark;
 
-	private Integer operation;
-
 	private String operator;
-
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�???
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�???
 	private Date createTime;
 
 	public Integer getId() {
@@ -34,14 +35,6 @@ public class AccountRecord {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(Integer accountId) {
-		this.accountId = accountId;
 	}
 
 	public Integer getType() {
@@ -60,12 +53,12 @@ public class AccountRecord {
 		this.money = money;
 	}
 
-	public BigDecimal getSubMoney() {
-		return subMoney;
+	public String getDes() {
+		return des;
 	}
 
-	public void setSubMoney(BigDecimal subMoney) {
-		this.subMoney = subMoney;
+	public void setDes(String des) {
+		this.des = des;
 	}
 
 	public String getRemark() {
@@ -74,14 +67,6 @@ public class AccountRecord {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	public Integer getOperation() {
-		return operation;
-	}
-
-	public void setOperation(Integer operation) {
-		this.operation = operation;
 	}
 
 	public String getOperator() {
@@ -99,4 +84,6 @@ public class AccountRecord {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
+	
 }

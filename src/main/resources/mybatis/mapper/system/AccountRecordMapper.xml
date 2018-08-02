@@ -6,11 +6,14 @@
     <result column="account_id" jdbcType="INTEGER" property="accountId" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="sub_money" jdbcType="DECIMAL" property="subMoney" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="operation" jdbcType="INTEGER" property="operation" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, account_id, type, money, remark, create_time
+    id, account_id, type, money, sub_money, remark, operation, operator, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,10 +26,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zwh.carsystem.entity.AccountRecord" useGeneratedKeys="true" keyProperty="id">
-    insert into account_record (account_id, type, 
-      money, remark, create_time)
-    values (#{accountId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{money,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, now())
+    insert into account_record (id, account_id, type, 
+      money, sub_money, remark, 
+      operation, operator, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{money,jdbcType=DECIMAL}, #{subMoney,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{operation,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, now()
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.AccountRecord">
     insert into account_record
@@ -43,11 +50,17 @@
       <if test="money != null">
         money,
       </if>
+      <if test="subMoney != null">
+        sub_money,
+      </if>
       <if test="remark != null">
         remark,
       </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="operation != null">
+        operation,
+      </if>
+      <if test="operator != null">
+        operator,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -63,11 +76,17 @@
       <if test="money != null">
         #{money,jdbcType=DECIMAL},
       </if>
+      <if test="subMoney != null">
+        #{subMoney,jdbcType=DECIMAL},
+      </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        now(),
+      <if test="operation != null">
+        #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -83,8 +102,17 @@
       <if test="money != null">
         money = #{money,jdbcType=DECIMAL},
       </if>
+      <if test="subMoney != null">
+        sub_money = #{subMoney,jdbcType=DECIMAL},
+      </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null">
+        operation = #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -94,9 +122,13 @@
     set account_id = #{accountId,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       money = #{money,jdbcType=DECIMAL},
-      remark = #{remark,jdbcType=VARCHAR}
+      sub_money = #{subMoney,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      operation = #{operation,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
   
   <select id="queryByAccountId" resultMap="BaseResultMap">
 	SELECT

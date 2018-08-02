@@ -45,7 +45,7 @@ public class AccountController {
 		if(rows > 0) {
 			record = accountRecordService.queryById(record.getId());
 			Account account = accountService.queryById(record.getAccountId());
-			account.setMoney(account.getMoney().add(record.getMoney()));
+			account.setMoney(account.getMoney().add(record.getMoney()).add(record.getSubMoney()));
 			int arow = accountService.updateAccount(account);
 			if(arow > 0) {
 				return new Result(MessageCode.SUCCESS,"充值成功",record);

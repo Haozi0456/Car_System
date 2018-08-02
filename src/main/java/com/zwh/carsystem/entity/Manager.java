@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import java.math.BigDecimal;
 
 public class Manager {
 	private Integer id;
@@ -13,15 +14,25 @@ public class Manager {
 
 	private String password;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
-	private Date lastvisittime;
+	private String name;
 
-	private Date createtime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�??
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�??
+	private Date lastVisitTime;
 
-	private Integer dataflag;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�??
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�??
+	private Date createTime;
 
-	private Integer roletype;
+	private Integer roleType;
+
+	private BigDecimal salary;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�??
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�??
+	private Date entryTime;
+
+	private Integer dataFlag;
 
 	public Integer getId() {
 		return id;
@@ -47,36 +58,63 @@ public class Manager {
 		this.password = password;
 	}
 
-	public Date getLastvisittime() {
-		return lastvisittime;
+	public String getName() {
+		return name;
 	}
 
-	public void setLastvisittime(Date lastvisittime) {
-		this.lastvisittime = lastvisittime;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Date getCreatetime() {
-		return createtime;
+
+	public Date getLastVisitTime() {
+		return lastVisitTime;
 	}
 
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
+	public void setLastVisitTime(Date lastVisitTime) {
+		this.lastVisitTime = lastVisitTime;
 	}
 
-	public Integer getDataflag() {
-		return dataflag;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setDataflag(Integer dataflag) {
-		this.dataflag = dataflag;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
-	public Integer getRoletype() {
-		return roletype;
+	public Integer getRoleType() {
+		return roleType;
 	}
 
-	public void setRoletype(Integer roletype) {
-		this.roletype = roletype;
+	public void setRoleType(Integer roleType) {
+		this.roleType = roleType;
 	}
+
+	public BigDecimal getSalary() {
+		return salary;
+	}
+
+	public void setSalary(BigDecimal salary) {
+		this.salary = salary;
+	}
+
+	public Date getEntryTime() {
+		return entryTime;
+	}
+
+	public void setEntryTime(Date entryTime) {
+		this.entryTime = entryTime;
+	}
+
+	public Integer getDataFlag() {
+		return dataFlag;
+	}
+
+	public void setDataFlag(Integer dataFlag) {
+		this.dataFlag = dataFlag;
+	}
+
+	
 
 }
