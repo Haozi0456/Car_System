@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zwh.carsystem.entity.Manager;
+import com.zwh.carsystem.entity.OrderRecord;
 import com.zwh.carsystem.mapper.ManagerMapper;
 import com.zwh.carsystem.service.ManagerService;
+import com.zwh.system.entity.PageResult;
 import com.zwh.system.entity.PageVO;
 
 @Service(value = "managerService")
@@ -53,7 +55,7 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<Manager> getManagerListByType(PageVO pageVO, int roleType) {
+	public PageResult<Manager> getManagerListByType(PageVO pageVO, int roleType) {
 		// TODO Auto-generated method stub
 		return managerMapper.getManagerListByType(pageVO, roleType);
 	}

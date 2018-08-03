@@ -15,21 +15,21 @@ public class Manager {
 	private String password;
 
 	private String name;
-
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�??
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�??
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
 	private Date lastVisitTime;
-
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�??
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�??
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
 	private Date createTime;
 
 	private Integer roleType;
 
 	private BigDecimal salary;
-
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�??
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�??
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd") // 页面写入数据库时格式�?
+	@JSONField(format = "yyyy-MM-dd") // 数据库导出页面时json格式�?
 	private Date entryTime;
 
 	private Integer dataFlag;
@@ -65,7 +65,6 @@ public class Manager {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public Date getLastVisitTime() {
 		return lastVisitTime;
@@ -115,6 +114,5 @@ public class Manager {
 		this.dataFlag = dataFlag;
 	}
 
-	
 
 }

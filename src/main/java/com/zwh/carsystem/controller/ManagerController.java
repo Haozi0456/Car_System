@@ -13,6 +13,7 @@ import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.ManagerService;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
+import com.zwh.system.entity.PageResult;
 
 @RestController
 @RequestMapping("/system/manager")
@@ -25,10 +26,10 @@ public class ManagerController {
 	public Result login(String account, String password) {
 		Manager manager = managerService.getManagerByAccountAndPassword(account, password);
 		if(manager != null) {
-			managerService.updataManager(manager);
 			if(manager.getDataFlag() == -1) {
 				return new Result(MessageCode.ERROR, "该账号限制登录！");
 			}else {
+				managerService.updataManager(manager);
 				return new Result(MessageCode.SUCCESS, "登录成功！", manager);
 			}
 		}else {
@@ -50,7 +51,7 @@ public class ManagerController {
 		int rows = managerService.addManager(manager);
 		if (rows > 0) {
 			manager = managerService.getManagerById(manager.getId());
-			return new Result(MessageCode.SUCCESS,"添加失败!",manager);
+			return new Result(MessageCode.SUCCESS,"添加成功!",manager);
 		}
 		return new Result(MessageCode.ERROR,"添加失败!");
 	}
@@ -64,7 +65,7 @@ public class ManagerController {
 	public Result getManagerListByRoleType(@RequestBody PageParamsVO params) {
 		if(params != null) {
 			int roleType = params.getCode();
-			List<Manager> managers = managerService.getManagerListByType(params.getPage(), roleType);
+			PageResult<Manager> managers = managerService.getManagerListByType(params.getPage(), roleType);
 			return new Result(MessageCode.SUCCESS,"获取成功!",managers);
 		}
 		return new Result(MessageCode.PARAM_ERROR,"参数错误!");
@@ -94,7 +95,7 @@ public class ManagerController {
 	 * @return
 	 */
 	@PostMapping("/updateManager")
-	public Result updateManager(Manager manager) {
+	public Result updateManager(@RequestBody Manager manager) {
 		if(manager != null) {
 			int row  = managerService.updataManager(manager);
 			if(row >0) {

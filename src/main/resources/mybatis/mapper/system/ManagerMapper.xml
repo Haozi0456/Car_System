@@ -27,19 +27,22 @@
     delete from manager
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zwh.carsystem.entity.Manager" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.zwh.carsystem.entity.Manager" useGeneratedKeys="true" keyProperty="">
     insert into manager (account, password, 
       name, last_visit_time, create_time, 
       role_type, salary, entry_time, 
       data_flag)
-    values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR},  now(),  now(), 
+    values ( #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, now(), now(), 
       #{roleType,jdbcType=INTEGER}, #{salary,jdbcType=DECIMAL}, #{entryTime,jdbcType=TIMESTAMP}, 
       #{dataFlag,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.Manager">
     insert into manager
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="account != null">
         account,
       </if>
@@ -79,10 +82,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="lastVisitTime != null">
-         now(),
-      </if>
-      <if test="createTime != null">
-         now(),
+        #{lastVisitTime,jdbcType=TIMESTAMP},
       </if>
       <if test="roleType != null">
         #{roleType,jdbcType=INTEGER},
@@ -111,7 +111,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="lastVisitTime != null">
-        last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
+        last_visit_time = now(),
       </if>
       <if test="roleType != null">
         role_type = #{roleType,jdbcType=INTEGER},
@@ -136,19 +136,20 @@
       last_visit_time = now(),
       role_type = #{roleType,jdbcType=INTEGER},
       salary = #{salary,jdbcType=DECIMAL},
+      entry_time = #{entryTime,jdbcType=TIMESTAMP},
       data_flag = #{dataFlag,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-	<select id="getManagerByAccountAndPassword" resultType="com.zwh.carsystem.entity.Manager">
+  
+	<select id="getManagerByAccountAndPassword" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM
-		manager
+		manager m
 		WHERE
-		account = #{account}
+		m.account = #{account}
 		AND
-		password = #{password}
+		m.password = #{password}
 	</select>
 	
 	<select id="getManagerByAccount" resultType="com.zwh.carsystem.entity.Manager">
@@ -169,21 +170,29 @@
 	
 	<select id="getManagerListByType" resultMap="BaseResultMap">
 		SELECT
-		<include refid="Base_Column_List" />
+		m.id,
+		m.account,
+		m.`name`,
+		m.last_visit_time,
+		m.create_time,
+		m.role_type,
+		COALESCE(m.salary,0) AS salary,
+		m.entry_time,
+		m.data_flag
 		FROM
 		manager m
 		WHERE
-		m.role_type = #{type}
+		m.role_type = #{roleType}
 		LIMIT
 		#{pageVO.startIndex}, #{pageVO.endIndex}
 	</select>
 	
-	<select id="getManagerListByCount" resultType="int">
+	<select id="getManagerListByTypeCount" resultType="int">
 		select
 		count(1)
 		from
 		manager m
-		where m.role_type = #{type}
+		where m.role_type = #{roleType}
 	</select>
 
 </mapper>

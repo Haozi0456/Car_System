@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-08-02 18:17:49
+Date: 2018-08-03 18:00:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,7 +86,7 @@ CREATE TABLE `configs` (
   `result` varchar(255) DEFAULT '' COMMENT '字段值',
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of configs
@@ -96,6 +96,7 @@ INSERT INTO `configs` VALUES ('2', 'role', '员工', '2', '2018-08-02 16:46:28')
 INSERT INTO `configs` VALUES ('3', 'goods', 'mountings', '刹车片', '2018-07-28 22:09:12');
 INSERT INTO `configs` VALUES ('4', 'server', '洗车', '30', '2018-07-28 22:10:27');
 INSERT INTO `configs` VALUES ('14', 'server', '抛光', '200', '2018-08-01 15:34:32');
+INSERT INTO `configs` VALUES ('15', 'role', '美容师', '2', '2018-08-03 17:26:38');
 
 -- ----------------------------
 -- Table structure for goods
@@ -192,13 +193,15 @@ CREATE TABLE `manager` (
   `entry_time` datetime DEFAULT NULL COMMENT '入职时间',
   `data_flag` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '管理员', '2018-08-02 16:00:51', '2018-07-13 16:56:27', '1', null, '2018-08-02 16:54:20', '1');
-INSERT INTO `manager` VALUES ('2', 'zhao', '1231232313', null, null, '2018-07-20 17:12:54', '2', null, null, '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '12152205', '管理员', '2018-08-03 14:03:15', '2018-07-13 16:56:27', '0', '0.00', '2018-08-02 16:54:20', '1');
+INSERT INTO `manager` VALUES ('2', '13419519796', '1231232313', '赵', '2018-08-03 15:29:49', '2018-07-20 17:12:54', '2', null, '2018-08-03 14:42:05', '1');
+INSERT INTO `manager` VALUES ('3', '123123123', null, '12', '2018-08-03 16:05:45', '2018-08-03 16:05:45', '2', '2000.00', null, '1');
+INSERT INTO `manager` VALUES ('4', '12312', null, '123', '2018-08-03 16:21:58', '2018-08-03 16:21:58', '15', '2000.00', '2018-08-03 00:00:00', '1');
 
 -- ----------------------------
 -- Table structure for order_item
