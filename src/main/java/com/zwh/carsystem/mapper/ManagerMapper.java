@@ -29,6 +29,6 @@ public interface ManagerMapper {
 	
 	Manager getManagerByAccount(String account);
 	
-	PageResult<Manager> getManagerListByType(@Param("pageVO")PageVO pageVO,@Param("roleType")int roleType);
+	PageResult<Manager> getManagerListByType(@Param("pageVO")PageVO pageVO,@Param("type")int type);
 
 }

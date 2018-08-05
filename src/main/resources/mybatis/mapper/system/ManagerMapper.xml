@@ -12,6 +12,7 @@
     <result column="salary" jdbcType="DECIMAL" property="salary" />
     <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
     <result column="data_flag" jdbcType="INTEGER" property="dataFlag" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
   <sql id="Base_Column_List">
     id, account, password, name, last_visit_time, create_time, role_type, salary, entry_time, 
@@ -143,9 +144,20 @@
   
 	<select id="getManagerByAccountAndPassword" resultMap="BaseResultMap">
 		SELECT
-		<include refid="Base_Column_List" />
+		m.id,
+		m.account,
+		m.`name`,
+		m.`password`,
+		m.last_visit_time,
+		m.create_time,
+		m.role_type,
+		COALESCE(m.salary,0) AS salary,
+		m.entry_time,
+		m.data_flag,
+		r.role_name as role
 		FROM
 		manager m
+		INNER JOIN role r ON r.id = m.role_type
 		WHERE
 		m.account = #{account}
 		AND
@@ -173,16 +185,18 @@
 		m.id,
 		m.account,
 		m.`name`,
+		m.`password`,
 		m.last_visit_time,
 		m.create_time,
 		m.role_type,
 		COALESCE(m.salary,0) AS salary,
 		m.entry_time,
-		m.data_flag
+		m.data_flag,
+		r.role_name as role
 		FROM
 		manager m
-		WHERE
-		m.role_type = #{roleType}
+		INNER JOIN role r ON r.id = m.role_type
+		WHERE m.data_flag > #{type}
 		LIMIT
 		#{pageVO.startIndex}, #{pageVO.endIndex}
 	</select>
@@ -192,7 +206,7 @@
 		count(1)
 		from
 		manager m
-		where m.role_type = #{roleType}
+		WHERE m.data_flag > #{type}
 	</select>
 
 </mapper>

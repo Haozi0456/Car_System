@@ -18,7 +18,7 @@
 		
 		
 			targetPackage="com.zwh.carsystem.mapper" targetProject="Car_System/src/main/java" />
-		<table tableName="manager" enableCountByExample="false"
+		<table tableName="role" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>

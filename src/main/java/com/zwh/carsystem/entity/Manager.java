@@ -33,6 +33,8 @@ public class Manager {
 	private Date entryTime;
 
 	private Integer dataFlag;
+	
+	private String role;
 
 	public Integer getId() {
 		return id;
@@ -114,5 +116,13 @@ public class Manager {
 		this.dataFlag = dataFlag;
 	}
 
+	public String getRole() {
+		return role;
+	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
 }

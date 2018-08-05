@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.alibaba.fastjson.annotation.JSONField;
 
 /**
- * 收支�?
+ * 收支管理
  * @author ZhaoHao
  *
  */

@@ -2,7 +2,11 @@ package com.zwh.carsystem.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zwh.carsystem.entity.AccountRecord;
+import com.zwh.system.entity.PageResult;
+import com.zwh.system.entity.PageVO;
 
 public interface AccountRecordMapper {
     int deleteByPrimaryKey(Integer id);
@@ -20,4 +24,6 @@ public interface AccountRecordMapper {
     int addAccountRecord(AccountRecord accountRecord);
 	
 	List<AccountRecord> queryByAccountId(int accountId);
+	
+	PageResult<AccountRecord> getRechargeListByMonth(@Param("pageVO")PageVO pageVO,@Param("month")String month);
 }

@@ -4,15 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zwh.carsystem.entity.Account;
 import com.zwh.carsystem.entity.AccountRecord;
+import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.AccountRecordService;
 import com.zwh.carsystem.service.AccountService;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
+import com.zwh.system.entity.PageResult;
 
 @RestController
 @RequestMapping("/system/account")
@@ -56,7 +59,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * 充值记录
+	 * 个人充值记录
 	 * @param record
 	 * @return
 	 */
@@ -64,6 +67,22 @@ public class AccountController {
 	public Result accountRecharge(int accountId) {
 		List<AccountRecord> records = accountRecordService.queryByAccountId(accountId);
 		return new Result(MessageCode.SUCCESS,"获取成功!",records);
+	}
+	
+	/**
+	 * 充值列表
+	 * @param record
+	 * @return
+	 */
+	@PostMapping("/getRechargeListByMonth")
+	public Result accountRecharge(@RequestBody PageParamsVO params) {
+		if(params != null) {
+			String month = params.getKey();
+			PageResult<AccountRecord> records = accountRecordService.getRechargeListByMonth(params.getPage(), month);
+			return new Result(MessageCode.SUCCESS,"获取成功!",records);
+		}else {
+			return new Result(MessageCode.PARAM_ERROR,"参数错误!");
+		}
 	}
 	
 }

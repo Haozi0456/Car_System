@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.zwh.carsystem.entity.AccountRecord;
 import com.zwh.carsystem.mapper.AccountRecordMapper;
 import com.zwh.carsystem.service.AccountRecordService;
+import com.zwh.system.entity.PageResult;
+import com.zwh.system.entity.PageVO;
 
 @Service(value="accountRecordService")
 public class AccountRecordServiceImpl implements AccountRecordService {
@@ -31,6 +33,12 @@ public class AccountRecordServiceImpl implements AccountRecordService {
 	public AccountRecord queryById(int id) {
 		// TODO Auto-generated method stub
 		return accountRecordMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public PageResult<AccountRecord> getRechargeListByMonth(PageVO pageVO, String month) {
+		// TODO Auto-generated method stub
+		return accountRecordMapper.getRechargeListByMonth(pageVO, month);
 	}
 
 }

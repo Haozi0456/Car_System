@@ -61,11 +61,11 @@ public class ManagerController {
 	 * @param params
 	 * @return
 	 */
-	@PostMapping("/getManagerListByRoleType")
-	public Result getManagerListByRoleType(@RequestBody PageParamsVO params) {
+	@PostMapping("/getManagerListByType")
+	public Result getManagerListByType(@RequestBody PageParamsVO params) {
 		if(params != null) {
-			int roleType = params.getCode();
-			PageResult<Manager> managers = managerService.getManagerListByType(params.getPage(), roleType);
+			int type = params.getCode();
+			PageResult<Manager> managers = managerService.getManagerListByType(params.getPage(), type);
 			return new Result(MessageCode.SUCCESS,"获取成功!",managers);
 		}
 		return new Result(MessageCode.PARAM_ERROR,"参数错误!");

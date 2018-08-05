@@ -28,6 +28,10 @@ public class AccountRecord {
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
 	private Date createTime;
 
+	private String memberName;
+	
+	private String memberNum;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -99,4 +103,22 @@ public class AccountRecord {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getMemberNum() {
+		return memberNum;
+	}
+
+	public void setMemberNum(String memberNum) {
+		this.memberNum = memberNum;
+	}
+	
+	
 }
