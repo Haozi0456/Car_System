@@ -8,7 +8,8 @@
 		<result column="userId" jdbcType="INTEGER" property="userid" />
 		<result column="money" jdbcType="DECIMAL" property="money" />
 		<result column="payFrom" jdbcType="INTEGER" property="payfrom" />
-		<result column="operator" jdbcType="VARCHAR" property="operator" />
+		<result column="operator" jdbcType="VARCHAR"
+			property="operator" />
 		<result column="remark" jdbcType="VARCHAR" property="remark" />
 		<result column="status" jdbcType="INTEGER" property="status" />
 		<result column="createTime" jdbcType="TIMESTAMP"
@@ -16,7 +17,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		orderId, orderNo, userId, money, payFrom,operator,remark,
-		 status, createTime
+		status, createTime
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -37,9 +38,10 @@
 		insert into order_record (orderNo,
 		userId,
 		money, payFrom,operator, remark,
-		 status, createTime)
+		status, createTime)
 		values
-		(#{orderno,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER},
+		(#{orderno,jdbcType=VARCHAR},
+		#{userid,jdbcType=INTEGER},
 		#{money,jdbcType=DECIMAL},
 		#{payfrom,jdbcType=INTEGER},#{operator,jdbcType=VARCHAR},
 		#{remark,jdbcType=VARCHAR},
@@ -181,42 +183,50 @@
 		order_record
 		where status = #{status}
 	</select>
-	
-	<resultMap id="record _items_Map" type="com.zwh.carsystem.entity.OrderRecord">
+
+	<resultMap id="record _items_Map"
+		type="com.zwh.carsystem.entity.OrderRecord">
 		<id column="orderId" jdbcType="INTEGER" property="orderid" />
 		<result column="orderNo" jdbcType="VARCHAR" property="orderno" />
 		<result column="userId" jdbcType="INTEGER" property="userid" />
 		<result column="money" jdbcType="DECIMAL" property="money" />
 		<result column="payFrom" jdbcType="INTEGER" property="payfrom" />
-		<result column="operator" jdbcType="VARCHAR" property="operator" />
+		<result column="operator" jdbcType="VARCHAR"
+			property="operator" />
 		<result column="remark" jdbcType="VARCHAR" property="remark" />
 		<result column="status" jdbcType="INTEGER" property="status" />
-		<result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
-		<association property="member" column="userId" select="getMemberByUserId" fetchType="lazy" javaType="com.zwh.carsystem.entity.User">
-			
+		<result column="createTime" jdbcType="TIMESTAMP"
+			property="createtime" />
+		<association property="member" column="userId"
+			select="getMemberByUserId" fetchType="lazy"
+			javaType="com.zwh.carsystem.entity.User">
+
 		</association>
-		<collection property="items" column="orderId" select="getItemsByOrderId" ofType="com.zwh.carsystem.entity.OrderItem">
-			<!-- <id column="id" jdbcType="INTEGER" property="id" />
-		    <result column="order_id" jdbcType="INTEGER" property="orderId" />
-		    <result column="item" jdbcType="VARCHAR" property="item" />
-		    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-		    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
-		    <result column="cost" jdbcType="DECIMAL" property="cost" />
-		    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-		    <result column="type" jdbcType="INTEGER" property="type" /> -->
+		<collection property="items" column="orderId"
+			select="getItemsByOrderId"
+			ofType="com.zwh.carsystem.entity.OrderItem">
+			<!-- <id column="id" jdbcType="INTEGER" property="id" /> <result column="order_id" 
+				jdbcType="INTEGER" property="orderId" /> <result column="item" jdbcType="VARCHAR" 
+				property="item" /> <result column="goods_id" jdbcType="INTEGER" property="goodsId" 
+				/> <result column="goods_count" jdbcType="INTEGER" property="goodsCount" 
+				/> <result column="cost" jdbcType="DECIMAL" property="cost" /> <result column="create_time" 
+				jdbcType="TIMESTAMP" property="createTime" /> <result column="type" jdbcType="INTEGER" 
+				property="type" /> -->
 		</collection>
-		
+
 	</resultMap>
-	
-	<select id="getItemsByOrderId" resultType="com.zwh.carsystem.entity.OrderItem">
+
+	<select id="getItemsByOrderId"
+		resultType="com.zwh.carsystem.entity.OrderItem">
 		SELECT
 		*
 		FROM
 		order_item
 		WHERE order_id = #{orderId};
 	</select>
-	
-	<select id="getMemberByUserId" resultType="com.zwh.carsystem.entity.User">
+
+	<select id="getMemberByUserId"
+		resultType="com.zwh.carsystem.entity.User">
 		SELECT
 		u.id,
 		u.`name`,
@@ -229,9 +239,10 @@
 		u.userStatus
 		FROM
 		`user` u
-		WHERE u.id = #{userId};
+		WHERE u.id =
+		#{userId};
 	</select>
-	
+
 
 	<select id="getOrderListByMonth" resultMap="BaseResultMap">
 		SELECT
@@ -261,7 +272,8 @@
 		SELECT
 		COALESCE(SUM(money),0) AS total,
 		COALESCE(count(orderId),0) AS count,
-		DATE_FORMAT(createTime, '%Y-%m') dateline
+		DATE_FORMAT(createTime, '%Y-%m')
+		dateline
 		FROM
 		order_record
 		WHERE
@@ -274,17 +286,125 @@
 	<!-- 查询近一个月收入统计 -->
 	<select id="getStatisticsByNearOneMonth"
 		resultMap="statisticsMap">
+		<!-- SELECT SUM(r.money) AS total, DATE_FORMAT(createTime, '%Y-%m-%d') 
+			dateline FROM order_record r WHERE DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=date(r.createTime)]]> 
+			GROUP BY DAY (r.createTime) ORDER BY r.createTime ASC -->
 		SELECT
-		SUM(r.money) AS total,
-		DATE_FORMAT(createTime, '%Y-%m-%d') dateline
+		lefttable.date AS dateline,
+		IFNULL(righttable.m, '0') AS total
+		FROM
+		(
+		SELECT
+		date_sub(
+		CURDATE(),
+		INTERVAL @i :=@i + 1 DAY
+		) AS date
+		FROM
+		(
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		) AS tmp,
+		(SELECT @i := - 1) t
+		) AS lefttable
+		LEFT JOIN (
+		SELECT
+		TRUNCATE (sum(r.money), 2) AS m,
+		DATE_FORMAT(r.createTime, '%Y-%m-%d')
+		AS gptime
 		FROM
 		order_record r
-		WHERE
-		DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=date(r.createTime)]]>
 		GROUP BY
-		DAY (r.createTime)
+		gptime
+		) AS righttable ON lefttable.date = righttable.gptime
 		ORDER BY
-		r.createTime ASC
+		lefttable.date ASC
 	</select>
 
 	<select id="getStatisticsByYear" resultMap="statisticsMap">
@@ -308,7 +428,7 @@
 		order_record
 		WHERE
 		DATE_FORMAT(createTime, '%Y-%m-%d') = #{day} and status = #{status}
-		
+
 	</select>
 
 	<select id="getStatisticsOrderByDay" resultMap="BaseResultMap">
@@ -320,11 +440,12 @@
 		DATE_FORMAT(createTime, '%Y-%m-%d') = #{day}
 	</select>
 
-	
+
 
 	<resultMap id="statisticsMap"
 		type="com.zwh.carsystem.entity.Statistics">
-		<result column="dateline" jdbcType="VARCHAR" property="dateline" />
+		<result column="dateline" jdbcType="VARCHAR"
+			property="dateline" />
 		<result column="total" jdbcType="DECIMAL" property="total" />
 		<result column="type" jdbcType="INTEGER" property="type" />
 		<result column="count" jdbcType="INTEGER" property="count" />
