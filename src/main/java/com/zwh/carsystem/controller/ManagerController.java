@@ -1,8 +1,12 @@
 package com.zwh.carsystem.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +34,36 @@ public class ManagerController {
 				return new Result(MessageCode.ERROR, "该账号限制登录！");
 			}else {
 				managerService.updataManager(manager);
+				//把token返回给客户端-->客户端保存至cookie-->客户端每次请求附带cookie参数
+				String token = UUID.randomUUID().toString().replace("-", "");
+				manager.setToken(token);
 				return new Result(MessageCode.SUCCESS, "登录成功！", manager);
 			}
 		}else {
 			return new Result(MessageCode.ERROR, "用户名或密码错误！", manager);
 		}
+	}
+	
+	@PostMapping("/loginOut")
+	public Result loginOut(String token) {
+		Manager manager = new Manager();
+		manager.setId(1);
+		manager.setAccount("admin");
+		manager.setPassword("123456");
+		manager.setToken(token);
+		manager.setSalary(BigDecimal.valueOf(0));
+		return new Result(MessageCode.SUCCESS, "退出成功！", manager);
+	}
+	
+	@PostMapping("/getUersInfo")
+	public Result getUersInfo(String token) {
+		Manager manager = new Manager();
+		manager.setId(1);
+		manager.setAccount("admin");
+		manager.setPassword("123456");
+		manager.setToken(token);
+		manager.setSalary(BigDecimal.valueOf(0));
+		return new Result(MessageCode.SUCCESS, "获取成功！", manager);
 	}
 	
 	@PostMapping("/resetPassword")
