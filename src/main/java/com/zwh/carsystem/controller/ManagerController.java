@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +46,7 @@ public class ManagerController {
 	}
 	
 	@PostMapping("/loginOut")
-	public Result loginOut(String token) {
+	public Result loginOut(@RequestHeader(name = "token")String token) {
 		Manager manager = new Manager();
 		manager.setId(1);
 		manager.setAccount("admin");
@@ -56,7 +57,7 @@ public class ManagerController {
 	}
 	
 	@PostMapping("/getUersInfo")
-	public Result getUersInfo(String token) {
+	public Result getUersInfo(@RequestHeader(name = "token")String token) {
 		Manager manager = new Manager();
 		manager.setId(1);
 		manager.setAccount("admin");
