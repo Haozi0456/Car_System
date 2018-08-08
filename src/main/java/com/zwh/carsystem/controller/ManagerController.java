@@ -13,16 +13,21 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zwh.carsystem.entity.Manager;
 import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.ManagerService;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
 import com.zwh.system.entity.PageResult;
+import com.zwh.system.service.RedisService;
 
 @RestController
 @RequestMapping("/system/manager")
 public class ManagerController {
+	
+	@Autowired
+    private RedisService redisService;
 	
 	@Autowired
 	private ManagerService managerService;
@@ -38,6 +43,10 @@ public class ManagerController {
 				//把token返回给客户端-->客户端保存至cookie-->客户端每次请求附带cookie参数
 				String token = UUID.randomUUID().toString().replace("-", "");
 				manager.setToken(token);
+				//加入redis 缓存
+				redisService.set(token, manager);
+				redisService.expire(token, 10);
+				
 				return new Result(MessageCode.SUCCESS, "登录成功！", manager);
 			}
 		}else {
@@ -47,13 +56,8 @@ public class ManagerController {
 	
 	@PostMapping("/loginOut")
 	public Result loginOut(@RequestHeader(name = "token")String token) {
-		Manager manager = new Manager();
-		manager.setId(1);
-		manager.setAccount("admin");
-		manager.setPassword("123456");
-		manager.setToken(token);
-		manager.setSalary(BigDecimal.valueOf(0));
-		return new Result(MessageCode.SUCCESS, "退出成功！", manager);
+		redisService.remove(token);
+		return new Result(MessageCode.SUCCESS, "退出成功！");
 	}
 	
 	@PostMapping("/getUersInfo")

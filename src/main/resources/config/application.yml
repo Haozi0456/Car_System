@@ -25,10 +25,24 @@ spring:
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
+  #redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: ""
+    database: 1
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 500
+      min-idle: 0
+    timeout: 0    
   #devtools配置
   devtools:
     restart:
       enabled: false
+
+
 
 #mybatis配置
 mybatis:
