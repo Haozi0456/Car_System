@@ -44,8 +44,8 @@ public class ManagerController {
 				String token = UUID.randomUUID().toString().replace("-", "");
 				manager.setToken(token);
 				//加入redis 缓存
-				redisService.set(token, manager);
-				redisService.expire(token, 10);
+//				redisService.set(token, manager);
+//				redisService.expire(token, 10);
 				
 				return new Result(MessageCode.SUCCESS, "登录成功！", manager);
 			}
@@ -54,9 +54,9 @@ public class ManagerController {
 		}
 	}
 	
-	@PostMapping("/loginOut")
-	public Result loginOut(@RequestHeader(name = "token")String token) {
-		redisService.remove(token);
+	@PostMapping("/logout")
+	public Result logout(@RequestHeader(name = "token")String token) {
+//		redisService.remove(token);
 		return new Result(MessageCode.SUCCESS, "退出成功！");
 	}
 	
