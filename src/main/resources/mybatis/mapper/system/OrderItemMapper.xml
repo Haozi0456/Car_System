@@ -7,12 +7,14 @@
     <result column="item" jdbcType="VARCHAR" property="item" />
     <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="cover" jdbcType="DECIMAL" property="cover" />
     <result column="cost" jdbcType="DECIMAL" property="cost" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, order_id, item, goods_id, goods_count, cost, create_time, type
+    id, order_id, item, goods_id, goods_count,price,cover, cost, create_time, type
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -29,7 +31,7 @@
       goods_id, goods_count, cost, 
       create_time, type)
     values ( #{orderId,jdbcType=INTEGER}, #{item,jdbcType=VARCHAR}, 
-      #{goodsId,jdbcType=INTEGER}, #{goodsCount,jdbcType=INTEGER}, #{cost,jdbcType=DECIMAL}, 
+      #{goodsId,jdbcType=INTEGER}, #{goodsCount,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{cover,jdbcType=DECIMAL}, #{cost,jdbcType=DECIMAL}, 
       now(), #{type,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.OrderItem">
@@ -49,6 +51,12 @@
       </if>
       <if test="goodsCount != null">
         goods_count,
+      </if>
+      <if test="cost != null">
+        price,
+      </if>
+      <if test="cost != null">
+        cover,
       </if>
       <if test="cost != null">
         cost,
@@ -76,6 +84,12 @@
       <if test="goodsCount != null">
         #{goodsCount,jdbcType=INTEGER},
       </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=DECIMAL},
+      </if>
       <if test="cost != null">
         #{cost,jdbcType=DECIMAL},
       </if>
@@ -102,6 +116,12 @@
       <if test="goodsCount != null">
         goods_count = #{goodsCount,jdbcType=INTEGER},
       </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=DECIMAL},
+      </if>
       <if test="cost != null">
         cost = #{cost,jdbcType=DECIMAL},
       </if>
@@ -117,6 +137,8 @@
       item = #{item,jdbcType=VARCHAR},
       goods_id = #{goodsId,jdbcType=INTEGER},
       goods_count = #{goodsCount,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      cover = #{cover,jdbcType=DECIMAL},
       cost = #{cost,jdbcType=DECIMAL},
       type = #{type,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

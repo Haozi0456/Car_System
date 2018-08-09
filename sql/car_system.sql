@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本机
-Source Server Version : 50718
+Source Server Version : 50722
 Source Host           : localhost:3306
 Source Database       : car_system
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-08-05 22:22:48
+Date: 2018-08-09 18:18:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `account` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account
@@ -47,7 +47,7 @@ CREATE TABLE `account_record` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account_record
@@ -64,7 +64,7 @@ CREATE TABLE `configs` (
   `result` varchar(255) DEFAULT '' COMMENT '字段值',
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of configs
@@ -145,7 +145,7 @@ CREATE TABLE `income_expenses` (
   `operator` varchar(255) DEFAULT '' COMMENT '经办人',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of income_expenses
@@ -165,6 +165,7 @@ CREATE TABLE `manager` (
   `role_type` int(11) DEFAULT '1' COMMENT '角色',
   `salary` decimal(11,2) DEFAULT '0.00' COMMENT '工资',
   `entry_time` datetime DEFAULT NULL COMMENT '入职时间',
+  `token` varchar(255) DEFAULT '',
   `data_flag` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
@@ -172,9 +173,9 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('1', 'admin', '123456', '管理员', '2018-08-05 17:58:57', '2018-07-13 16:56:27', '1', '0.00', '2018-08-02 16:54:20', '0');
-INSERT INTO `manager` VALUES ('29', '13419511234', '', '张三', '2018-08-05 21:28:57', '2018-08-05 21:28:57', '7', '3500.00', '2018-08-01 00:00:00', '1');
-INSERT INTO `manager` VALUES ('31', '13419511235', '', '李四', '2018-08-05 21:39:35', '2018-08-05 21:39:35', '7', '2000.00', '2018-08-05 00:00:00', '1');
+INSERT INTO `manager` VALUES ('1', 'admin', '123456', '管理员', '2018-08-09 17:35:02', '2018-07-13 16:56:27', '1', '0.00', '2018-08-02 16:54:20', '5224b44de8ee41b7a5527b78f5985498', '0');
+INSERT INTO `manager` VALUES ('29', '13419511234', '', '张三', '2018-08-05 21:28:57', '2018-08-05 21:28:57', '7', '3500.00', '2018-08-01 00:00:00', '', '1');
+INSERT INTO `manager` VALUES ('31', '13419511235', '', '李四', '2018-08-05 21:39:35', '2018-08-05 21:39:35', '7', '2000.00', '2018-08-05 00:00:00', '', '1');
 
 -- ----------------------------
 -- Table structure for order_item
@@ -186,16 +187,20 @@ CREATE TABLE `order_item` (
   `item` varchar(255) DEFAULT NULL,
   `goods_id` int(11) DEFAULT NULL,
   `goods_count` int(11) DEFAULT '1',
+  `price` decimal(11,2) DEFAULT '0.00' COMMENT '单价',
+  `cover` decimal(11,2) DEFAULT '0.00' COMMENT '服务费',
   `cost` decimal(11,2) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_item
 -- ----------------------------
-INSERT INTO `order_item` VALUES ('63', '92', '洗车', '-1', '1', '30.00', '2018-08-05 22:08:03', '0');
+INSERT INTO `order_item` VALUES ('63', '92', '洗车', '-1', '1', '0.00', '0.00', '30.00', '2018-08-05 22:08:03', '0');
+INSERT INTO `order_item` VALUES ('64', '93', '抛光', '-1', '2', '0.00', '0.00', '400.00', '2018-08-09 16:35:54', '0');
+INSERT INTO `order_item` VALUES ('65', '93', '洗车', '-1', '1', '0.00', '0.00', '30.00', '2018-08-09 16:35:54', '0');
 
 -- ----------------------------
 -- Table structure for order_record
@@ -212,12 +217,13 @@ CREATE TABLE `order_record` (
   `operator` varchar(255) DEFAULT '' COMMENT '操作员',
   `createTime` datetime DEFAULT NULL COMMENT '下单时间',
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_record
 -- ----------------------------
 INSERT INTO `order_record` VALUES ('92', '1533478083330', null, '30.00', '1', '', '1', '管理员', '2018-08-05 22:08:03');
+INSERT INTO `order_record` VALUES ('93', '1533803754550', null, '430.00', '0', '', '0', '管理员', '2018-08-09 16:35:54');
 
 -- ----------------------------
 -- Table structure for repair_items
@@ -286,6 +292,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
+INSERT INTO `role` VALUES ('1', '管理员', '系统管理员', null, '1', '2018-08-06 14:39:47');
 INSERT INTO `role` VALUES ('5', '店长', '', null, '1', '2018-08-05 21:25:53');
 INSERT INTO `role` VALUES ('6', '收银员', '', null, '1', '2018-08-05 21:26:05');
 INSERT INTO `role` VALUES ('7', '技师', '', null, '1', '2018-08-05 21:27:17');
@@ -307,7 +314,7 @@ CREATE TABLE `store_goods` (
   `remark` varchar(255) DEFAULT '' COMMENT '备注',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of store_goods
@@ -322,7 +329,7 @@ CREATE TABLE `store_parts` (
   `parts_name` varchar(255) DEFAULT '' COMMENT '配件名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of store_parts
@@ -347,7 +354,7 @@ CREATE TABLE `user` (
   `lastVisitTime` datetime DEFAULT NULL,
   `userStatus` int(11) DEFAULT '1' COMMENT '账号状态	0:停用 1:启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user

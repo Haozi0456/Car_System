@@ -13,6 +13,10 @@ public class OrderItem {
     private Integer goodsId;
 
     private Integer goodsCount;
+    
+    private BigDecimal price; //单价
+    
+    private BigDecimal cover;//服务费
 
     private BigDecimal cost;
 
@@ -83,4 +87,22 @@ public class OrderItem {
     public void setType(Integer type) {
         this.type = type;
     }
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public BigDecimal getCover() {
+		return cover;
+	}
+
+	public void setCover(BigDecimal cover) {
+		this.cover = cover;
+	}
+    
+    
 }

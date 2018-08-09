@@ -1,8 +1,14 @@
 package com.zwh.carsystem.controller;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zwh.carsystem.entity.Account;
 import com.zwh.carsystem.entity.OrderItem;
+import com.zwh.carsystem.entity.OrderPrint;
 import com.zwh.carsystem.entity.OrderRecord;
 import com.zwh.carsystem.entity.StoreGoods;
 import com.zwh.carsystem.entity.vo.OrderVO;
@@ -21,10 +28,14 @@ import com.zwh.carsystem.service.AccountService;
 import com.zwh.carsystem.service.OrderItemService;
 import com.zwh.carsystem.service.OrderRecordService;
 import com.zwh.carsystem.service.UserService;
+import com.zwh.carsystem.utils.ExcelUtil;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
 import com.zwh.system.entity.PageResult;
 import com.zwh.system.entity.PageVO;
+
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 
 
 @RestController
@@ -262,6 +273,39 @@ public class OrderController {
 		return new Result(MessageCode.SUCCESS, "查询成功!",orders);
 	}
 	
+	@PostMapping("/toPrintOrder")
+	public void toPrintOrder(@RequestBody OrderVO data,HttpServletResponse response) {
+		if(data != null) {
+			List<OrderItem> items = data.getItems();
+			List<OrderPrint> prints = new ArrayList<>();
+			for (OrderItem item : items) {
+				OrderPrint print = new OrderPrint(item.getItem(),item.getPrice(),item.getCover(),item.getGoodsCount(),item.getCost());
+//				print.setTitle(item.getItem());
+//				print.setCount(item.getGoodsCount());
+//				print.setCover(item.getCover());
+//				print.setPrice(item.getPrice());
+//				print.setSubTotal(item.getCost());
+				prints.add(print);
+			}
+			
+//			// 告诉浏览器用什么软件可以打开此文件
+//		    response.setHeader("content-Type", "application/vnd.ms-excel");
+//		    // 下载文件的默认名称
+//		    response.setHeader("Content-Disposition", "attachment;filename=user.xls");
+//		    Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(), OrderItem.class, prints);
+//		    try {
+//				workbook.write(response.getOutputStream());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+			 //导出操作
+			ExcelUtil.exportExcel(prints,"花名册","草帽一伙",OrderPrint.class,"海贼王.xls",response);
+
+		}
+		
+	}
 	
 	
 	/**
