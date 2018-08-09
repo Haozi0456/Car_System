@@ -83,6 +83,12 @@ public class ManagerServiceImpl implements ManagerService {
 		// TODO Auto-generated method stub
 		return managerMapper.updateByPrimaryKey(record);
 	}
+
+	@Override
+	public Manager getManagerByToken(String token) {
+		// TODO Auto-generated method stub
+		return managerMapper.getManagerByToken(token);
+	}
 	
 	
 	

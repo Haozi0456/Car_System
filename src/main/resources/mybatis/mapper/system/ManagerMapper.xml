@@ -11,11 +11,12 @@
     <result column="role_type" jdbcType="INTEGER" property="roleType" />
     <result column="salary" jdbcType="DECIMAL" property="salary" />
     <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
     <result column="data_flag" jdbcType="INTEGER" property="dataFlag" />
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, account, password, name, last_visit_time, create_time, role_type, salary, entry_time, 
+    id, account, password, name, last_visit_time, create_time, role_type, salary, entry_time,token, 
     data_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -28,14 +29,14 @@
     delete from manager
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zwh.carsystem.entity.Manager" useGeneratedKeys="true" keyProperty="">
+  <insert id="insert" parameterType="com.zwh.carsystem.entity.Manager" useGeneratedKeys="true" keyProperty="id">
     insert into manager (account, password, 
       name, last_visit_time, create_time, 
-      role_type, salary, entry_time, 
+      role_type, salary, entry_time,token, 
       data_flag)
     values ( #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, now(), now(), 
-      #{roleType,jdbcType=INTEGER}, #{salary,jdbcType=DECIMAL}, #{entryTime,jdbcType=TIMESTAMP}, 
+      #{roleType,jdbcType=INTEGER}, #{salary,jdbcType=DECIMAL}, #{entryTime,jdbcType=TIMESTAMP}, #{token,jdbcType=VARCHAR}, 
       #{dataFlag,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.carsystem.entity.Manager">
@@ -68,6 +69,9 @@
       <if test="entryTime != null">
         entry_time,
       </if>
+      <if test="token != null">
+        token,
+      </if>
       <if test="dataFlag != null">
         data_flag,
       </if>
@@ -93,6 +97,9 @@
       </if>
       <if test="entryTime != null">
         #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
       </if>
       <if test="dataFlag != null">
         #{dataFlag,jdbcType=INTEGER},
@@ -123,6 +130,9 @@
       <if test="entryTime != null">
         entry_time = #{entryTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
       <if test="dataFlag != null">
         data_flag = #{dataFlag,jdbcType=INTEGER},
       </if>
@@ -138,6 +148,7 @@
       role_type = #{roleType,jdbcType=INTEGER},
       salary = #{salary,jdbcType=DECIMAL},
       entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      token = #{token,jdbcType=VARCHAR},
       data_flag = #{dataFlag,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -162,6 +173,15 @@
 		m.account = #{account}
 		AND
 		m.password = #{password}
+	</select>
+	
+	<select id="getManagerByToken" resultType="com.zwh.carsystem.entity.Manager">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		manager
+		WHERE
+		token = #{token}
 	</select>
 	
 	<select id="getManagerByAccount" resultType="com.zwh.carsystem.entity.Manager">

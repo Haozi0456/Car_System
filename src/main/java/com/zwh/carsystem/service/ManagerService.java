@@ -12,6 +12,8 @@ public interface ManagerService {
 	
 	Manager getManagerByAccount(String account);
 	
+	Manager getManagerByToken(String token);
+	
 	int addManager(Manager manager);
 	
 	Manager getManagerById(int id);

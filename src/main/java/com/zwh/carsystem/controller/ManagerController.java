@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.zwh.carsystem.entity.Manager;
 import com.zwh.carsystem.entity.vo.PageParamsVO;
@@ -45,10 +46,10 @@ public class ManagerController {
 			if(manager.getDataFlag() == -1) {
 				return new Result(MessageCode.ERROR, "该账号限制登录！");
 			}else {
-				managerService.updataManager(manager);
 				//把token返回给客户端-->客户端保存至cookie-->客户端每次请求附带cookie参数
 				String token = UUID.randomUUID().toString().replace("-", "");
 				manager.setToken(token);
+				managerService.updataManager(manager);
 				//加入redis 缓存
 //				redisService.set(token, manager);
 //				redisService.expire(token, 10);
@@ -71,15 +72,20 @@ public class ManagerController {
 		return new Result(MessageCode.SUCCESS, "退出成功！");
 	}
 	
+	/**
+	 * 使用token查询用户信息
+	 * @param token
+	 * @return
+	 */
 	@PostMapping("/getUersInfo")
 	public Result getUersInfo(@RequestHeader(name = "token")String token) {
-		Manager manager = new Manager();
-		manager.setId(1);
-		manager.setAccount("admin");
-		manager.setPassword("123456");
-		manager.setToken(token);
-		manager.setSalary(BigDecimal.valueOf(0));
-		return new Result(MessageCode.SUCCESS, "获取成功！", manager);
+		if(!StringUtils.isEmpty(token)) {
+			Manager manager = managerService.getManagerByToken(token);
+			return new Result(MessageCode.SUCCESS, "获取成功！", manager);	
+		}else {
+			return new Result(MessageCode.ERROR, "token未获取!");	
+		}
+		
 	}
 	
 	@PostMapping("/resetPassword")
