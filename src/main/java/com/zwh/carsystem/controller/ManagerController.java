@@ -32,6 +32,12 @@ public class ManagerController {
 	@Autowired
 	private ManagerService managerService;
 	
+	/**
+	 * 管理员登录
+	 * @param account
+	 * @param password
+	 * @return
+	 */
 	@PostMapping("/login")
 	public Result login(String account, String password) {
 		Manager manager = managerService.getManagerByAccountAndPassword(account, password);
@@ -54,6 +60,11 @@ public class ManagerController {
 		}
 	}
 	
+	/**
+	 * 管理员退出登录
+	 * @param token
+	 * @return
+	 */
 	@PostMapping("/logout")
 	public Result logout(@RequestHeader(name = "token")String token) {
 //		redisService.remove(token);
