@@ -46,7 +46,7 @@ public static void exportExcel(List<Map<String, Object>> list, String fileName, 
             response.setCharacterEncoding("UTF-8");
             response.setHeader("content-Type", "application/vnd.ms-excel");
             response.setHeader("Content-Disposition",
-                    "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+                    "attachment;filename="+ fileName);
             workbook.write(response.getOutputStream());
         } catch (IOException e) {
         	e.printStackTrace();

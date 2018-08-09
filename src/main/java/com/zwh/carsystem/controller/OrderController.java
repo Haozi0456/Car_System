@@ -301,7 +301,7 @@ public class OrderController {
 //			}
 			
 			 //导出操作
-			ExcelUtil.exportExcel(prints,"花名册","草帽一伙",OrderPrint.class,"海贼王.xls",response);
+			ExcelUtil.exportExcel(prints,"费用结算单","",OrderPrint.class,new Date().getTime()+".xlsx",response);
 
 		}
 		
