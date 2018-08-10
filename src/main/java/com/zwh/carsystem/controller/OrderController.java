@@ -1,17 +1,24 @@
 package com.zwh.carsystem.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,21 +28,19 @@ import com.zwh.carsystem.entity.Account;
 import com.zwh.carsystem.entity.OrderItem;
 import com.zwh.carsystem.entity.OrderPrint;
 import com.zwh.carsystem.entity.OrderRecord;
-import com.zwh.carsystem.entity.StoreGoods;
 import com.zwh.carsystem.entity.vo.OrderVO;
 import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.AccountService;
 import com.zwh.carsystem.service.OrderItemService;
 import com.zwh.carsystem.service.OrderRecordService;
 import com.zwh.carsystem.service.UserService;
-import com.zwh.carsystem.utils.ExcelUtil;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
 import com.zwh.system.entity.PageResult;
 import com.zwh.system.entity.PageVO;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
-import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 
 
 @RestController
@@ -274,35 +279,52 @@ public class OrderController {
 	}
 	
 	@PostMapping("/toPrintOrder")
-	public void toPrintOrder(@RequestBody OrderVO data,HttpServletResponse response) {
+	public void toPrintOrder(@RequestBody OrderVO data,ModelMap modelMap, HttpServletRequest request,
+            HttpServletResponse response) {
 		if(data != null) {
 			List<OrderItem> items = data.getItems();
-			List<OrderPrint> prints = new ArrayList<>();
+			List<Map<String, Object>> listMap = new ArrayList<>();
+			NumberFormat format = NumberFormat.getInstance();
+			format.setMinimumFractionDigits(2);
+			BigDecimal total = new BigDecimal(0);
 			for (OrderItem item : items) {
-				OrderPrint print = new OrderPrint(item.getItem(),item.getPrice(),item.getCover(),item.getGoodsCount(),item.getCost());
+//				OrderPrint print = new OrderPrint(item.getItem(),item.getPrice(),item.getCover(),item.getGoodsCount(),item.getCost());
 //				print.setTitle(item.getItem());
 //				print.setCount(item.getGoodsCount());
 //				print.setCover(item.getCover());
 //				print.setPrice(item.getPrice());
 //				print.setSubTotal(item.getCost());
-				prints.add(print);
+				total = total.add(item.getCost());
+				Map<String, Object> map = new HashMap<>();
+				map.put("title",item.getItem());
+				map.put("count", item.getGoodsCount());
+				map.put("price", format.format(item.getPrice().doubleValue()));
+				map.put("cover", format.format(item.getCover().doubleValue()));
+				map.put("subTotal", format.format(item.getCost().doubleValue()));
+				listMap.add(map);
 			}
 			
-//			// 告诉浏览器用什么软件可以打开此文件
-//		    response.setHeader("content-Type", "application/vnd.ms-excel");
-//		    // 下载文件的默认名称
-//		    response.setHeader("Content-Disposition", "attachment;filename=user.xls");
-//		    Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(), OrderItem.class, prints);
-//		    try {
-//				workbook.write(response.getOutputStream());
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
+			TemplateExportParams params = new TemplateExportParams( "doc/费用结算单.xlsx");
+			Map<String, Object> map = new HashMap<>();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			map.put("date", sdf.format(new Date()));
+			map.put("dataList", listMap);
+			map.put("total", format.format(total.doubleValue()));
 			 //导出操作
-			ExcelUtil.exportExcel(prints,"费用结算单","",OrderPrint.class,new Date().getTime()+".xlsx",response);
-
+//			List<Map<String, Object>> list = new ArrayList<>();
+//			list.add(map);
+//			ExcelUtil.exportExcel(prints,"费用结算单","",OrderPrint.class,new Date().getTime()+".xlsx",response);
+//			ExcelUtil.exportExcel(list, "费用结算单", response);
+			String fileName = new Date().getTime()+".xlsx";
+			Workbook workbook = ExcelExportUtil.exportExcel(params, map);
+			try {
+	            response.setCharacterEncoding("UTF-8");
+	            response.setHeader("content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	            response.setHeader("Content-Disposition","attachment;filename="+ fileName);
+	            workbook.write(response.getOutputStream());
+	        } catch (IOException e) {
+	        	e.printStackTrace();
+	        }
 		}
 		
 	}
