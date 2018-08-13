@@ -1,12 +1,9 @@
 package com.zwh.carsystem.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zwh.carsystem.entity.Manager;
-import com.zwh.carsystem.entity.OrderRecord;
 import com.zwh.carsystem.mapper.ManagerMapper;
 import com.zwh.carsystem.service.ManagerService;
 import com.zwh.system.entity.PageResult;

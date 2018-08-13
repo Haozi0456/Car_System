@@ -2,8 +2,6 @@ package com.zwh.carsystem.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.zwh.carsystem.entity.AccountRecord;
 import com.zwh.system.entity.PageResult;
 import com.zwh.system.entity.PageVO;

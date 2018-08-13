@@ -1,8 +1,5 @@
 package com.zwh.carsystem.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -26,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zwh.carsystem.entity.Account;
 import com.zwh.carsystem.entity.OrderItem;
-import com.zwh.carsystem.entity.OrderPrint;
 import com.zwh.carsystem.entity.OrderRecord;
 import com.zwh.carsystem.entity.vo.OrderVO;
 import com.zwh.carsystem.entity.vo.PageParamsVO;

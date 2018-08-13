@@ -1,12 +1,8 @@
 package com.zwh.carsystem.controller;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,21 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.druid.util.StringUtils;
-import com.alibaba.fastjson.JSONObject;
 import com.zwh.carsystem.entity.Manager;
 import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.ManagerService;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
 import com.zwh.system.entity.PageResult;
-import com.zwh.system.service.RedisService;
 
 @RestController
 @RequestMapping("/system/manager")
 public class ManagerController {
 	
-	@Autowired
-    private RedisService redisService;
+//	@Autowired
+//    private RedisService redisService;
 	
 	@Autowired
 	private ManagerService managerService;
