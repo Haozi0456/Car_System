@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zwh</groupId>
-	<artifactId>Shopping</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>ManagerServer</artifactId>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 
 	<name>ZWH_Store</name>
