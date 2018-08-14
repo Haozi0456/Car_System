@@ -24,6 +24,8 @@ public class User {
 	private String nickname;
 
 	private String carnum;
+	
+	private String operator;
 
 	@DateTimeFormat(pattern="yyyy-MM-dd")//页面写入数据库时格式�?
 	@JSONField(format="yyyy-MM-dd")//数据库导出页面时json格式�?
@@ -105,6 +107,14 @@ public class User {
 
 	public void setCarnum(String carnum) {
 		this.carnum = carnum;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
 
 	public Date getCreatetime() {

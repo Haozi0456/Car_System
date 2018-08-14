@@ -37,15 +37,10 @@
 	<insert id="insert"
 		parameterType="com.zwh.carsystem.entity.AccountRecord"
 		useGeneratedKeys="true" keyProperty="id">
-		insert into account_record (id, account_id, type,
-		money, sub_money, remark,
-		operation, operator, create_time
-		)
-		values (#{id,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER},
-		#{type,jdbcType=INTEGER},
-		#{money,jdbcType=DECIMAL}, #{subMoney,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR},
-		#{operation,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, now()
-		)
+		insert into account_record (account_id, type,
+		money, sub_money, remark,operation, operator, create_time) values ( #{accountId,jdbcType=INTEGER},
+		#{type,jdbcType=INTEGER},#{money,jdbcType=DECIMAL}, #{subMoney,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR},
+		#{operation,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, now())
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.zwh.carsystem.entity.AccountRecord">

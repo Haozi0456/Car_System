@@ -28,7 +28,7 @@
   </delete>
   <insert id="insert" parameterType="com.zwh.carsystem.entity.OrderItem" useGeneratedKeys="true" keyProperty="id">
     insert into order_item (order_id, item, 
-      goods_id, goods_count, cost, 
+      goods_id, goods_count,price,cover,cost, 
       create_time, type)
     values ( #{orderId,jdbcType=INTEGER}, #{item,jdbcType=VARCHAR}, 
       #{goodsId,jdbcType=INTEGER}, #{goodsCount,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{cover,jdbcType=DECIMAL}, #{cost,jdbcType=DECIMAL}, 

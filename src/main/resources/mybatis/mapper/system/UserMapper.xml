@@ -15,6 +15,7 @@
 		<result column="nickName" jdbcType="VARCHAR"
 			property="nickname" />
 		<result column="carNum" jdbcType="VARCHAR" property="carnum" />
+		<result column="operator" jdbcType="VARCHAR" property="operator" />
 		<result column="createTime" jdbcType="TIMESTAMP"
 			property="createtime" />
 		<result column="lastVisitTime" jdbcType="TIMESTAMP"
@@ -23,7 +24,7 @@
 			property="userstatus" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, openid, name, gender, phone, password, avatarUrl, nickName, carNum, createTime, lastVisitTime, userStatus
+		id, openid, name, gender, phone, password, avatarUrl, nickName, carNum,operator,createTime, lastVisitTime, userStatus
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -41,13 +42,13 @@
 		parameterType="com.zwh.carsystem.entity.User" >
 		insert into user (openid, name,
 		gender, phone, password,
-		avatarUrl, nickName, carNum, createTime, lastVisitTime,
+		avatarUrl, nickName, carNum,operator,createTime, lastVisitTime,
 		userStatus)
 		values (#{openid,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR},
 		#{gender,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
 		#{avatarurl,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
-		#{carnum,jdbcType=VARCHAR}, now(),
+		#{carnum,jdbcType=VARCHAR},#{operator,jdbcType=VARCHAR}, now(),
 		now(),
 		#{userstatus,jdbcType=INTEGER})
 	</insert>
@@ -78,6 +79,9 @@
 			</if>
 			<if test="carnum != null">
 				carNum,
+			</if>
+			<if test="operator != null">
+				operator,
 			</if>
 			<if test="createtime != null">
 				createTime,
@@ -113,6 +117,9 @@
 			</if>
 			<if test="carnum != null">
 				#{carnum,jdbcType=VARCHAR},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=VARCHAR},
 			</if>
 			<if test="createtime != null">
 				now(),
@@ -153,6 +160,9 @@
 			<if test="carnum != null">
 				carNum = #{carnum,jdbcType=VARCHAR},
 			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=VARCHAR},
+			</if>
 			<if test="lastvisittime != null">
 				now(),
 			</if>
@@ -173,6 +183,7 @@
 		avatarUrl = #{avatarurl,jdbcType=VARCHAR},
 		nickName = #{nickname,jdbcType=VARCHAR},
 		carNum = #{carnum,jdbcType=VARCHAR},
+		operator = #{operator,jdbcType=VARCHAR},
 		lastVisitTime = now(),
 		userStatus = #{userstatus,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}

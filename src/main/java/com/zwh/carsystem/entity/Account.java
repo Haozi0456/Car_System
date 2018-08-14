@@ -13,6 +13,8 @@ public class Account {
 	private Integer userId;
 
 	private BigDecimal money;
+	
+	private String operator;
 
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式�??
 	@JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式�??
@@ -42,6 +44,14 @@ public class Account {
 
 	public void setMoney(BigDecimal money) {
 		this.money = money;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
 
 	public Date getCreateTime() {
