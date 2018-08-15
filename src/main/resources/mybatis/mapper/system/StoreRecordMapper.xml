@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zwh.carsystem.mapper.StoreRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zwh.carsystem.entity.StoreRecord">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+		<result column="goods_name" jdbcType="VARCHAR"
+			property="goodsName" />
+		<result column="number" jdbcType="INTEGER" property="number" />
+		<result column="price" jdbcType="DECIMAL" property="price" />
+		<result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="operator" jdbcType="VARCHAR"
+			property="operator" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, goods_id, goods_name, number, price, order_no, remark, type,
+		operator, create_time
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from store_record
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zwh.carsystem.entity.StoreRecord">
+		insert into store_record (id, goods_id, goods_name,
+		number, price, order_no,
+		remark, type, operator,
+		create_time)
+		values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR},
+		#{number,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL},
+		#{orderNo,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR},
+		now())
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zwh.carsystem.entity.StoreRecord">
+		insert into store_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="goodsId != null">
+				goods_id,
+			</if>
+			<if test="goodsName != null">
+				goods_name,
+			</if>
+			<if test="number != null">
+				number,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="goodsId != null">
+				#{goodsId,jdbcType=INTEGER},
+			</if>
+			<if test="goodsName != null">
+				#{goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="number != null">
+				#{number,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				now(),
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zwh.carsystem.entity.StoreRecord">
+		update store_record
+		<set>
+			<if test="goodsId != null">
+				goods_id = #{goodsId,jdbcType=INTEGER},
+			</if>
+			<if test="goodsName != null">
+				goods_name = #{goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="orderNo != null">
+				order_no = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zwh.carsystem.entity.StoreRecord">
+		update store_record
+		set goods_id = #{goodsId,jdbcType=INTEGER},
+		goods_name = #{goodsName,jdbcType=VARCHAR},
+		number = #{number,jdbcType=INTEGER},
+		price = #{price,jdbcType=DECIMAL},
+		order_no = #{orderNo,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		type = #{type,jdbcType=INTEGER},
+		operator = #{operator,jdbcType=VARCHAR},
+		create_time = now()
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getRecordByType" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_record
+		where type = #{type}
+		ORDER BY
+		createTime DESC
+		LIMIT
+		#{pageVO.startIndex}, #{pageVO.endIndex}
+	</select>
+
+</mapper>

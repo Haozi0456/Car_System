@@ -47,6 +47,19 @@ public class StatisticsController {
 	}
 	
 	/**
+	 * 查询近15天收入统计
+	 * @return
+	 */
+	@PostMapping("/getStatisticsByHalfOfMonth")
+	public Result getStatisticsByHalfOfMonth() {
+		List<Statistics> statistics = orderService.getStatisticsByHalfOfMonth(); 
+		if(statistics != null) {
+			return new Result(MessageCode.SUCCESS, "查询成功!",statistics);
+		}
+		return new Result(MessageCode.ERROR, "查询失败!",statistics);
+	}
+	
+	/**
 	 * 查询年收入统计
 	 * @return
 	 */

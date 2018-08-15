@@ -406,6 +406,86 @@
 		ORDER BY
 		lefttable.date ASC
 	</select>
+	
+	<!-- 查询近15天收入统计 -->
+	<select id="getStatisticsByHalfOfMonth"
+		resultMap="statisticsMap">
+		<!-- SELECT SUM(r.money) AS total, DATE_FORMAT(createTime, '%Y-%m-%d') 
+			dateline FROM order_record r WHERE DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=date(r.createTime)]]> 
+			GROUP BY DAY (r.createTime) ORDER BY r.createTime ASC -->
+		SELECT
+		lefttable.date AS dateline,
+		IFNULL(righttable.m, '0') AS total
+		FROM
+		(
+		SELECT
+		date_sub(
+		CURDATE(),
+		INTERVAL @i :=@i + 1 DAY
+		) AS date
+		FROM
+		(
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		UNION ALL
+		SELECT
+		1
+		) AS tmp,
+		(SELECT @i := - 1) t
+		) AS lefttable
+		LEFT JOIN (
+		SELECT
+		TRUNCATE (sum(r.money), 2) AS m,
+		DATE_FORMAT(r.createTime, '%Y-%m-%d')
+		AS gptime
+		FROM
+		order_record r
+		GROUP BY
+		gptime
+		) AS righttable ON lefttable.date = righttable.gptime
+		ORDER BY
+		lefttable.date ASC
+	</select>
+	
 
 	<select id="getStatisticsByYear" resultMap="statisticsMap">
 		SELECT

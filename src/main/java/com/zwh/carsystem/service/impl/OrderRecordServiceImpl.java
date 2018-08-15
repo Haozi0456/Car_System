@@ -105,4 +105,10 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 		return orderRecordMapper.updateByPrimaryKey(record);
 	}
 
+	@Override
+	public List<Statistics> getStatisticsByHalfOfMonth() {
+		// TODO Auto-generated method stub
+		return orderRecordMapper.getStatisticsByHalfOfMonth();
+	}
+
 }

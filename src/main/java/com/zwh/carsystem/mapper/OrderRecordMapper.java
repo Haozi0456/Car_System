@@ -53,6 +53,11 @@ public interface OrderRecordMapper {
      * @return
      */
     List<Statistics> getStatisticsByNearOneMonth();
+    /**
+     * 查询15天订单收入统计
+     * @return
+     */
+    List<Statistics> getStatisticsByHalfOfMonth();
     
     
     

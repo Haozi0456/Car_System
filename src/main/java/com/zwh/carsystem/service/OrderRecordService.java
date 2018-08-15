@@ -25,7 +25,9 @@ public interface OrderRecordService {
 	
 	public List<Statistics> getStatisticsByMonthInYear(String currentYear);
 	
-	public List<Statistics> getStatisticsByNearOneMonth();;
+	public List<Statistics> getStatisticsByNearOneMonth();
+	
+	public List<Statistics> getStatisticsByHalfOfMonth();
 	
 	public List<Statistics> getStatisticsByYear();
 	

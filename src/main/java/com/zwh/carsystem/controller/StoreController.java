@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zwh.carsystem.entity.StoreGoods;
 import com.zwh.carsystem.entity.StoreParts;
+import com.zwh.carsystem.entity.StoreRecord;
 import com.zwh.carsystem.service.StoreGoodsService;
 import com.zwh.carsystem.service.StorePartsService;
+import com.zwh.carsystem.service.StoreRecordService;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
 import com.zwh.system.entity.PageResult;
@@ -25,6 +27,9 @@ public class StoreController {
 	
 	@Autowired 
 	private StoreGoodsService goodsService;
+	
+	@Autowired
+	private StoreRecordService recordService;
 	
 	/**
 	 * 获取配件类别
@@ -101,5 +106,51 @@ public class StoreController {
 		return new Result(MessageCode.SUCCESS,"获取成功!",pageResult);
 	}
 	
-	
+	/**
+	 * 添加出入库记录
+	 * @param record
+	 * @return
+	 */
+	@PostMapping("/inOrOutStore")
+	public Result inOrOutStore(StoreRecord record) {
+		if(record != null) {
+			StoreGoods goods = goodsService.selectByPrimaryKey(record.getGoodsId());
+			if(goods != null) {
+				if(record.getType() == 0) {//入库
+					goods.setStockCount(goods.getStockCount()+record.getNumber());
+					int rows = goodsService.updateByPrimaryKey(goods);
+					if(rows > 0) {
+						rows = recordService.insert(record);
+						if(rows <= 0) {
+							return new Result(MessageCode.ERROR,"入库失败!");
+						}else {
+							new Result(MessageCode.SUCCESS,"操作成功!");
+						}
+					}else {
+						return new Result(MessageCode.ERROR,"入库失败!");
+					}
+				}else if(record.getType() == 1) {//出库
+					if(goods.getStockCount() - record.getNumber() > 0) {
+						goods.setStockCount(goods.getStockCount()-record.getNumber());
+						int rows = goodsService.updateByPrimaryKey(goods);
+						if(rows > 0) {
+							rows = recordService.insert(record);
+							if(rows <= 0) {
+								return new Result(MessageCode.ERROR,"出库失败!");
+							}else {
+								new Result(MessageCode.SUCCESS,"操作成功!");
+							}
+						}else {
+							return new Result(MessageCode.ERROR,"出库失败!");
+						}
+					}else {
+						return new Result(MessageCode.ERROR,"库存不足!");
+					}
+				}
+				new Result(MessageCode.SUCCESS,"操作成功!");
+			}
+			return new Result(MessageCode.ERROR,"此商品不存在!");
+		}
+		return new Result(MessageCode.PARAM_ERROR,"参数错误!");
+	}
 }
