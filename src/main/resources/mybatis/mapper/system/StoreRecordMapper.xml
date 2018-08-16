@@ -34,8 +34,8 @@
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert"
-		parameterType="com.zwh.carsystem.entity.StoreRecord">
-		insert into store_record (id, goods_id, goods_name,
+		parameterType="com.zwh.carsystem.entity.StoreRecord" useGeneratedKeys="true" keyProperty="id">
+		insert into store_record (goods_id, goods_name,
 		number, price, order_no,
 		remark, type, operator,
 		create_time)
@@ -153,15 +153,37 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<select id="getRecordByType" resultMap="BaseResultMap">
+	<select id="getRecordByParams" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from store_record
-		where type = #{type}
+		<where>
+			<if test="type >= 0">
+				type = #{type}
+			</if>
+			<if test="key != ''">
+				AND order_no = #{key}
+			</if>
+		</where>
 		ORDER BY
-		createTime DESC
+		create_time DESC
 		LIMIT
 		#{pageVO.startIndex}, #{pageVO.endIndex}
 	</select>
+	
+	<select id="getRecordByParamsCount" resultType="int">
+		select
+		count(1)
+		from store_record
+		<where>
+			<if test="type >= 0">
+				type = #{type}
+			</if>
+			<if test="key != ''">
+				AND order_no = #{key}
+			</if>
+		</where>
+	</select>
+	
 
 </mapper>

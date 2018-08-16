@@ -19,5 +19,5 @@ public interface StoreRecordMapper {
 
     int updateByPrimaryKey(StoreRecord record);
     
-    PageResult<StoreRecord> getRecordByType(@Param("pageVO")PageVO pageVO, @Param("type")int type);
+    PageResult<StoreRecord> getRecordByParams(@Param("pageVO")PageVO pageVO, @Param("type")int type, @Param("key")String key);
 }

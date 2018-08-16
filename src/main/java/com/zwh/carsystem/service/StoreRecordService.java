@@ -19,5 +19,5 @@ public interface StoreRecordService {
 
     int updateByPrimaryKey(StoreRecord record);
 	
-    PageResult<StoreRecord> getRecordByType(PageVO pageVO,int type);
+    PageResult<StoreRecord> getRecordByParams(PageVO pageVO,int type,String key);
 }

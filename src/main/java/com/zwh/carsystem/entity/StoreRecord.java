@@ -3,6 +3,10 @@ package com.zwh.carsystem.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class StoreRecord {
     private Integer id;
 
@@ -22,6 +26,8 @@ public class StoreRecord {
 
     private String operator;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 页面写入数据库时格式�?
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss") // 数据库导出页面时json格式�?
     private Date createTime;
 
     public Integer getId() {

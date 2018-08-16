@@ -52,9 +52,9 @@ public class StoreRecordServiceImpl implements StoreRecordService {
 	}
 
 	@Override
-	public PageResult<StoreRecord> getRecordByType(PageVO pageVO, int type) {
+	public PageResult<StoreRecord> getRecordByParams(PageVO pageVO, int type,String key) {
 		// TODO Auto-generated method stub
-		return mapper.getRecordByType(pageVO, type);
+		return mapper.getRecordByParams(pageVO, type,key);
 	}
 
 }

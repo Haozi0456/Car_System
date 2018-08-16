@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zwh.carsystem.entity.StoreGoods;
 import com.zwh.carsystem.entity.StoreParts;
 import com.zwh.carsystem.entity.StoreRecord;
+import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.StoreGoodsService;
 import com.zwh.carsystem.service.StorePartsService;
 import com.zwh.carsystem.service.StoreRecordService;
@@ -124,7 +126,7 @@ public class StoreController {
 						if(rows <= 0) {
 							return new Result(MessageCode.ERROR,"入库失败!");
 						}else {
-							new Result(MessageCode.SUCCESS,"操作成功!");
+							return new Result(MessageCode.SUCCESS,"操作成功!");
 						}
 					}else {
 						return new Result(MessageCode.ERROR,"入库失败!");
@@ -138,7 +140,7 @@ public class StoreController {
 							if(rows <= 0) {
 								return new Result(MessageCode.ERROR,"出库失败!");
 							}else {
-								new Result(MessageCode.SUCCESS,"操作成功!");
+								return new Result(MessageCode.SUCCESS,"操作成功!");
 							}
 						}else {
 							return new Result(MessageCode.ERROR,"出库失败!");
@@ -152,5 +154,16 @@ public class StoreController {
 			return new Result(MessageCode.ERROR,"此商品不存在!");
 		}
 		return new Result(MessageCode.PARAM_ERROR,"参数错误!");
+	}
+	
+	/**
+	 * 通过条件查询订单记录, 类型和订单号
+	 * @param pageParams
+	 * @return
+	 */
+	@PostMapping("/getRecordListByParams")
+	public Result getRecordListByParams(@RequestBody PageParamsVO pageParams) {
+		PageResult<StoreRecord> result = recordService.getRecordByParams(pageParams.getPage(), pageParams.getCode(),pageParams.getKey());
+		return new Result(MessageCode.SUCCESS,"查询成功!",result);
 	}
 }

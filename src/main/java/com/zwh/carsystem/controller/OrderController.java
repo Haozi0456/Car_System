@@ -1,5 +1,7 @@
 package com.zwh.carsystem.controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,11 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zwh.carsystem.entity.Account;
 import com.zwh.carsystem.entity.OrderItem;
 import com.zwh.carsystem.entity.OrderRecord;
+import com.zwh.carsystem.entity.StoreGoods;
+import com.zwh.carsystem.entity.StoreRecord;
 import com.zwh.carsystem.entity.vo.OrderVO;
 import com.zwh.carsystem.entity.vo.PageParamsVO;
 import com.zwh.carsystem.service.AccountService;
 import com.zwh.carsystem.service.OrderItemService;
 import com.zwh.carsystem.service.OrderRecordService;
+import com.zwh.carsystem.service.StoreGoodsService;
+import com.zwh.carsystem.service.StoreRecordService;
 import com.zwh.carsystem.service.UserService;
 import com.zwh.system.common.MessageCode;
 import com.zwh.system.common.Result;
@@ -54,6 +61,12 @@ public class OrderController {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private StoreGoodsService goodsService;
+	
+	@Autowired 
+	private StoreRecordService recordService;
 
 //	@PostMapping("/addOrder")
 //	public Result addOrder(OrderRecord order) {
@@ -180,12 +193,13 @@ public class OrderController {
 	 * @return
 	 */
 	@PostMapping("/addOrder")
+	@Transactional(rollbackFor={RuntimeException.class, Exception.class})
 	public Result addOrder(@RequestBody OrderVO data) {
 		if(data != null) {
 			OrderRecord order = data.getOrder();
 			order.setOrderno((new Date()).getTime()+"");
 			if(order != null) {
-				int status = order.getStatus(); //0 --挂单代结 1 --立即支付订单
+				int status = order.getStatus(); //0 --挂单代结
 				if(status == 0) {
 					int row = orderService.addOrder(order);
 					if(row > 0) {
@@ -198,13 +212,43 @@ public class OrderController {
 					}else {
 						return new Result(MessageCode.ERROR, "添加失败!",null);
 					}
-				}else if(status == 1){
+				}else if(status == 1){ //1 --立即支付订单
 					OrderRecord record = addOrderRecord(order);
 					if(record != null) {
 						List<OrderItem> items = data.getItems();
+						boolean isGoodsEnough = true;
+						StoreGoods goods= null;
 						for (OrderItem orderItem : items) {
+							if(orderItem.getType() == 1) {//消费类项目
+								goods = goodsService.selectByPrimaryKey(orderItem.getGoodsId());
+								if(goods != null) {
+									if(goods.getStockCount() - orderItem.getGoodsCount() >= 0) {
+										goods.setStockCount(goods.getStockCount() - orderItem.getGoodsCount());
+										int row = goodsService.updateByPrimaryKey(goods);
+										if(row > 0) {
+											StoreRecord storeRecord = new StoreRecord();
+											storeRecord.setGoodsId(goods.getId());
+											storeRecord.setGoodsName(goods.getType());
+											storeRecord.setNumber(orderItem.getGoodsCount());
+											storeRecord.setOrderNo(record.getOrderno());
+											storeRecord.setOperator(record.getOperator());
+											storeRecord.setPrice(orderItem.getPrice());
+											storeRecord.setType(1);
+											storeRecord.setRemark("订单出库");
+											storeRecord.setCreateTime(new Date());
+											row = recordService.insert(storeRecord);
+										}
+									}else {
+										isGoodsEnough = false;
+										break;
+									}
+								}
+							}
 							orderItem.setOrderId(record.getOrderid());
 							itemService.insert(orderItem);
+						}
+						if(!isGoodsEnough) {
+							return new Result(MessageCode.ERROR, goods.getCategory()+goods.getType()+"库存不足!");
 						}
 						return new Result(MessageCode.SUCCESS, "支付成功!",record);
 					}else {
